@@ -149,10 +149,11 @@
 
 <div class="StepGrouping">
     <h1 class="StepGroupingHeading">200 Reasons to Support UC</h1>
+    <br /><br />
     <div class="StepGroupingBody">
-        <div class="HelpText">
+        <!-- <div class="HelpText">
             Reasons Manager
-        </div>
+        </div> -->
         <div class="VerticalOption">
             <a class="ItemActionAdd" class="BBAdminButtonLnk" href="#">
                 <span class="BBAdminButtonContent">
@@ -234,10 +235,10 @@
                 $.each(BLACKBAUD.api.customPartEditor.settings.items, function(i) {
 
                     var $reasonRow = $('<tr class="ItemRow" id="ItemRowTemplate"></tr>'),
-                        $reason = $('<td class="ItemReasonCol" id="ItemReason_' + i + '"><input class="ItemReason" value="' + this.reason + '" type="text" name="ItemReason_' + i + '" id="ItemReason_' + i + '" ></td>'),
-                        $aboutFund = $('<td class="ItemAboutFundCol" id="ItemAboutFund_' + i + '"><input class="ItemAboutFund" value="' + this.aboutFund + '" type="text" name="ItemAboutFund_' + i + '" id="ItemAboutFund_' + i + '" ></td>'),
-                        $giveTo = $('<td class="InputGiveToCol" id="InputGiveTo_' + i + '"><input class="InputGiveTo" value="' + this.giveTo + '" type="text" name="InputGiveTo_' + i + '" id="InputGiveTo_' + i + '"></td>'),
-                        $giveToLink = $('<td class="InputGiveToLinkCol" id="InputGiveToLink_' + i + '"><input class="InputGiveToLink" value="' + this.giveToLink + '" type="text" name="InputGiveToLink_' + i + '" id="InputGiveToLink_' + i + '"></td>'),
+                        $reason = $('<td class="ItemReason" id="ItemReason_' + i + '"><input class="InputReason" type="text" value="' + this.reason + '" name="ItemReason_' + i + '" id="ItemReason_' + i + '"></td>'),
+                        $aboutFund = $('<td class="ItemAboutFund" id="ItemAboutFund_' + i + '"><input class="InputAboutFund" type="text" value="' + this.aboutFund + '" name="ItemAboutFund_' + i + '" id="ItemAboutFund_' + i + '"></td>'),
+                        $giveTo = $('<td class="ItemGiveTo" id="InputGiveTo_' + i + '"><input class="InputGiveTo" type="text" value="' + this.giveTo + '" name="InputGiveTo_' + i + '" id="InputGiveTo_' + i + '"></td>'),
+                        $giveToLink = $('<td class="ItemGiveToLink" id="InputGiveToLink_' + i + '"><input class="InputGiveToLink" type="text" value="' + this.giveToLink + '" name="InputGiveToLink_' + i + '" id="InputGiveToLink_' + i + '"></td>'),
                         $actions = $('<td class="ItemActions" id="ItemActions_' + i + '"><a class="ItemActionMove"><i class="fa fa-arrows" aria-hidden="true"></i></a><a class="ItemActionDelete"><img title="Click here to delete this image" src="/images/delete_16.png"></a></td>');
 
                     $reasonRow.append($reason);
@@ -263,8 +264,8 @@
         $itemTableBody.find('tr').each(function(i) {
 
             var rowdata = {
-                reason: $(this).find('.ItemReason').val(),
-                aboutFund: $(this).find('.ItemAboutFund').val(),
+                reason: $(this).find('.InputReason').val(),
+                aboutFund: $(this).find('.InputAboutFund').val(),
                 giveTo: $(this).find('.InputGiveTo').val(),
                 giveToLink: $(this).find('.InputGiveToLink').val(),
 
@@ -331,7 +332,7 @@
     });
     $('.ItemActionDelete').live('click', function(e) {
         e.preventDefault();
-        if (confirm("This will remove this record.  Are you sure?")) {
+        if (confirm("This will remove this Reason.  Are you sure?")) {
             $(this).parents('.ItemRow').remove();
             count--;
             if (count == 0) {
