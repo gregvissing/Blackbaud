@@ -1,0 +1,343 @@
+<link href="/file/config/customContentPartEditor.css" rel="stylesheet" />
+<link href="/file/webdev/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">
+    .BBPanelChangerWrapper {
+        background-color: #DCEBFE;
+        border: 1px solid #A6B6C5;
+        padding: 4px;
+    }
+    
+    .BBPanelChangerInterior {
+        background-color: #FFFFFF;
+        border: 1px solid #A6B6C5;
+    }
+    
+    .gridItem {
+        list-style-type: none;
+        list-style-image: none;
+        height: 22px;
+        border: none;
+    }
+    
+    .SortableItemPadding {
+        padding: 3px 0;
+    }
+    
+    .FieldHeading>Label {
+        float: left;
+        display: block;
+        padding: 5px 4px 2px 0px;
+        font-size: 12px;
+        height: 12px;
+    }
+    
+    .FieldContent>input[type="text"] {
+        width: 100%;
+    }
+    
+    table {
+        width: 100%;
+    }
+    
+    th {
+        font-weight: bold;
+    }
+    
+    .ItemActionAdd {
+        display: inline-block;
+        height: 20px;
+        background: -webkit-linear-gradient(top, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%);
+        padding: 6px;
+        border-radius: 4px;
+        box-shadow: inset 2px 2px 0px rgba(255, 255, 255, 0.5), inset -2px -2px 0px rgba(0, 0, 0, 0.1), 0px 2px 5px -3px black;
+        color: #333;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    
+    .ItemActionAdd,
+    .ItemActionAdd:visited,
+    .ItemActionAdd:hover {
+        color: #333;
+    }
+    
+    .ItemActionAdd:hover {
+        background: -webkit-linear-gradient(top, #CAEBFC 0%, #C0DBE9 50%, #A0CCEB 51%, #829AB2 100%);
+        box-shadow: inset -1px -1px 0px rgba(255, 255, 255, 0.5), inset -1px -1px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px -2px black;
+    }
+    
+    .ItemActionMove {
+        cursor: move;
+    }
+    
+    .ItemActionDelete {
+        cursor: pointer;
+    }
+    
+    #ItemTable {
+        border: 1px solid #a6b6c5;
+    }
+    
+    #ItemTable tr {
+        background: #F2F6FB;
+        border-top: 1px solid #A6B6C5;
+    }
+    
+    #ItemTable tr:nth-child(2n-1) {
+        background: #ffffff;
+        border-top: 1px solid #A6B6C5;
+    }
+    
+    #ItemTable td,
+    #ItemTable th {
+        padding: 4px;
+    }
+    
+    #ItemContainer {
+        margin: 0px 0px 10px 0px;
+        background-color: #dee9fd;
+        margin-top: 10px;
+        padding: 15px 5px;
+        border: 1px solid #a6b6c5;
+    }
+    
+    #ItemTable thead tr {
+        background-color: #dee9fd !important;
+    }
+    
+    #ItemTable thead tr th {
+        border-bottom: 1px solid #a6b6c5;
+    }
+    
+    .StepGrouping {
+        margin-left: 0 !important;
+    }
+    
+    .VerticalOption {
+        overflow: visible !important;
+    }
+    
+    .ui-sortable-helper {
+        border: 1px solid #A6B6C5;
+        box-shadow: 5px 5px 15px -10px black;
+        opacity: 0.9;
+    }
+    
+    .ItemReasonCol {
+        width: 50%;
+    }
+    
+    .ItemReasonCol input,
+    .ItemReason input {
+        width: 100%;
+    }
+    
+    .fa {
+        font-size: 1.25em;
+        font-weight: bold;
+        vertical-align: top;
+    }
+    
+    .ItemActionMove {
+        float: left;
+    }
+    
+    .ItemActionDelete {
+        float: right;
+    }
+</style>
+
+<div class="StepGrouping">
+    <h1 class="StepGroupingHeading">200 Reasons to Support UC</h1>
+    <div class="StepGroupingBody">
+        <div class="HelpText">
+            Reasons Manager
+        </div>
+        <div class="VerticalOption">
+            <a class="ItemActionAdd" class="BBAdminButtonLnk" href="#">
+                <span class="BBAdminButtonContent">
+	       			<span id="pagecntnt_AdminToolbar_btn1txt" class="BBAdminButtonLabel">
+	       				Add New Reason
+	       			</span>
+                </span>
+            </a>
+            <div id="ItemContainer">
+                <table id="ItemTable" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr class="ItemRowHeader">
+                            <th>Reason</th>
+                            <th>About Fund</th>
+                            <th>Give To... (button)</th>
+                            <th>Give To Link</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="ItemRow" id="ItemRowTemplate">
+                            <td class="ItemReason" id="ItemReason_0">
+                                <input class="ItemReason" type="text" name="ItemReason_0" id="ItemReason_0" />
+                            </td>
+                            <td class="ItemAboutFund" id="ItemAboutFund_0">
+                                <input class="ItemAboutFund" type="text" name="ItemAboutFund_0" id="ItemAboutFund_0" />
+                            </td>
+                            <td class="ItemGiveTo" id="ItemGiveTo_0">
+                                <input class="InputGiveTo" type="text" name="ItemGiveTo_0" id="ItemGiveTo_0" />
+                            </td>
+                            <td class="ItemGiveToLink" id="ItemGiveToLink_0">
+                                <input class="InputGiveToLink" type="text" name="ItemGiveToLink_0" id="ItemGiveToLink_0" />
+                            </td>
+                            <td class="ItemActions" id="ItemActions_0">
+                                <a class="ItemActionMove">
+                                    <i class="fa fa-arrows" aria-hidden="true"></i>
+                                </a>
+                                <a class="ItemActionDelete">
+                                    <img title="Click here to delete this Reason" src="/images/delete_16.png">
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    // Custom Content Part for 200 Reasons campaign landing page to allow UCAA to manage page.
+    // Author:	Greg Vissing
+    // Date:	8/1/2018
+    // Version:	1.0
+
+    //variables etc.
+    var count = 0;
+
+    var $itemRow = $('#ItemRowTemplate').clone();
+    var $itemContainer = $('#ItemContainer');
+    var $itemTable = $('#ItemTable');
+    var $itemTableBody = $itemTable.find('tbody');
+    var $itemTableHead = $itemTable.find('thead');
+
+    $('#ItemRowTemplate').remove();
+    // $itemTableHead.hide();
+    // $itemContainer.hide();
+
+    ! function($) {
+
+        $(function() {
+
+            // Read our previously saved greeting (if it exists)
+            if (typeof BLACKBAUD.api.customPartEditor.settings.items.length) {
+                $('#ItemContainer').css('display', 'block');
+                $('#ItemTable thead').css('display', 'table-header-group');
+
+                $.each(BLACKBAUD.api.customPartEditor.settings.items, function(i) {
+
+                    var $reasonRow = $('<tr class="ItemRow" id="ItemRowTemplate"></tr>'),
+                        $reason = $('<td class="ItemReasonCol" id="ItemReason_' + i + '"><input class="ItemReason" value="' + this.reason + '" type="text" name="ItemReason_' + i + '" id="ItemReason_' + i + '" ></td>'),
+                        $aboutFund = $('<td class="ItemAboutFundCol" id="ItemAboutFund_' + i + '"><input class="ItemAboutFund" value="' + this.aboutFund + '" type="text" name="ItemAboutFund_' + i + '" id="ItemAboutFund_' + i + '" ></td>'),
+                        $giveTo = $('<td class="InputGiveToCol" id="InputGiveTo_' + i + '"><input class="InputGiveTo" value="' + this.giveTo + '" type="text" name="InputGiveTo_' + i + '" id="InputGiveTo_' + i + '"></td>'),
+                        $giveToLink = $('<td class="InputGiveToLinkCol" id="InputGiveToLink_' + i + '"><input class="InputGiveToLink" value="' + this.giveToLink + '" type="text" name="InputGiveToLink_' + i + '" id="InputGiveToLink_' + i + '"></td>'),
+                        $actions = $('<td class="ItemActions" id="ItemActions_' + i + '"><a class="ItemActionMove"><i class="fa fa-arrows" aria-hidden="true"></i></a><a class="ItemActionDelete"><img title="Click here to delete this image" src="/images/delete_16.png"></a></td>');
+
+                    $reasonRow.append($reason);
+                    $reasonRow.append($aboutFund);
+                    $reasonRow.append($giveTo);
+                    $reasonRow.append($giveToLink);
+                    $reasonRow.append($actions);
+
+                    $('.ui-sortable').append($reasonRow);
+                });
+
+            }
+
+        });
+
+    }(jQuery);
+
+    //run this when it saves (hint: return false to cancel the save)
+    BLACKBAUD.api.customPartEditor.onSave = function() {
+
+        var items = [];
+
+        $itemTableBody.find('tr').each(function(i) {
+
+            var rowdata = {
+                reason: $(this).find('.ItemReason').val(),
+                aboutFund: $(this).find('.ItemAboutFund').val(),
+                giveTo: $(this).find('.InputGiveTo').val(),
+                giveToLink: $(this).find('.InputGiveToLink').val(),
+
+            };
+
+            items.push(rowdata);
+
+        });
+
+        BLACKBAUD.api.customPartEditor.settings["items"] = items;
+        $('.StepGrouping input[type="text"]').each(function() {
+            var value = $(this).val().trim();
+            var setting = $(this).attr('name');
+            BLACKBAUD.api.customPartEditor.settings[setting] = value;
+        });
+        return true;
+
+    };
+
+    // Return a helper with preserved width of cells
+    var fixHelper = function(e, ui) {
+        ui.children().each(function() {
+            $(this).width($(this).width());
+        });
+        return ui;
+    };
+
+    $itemTableBody.sortable({
+        handle: '.ItemActionMove',
+        cursor: 'move',
+        helper: fixHelper
+    });
+
+
+    //functions
+    function addRow(item) {
+        var $newRow = $itemRow.clone();
+        $newRow.find('td, input').each(function() {
+            var ID = $(this).attr('id');
+            var name = $(this).attr('name');
+
+            if (ID !== undefined) {
+                var newID = ID.replace("_0", "_" + count);
+                $(this).attr('id', newID);
+            }
+            if (name !== undefined) {
+                var newName = name.replace("_0", "_" + count);
+                $(this).attr('name', newName);
+            }
+        });
+        $itemTableBody.append($newRow);
+        if (!$('.ItemRowHeader:visible').length) {
+            $itemTableHead.show();
+            $itemContainer.fadeIn('slow');
+        }
+        count++;
+    }
+
+    function deleteRow(row) {}
+
+    $('.ItemActionAdd').live('click', function(e) {
+        e.preventDefault();
+        addRow();
+    });
+    $('.ItemActionDelete').live('click', function(e) {
+        e.preventDefault();
+        if (confirm("This will remove this record.  Are you sure?")) {
+            $(this).parents('.ItemRow').remove();
+            count--;
+            if (count == 0) {
+                $itemContainer.fadeOut('slow');
+                $itemTableHead.fadeOut('slow');
+            }
+        }
+    });
+</script>
