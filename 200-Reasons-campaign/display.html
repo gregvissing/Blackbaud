@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="/alumni/file/web-dev/css/skeleton.css">
+<link rel="stylesheet" href="/alumni/file/web-dev/css/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/alumni/file/web-dev/css/font-awesome.min.css">
+<link rel="stylesheet" href="/alumni/file/web-dev/css/200reasons.css">
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <h1><img src="/alumni/image/bicentennial/UC_200.png"> Reasons to Support UC</h1>
+            <div id="parallelogram"></div>
+        </div>
+    </div>
+</nav>
+<div class="container" id="reason-container">
+    <div id="content">
+        <p id="reason"></p>
+    </div>
+</div>
+<div id="b-nav">
+    <div class="button-row row u-text-center">
+        <div class="one-half column u-text-center">
+            <a href="" id="giftBtnLink"></a><button id="giftBtn"></button>
+        </div>
+        <div class="one-half column u-text-center">
+            <button id="gen" onclick="genReason()">Show Me Another Reason</button>
+        </div>
+    </div>
+    <div class="row u-text-center share">
+        <div class="two columns u-text-center">
+            <a class="fancybox" href="javascript:;" data-fancybox="" data-src="#about-fund" data-modal="true"><button class="button button-icon">Fund<i class="fa fa-question-circle" style="position: absolute; top: 0; bottom: 0; right: 13px; margin: auto; height: 12.5px;" aria-hidden="true"></i></button></a>
+        </div>
+        <div class="one column u-text-center">
+            <a class="twitter-share-button" target="_blank" href="https://twitter.com/intent/tweet?text=the%20people%20who%20are%20crazy%20enough%20to%20think%20they%20can%20change%20the%20world%20are%20the%20ones%20who%20do.%20-%20Steve%20Jobs"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <div class="row u-text-center">
+        <div class="two columns"><img src="/alumni/image/bicentennial/UC_200_BrandmarkBlackRed.png"></div>
+    </div>
+</div>
+<div id="about-fund" class="content-container" style="display: none;">
+    <h3 id="fund-title"></h3>
+    <button class="btn btn-primary close" data-fancybox-close="">&times;</button>
+    <hr />
+    <div class="bodyWrapper">
+        <div id="mainContentWrapper" class="clearfix">
+            <span class="u-text-center">About this Fund:</span>
+            <div class="primaryContent" id="fund-content"></div>
+            <div class="button-row row u-text-center">
+                <div class="one-half column u-text-center">
+                    <a href="" id="giftBtnLinkModal"></a><button id="giftBtnModal"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/alumni/file/web-dev/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript">
+    function initReasons(data) {
+
+        // Fancybox
+        $('.fancybox').click(function() {
+            $.fancybox([{
+                href: '#about-fund'
+            }]);
+        });
+
+        // set array length
+        var arrayLength = 2;
+
+        var $reasons = [{
+            "reason": "Blank",
+            "aboutFund": "Blank",
+            "giveTo": "Blank",
+            "giveToLink": "Blank"
+        }];
+        var rowData = '';
+        var reasonsCount = 0;
+
+        $.each(data.settings.items, function(i) {
+            reasonsCount++;
+            rowData = {
+                "reason": this.reason,
+                "aboutFund": this.aboutFund,
+                "giveTo": this.giveTo,
+                "giveToLink": this.giveToLink,
+            };
+
+            $reasons.push(rowData);
+        });
+
+        var dataVals = data.settings.items;
+
+        genReason(reasonsCount, $reasons)
+
+    }
+
+    function genReason(x, y) {
+        var randNum = Math.floor(Math.random() * x) + 1;
+        document.getElementById('reason').innerHTML = '<span>#' + randNum + '</span>' + y[randNum].reason;
+        document.getElementById('giftBtn').innerHTML = 'Give to ' + y[randNum].giveTo;
+        document.getElementById('giftBtnLink').href = y[randNum].giveToLink;
+        document.getElementById('fund-title').innerHTML = 'Fund: ' + y[randNum].giveTo;
+        document.getElementById('fund-content').innerHTML = y[randNum].aboutFund;
+        document.getElementById('giftBtnLinkModal').href = y[randNum].giveToLink;
+        document.getElementById('giftBtnModal').innerHTML = 'Give to ' + y[randNum].giveTo;
+
+        var tweetReason = y[randNum].reason.split(' ').join('%20');
+        tweetReason = tweetReason.split('<br>').join('');
+        tweetReason = "https://twitter.com/intent/tweet?text=" + tweetReason.split('"').join('') + " #200Reaons";
+        $('.twitter-share-button').attr('href', tweetReason);
+    }
+</script>
