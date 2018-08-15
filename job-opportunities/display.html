@@ -1,0 +1,32 @@
+<div id="accordion"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function initJobOpportunities(data) {
+
+        // set array length
+        var arrayLength = 2;
+
+        var $reasons = [];
+        var rowData = '';
+
+        $.each(data.settings.items, function(i) {
+            // rowData = {
+            //     "job": this.job,
+            //     "structure": this.structure,
+            //     "focus": this.focus,
+            // };
+            rowData = $('<div class="job-container" id="job' + this.job + '"><label class="jobOppLabel" for="job' + this.job + '">' + this.job + '</label><div id="job' + this.job + '" class="accordion-content accordionContent hidden"><label for="accordionStructure">Structure: </label><p class="structure">' + this.structure + '</p></div></div>');
+
+            //$reasons.push(rowData);
+            $('#accordion').append(rowData);
+        });
+
+        //var dataVals = data.settings.items;
+
+        $('#accordion .jobOppLabel').click(function() {
+            $(this).toggleClass('open').next().slideToggle('slow');
+        });
+
+    }
+</script>
