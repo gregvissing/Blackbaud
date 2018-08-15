@@ -1,0 +1,62 @@
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.3.15/slick.css"/>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.3.15/slick.min.js"></script>
+<div id="slick-slider" class="slick"></div>
+<script type="text/javascript">
+
+function construct(data){
+	var carouselID = data.settings.txtCarouselID;
+	var speed = data.settings.txtSpeed;
+	var delay = data.settings.txtDelay;
+	var chkArrows = ( data.settings.chkArrows === "on" );
+	var chkBullets = ( data.settings.chkBullets === "on" );
+	var chkAutoplay = ( data.settings.chkAutoplay === "on" );
+	var chkFade = ( data.settings.chkFade === "on" );
+	var chkInfinite = ( data.settings.chkInfinite === "on" );
+
+	
+	//only do this if there are images
+	if ( data.settings.items.length ){
+		//loop through images
+	    $.each(data.settings.items,function(i){
+	    	var active = "";
+	    	var invert = "";
+	    	if ( i == 0 ) { active = "active"; };
+	    	if ( this.invert === "on" ) { invert = "invert"; };
+
+	    	var $item = $('<div class="item '+invert+' '+active+'">');
+			var $link = $('<a href="'+this.link+'"></a>');
+			var $image = $('<img src="'+this.image+'" title="'+this.title+'" style="max-width: 100%; height: auto" />');
+	    	var $slicktext = $('<div class="slick-text"></div>');
+	    	var $title = $('<div class="slick-title">'+this.title+'</div>');
+	    	var $subtitle = $('<div class="subtitle">'+this.subtitle+'</div>');
+
+	    	//add image
+	    	if ( this.link.length ) {
+				$item.append($link.append($image).append($slicktext.append($title).append($subtitle)));
+			} else {
+				$item.append($image).append($slicktext.append($title).append($subtitle));
+			}
+
+	    	$('#slick-slider').append($item);
+
+		});
+		
+		
+	$('.slick').slick({
+		  dots: chkBullets,
+		  arrows: chkArrows,
+		  autoplay: chkAutoplay,
+		  autoplaySpeed: delay,
+		  infinite: chkInfinite,
+		  speed: speed,
+		  fade: chkFade,
+		  slide: 'div',
+		  cssEase: 'ease-in-out'
+	});
+		
+	} else { 
+	    alert("Error: No images selected.");	
+	}
+}
+
+</script>
