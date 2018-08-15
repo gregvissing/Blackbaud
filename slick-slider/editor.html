@@ -1,0 +1,551 @@
+<!-- <link rel="stylesheet" href="/bbis_bha_tra/client/styles/Admin/GenericUI.css" type="text/css" /> -->
+
+<link href="/file/config/customContentPartEditor.css" rel="stylesheet" />
+<style type="text/css">
+    .BBPanelChangerWrapper {
+        background-color: #DCEBFE;
+        border: 1px solid #A6B6C5;
+        padding: 4px;
+    }
+    
+    .BBPanelChangerInterior {
+        background-color: #FFFFFF;
+        border: 1px solid #A6B6C5;
+    }
+    
+    .gridItem {
+        list-style-type: none;
+        list-style-image: none;
+        height: 22px;
+        border: none;
+    }
+    
+    .SortableItemPadding {
+        padding: 3px 0;
+    }
+    
+    .FieldHeading>Label {
+        float: left;
+        display: block;
+        padding: 5px 4px 2px 0px;
+        font-size: 12px;
+        height: 12px;
+    }
+    
+    .FieldContent>input[type="text"] {
+        width: 100%;
+    }
+    
+    table {
+        width: 100%;
+    }
+    
+    th {
+        font-weight: bold;
+    }
+    
+    .ItemActionAdd {
+        display: inline-block;
+        height: 20px;
+        background: -webkit-linear-gradient(top, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%);
+        padding: 6px;
+        border-radius: 4px;
+        box-shadow: inset 2px 2px 0px rgba(255, 255, 255, 0.5), inset -2px -2px 0px rgba(0, 0, 0, 0.1), 0px 2px 5px -3px black;
+        color: #333;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    
+    .ItemActionAdd,
+    .ItemActionAdd:visited,
+    .ItemActionAdd:hover {
+        color: #333;
+    }
+    
+    .ItemActionAdd:hover {
+        background: -webkit-linear-gradient(top, #CAEBFC 0%, #C0DBE9 50%, #A0CCEB 51%, #829AB2 100%);
+        box-shadow: inset -1px -1px 0px rgba(255, 255, 255, 0.5), inset -1px -1px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px -2px black;
+    }
+    
+    .ItemActionMove {
+        cursor: move;
+    }
+    
+    .ItemActionDelete {
+        cursor: pointer;
+    }
+    
+    #ItemTable {
+        border: 1px solid #a6b6c5;
+    }
+    
+    #ItemTable tr {
+        background: #F2F6FB;
+        border-top: 1px solid #A6B6C5;
+    }
+    
+    #ItemTable tr:nth-child(2n-1) {
+        background: #ffffff;
+        border-top: 1px solid #A6B6C5;
+    }
+    
+    #ItemTable td,
+    #ItemTable th {
+        padding: 4px;
+    }
+    
+    #ItemContainer {
+        margin: 0px 0px 10px 0px;
+        background-color: #dee9fd;
+        margin-top: 10px;
+        padding: 15px 5px;
+        border: 1px solid #a6b6c5;
+    }
+    
+    #ItemTable thead tr {
+        background-color: #dee9fd !important;
+    }
+    
+    #ItemTable thead tr th {
+        border-bottom: 1px solid #a6b6c5;
+    }
+    
+    .StepGrouping {
+        margin-left: 0 !important;
+    }
+    
+    .VerticalOption {
+        overflow: visible !important;
+    }
+    
+    .ui-sortable-helper {
+        border: 1px solid #A6B6C5;
+        box-shadow: 5px 5px 15px -10px black;
+        opacity: 0.9;
+    }
+    
+    .AdminPageBody #ItemContainer,
+    .AdminPageBody #ItemContainer thead {
+        display: block !important;
+    }
+</style>
+
+<div class="StepGrouping">
+    <h1 class="StepGroupingHeading">
+        Slick Slider</h1>
+    <div class="StepGroupingBody">
+
+        <div class="HelpText">
+            Configure a Slick Slider part.
+        </div>
+
+
+        <div class="VerticalOption">
+            <a class="ItemActionAdd" class="BBAdminButtonLnk" href="#">
+                <span class="BBAdminButtonContent">
+	       			<img src="/bbis_bha_tra/images/new_16.png" id="pagecntnt_AdminToolbar_btn1img" class="BBAdminButtonImg">
+	       			<span id="pagecntnt_AdminToolbar_btn1txt" class="BBAdminButtonLabel">
+	       				Add new image
+	       			</span>
+                </span>
+            </a>
+            <div id="ItemContainer">
+                <table id="ItemTable" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr class="ItemRowHeader">
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Subtitle</th>
+                            <th title="Display with black text and white shadow?" style="cursor: help">Invert?</th>
+                            <th>Link</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="ItemRow" id="ItemRowTemplate">
+                            <td class="ItemImage" id="ItemImage_0">
+
+                            </td>
+                            <td class="ItemTitle" id="ItemTitle_0">
+                                <input class="InputItemTitle" type="text" name="ImageTitle_0" id="ImageTitle_0" />
+                            </td>
+                            <td class="ItemSubtitle" id="ItemSubtitle_0">
+                                <input class="InputItemSubtitle" type="text" name="ItemSubtitle_0" id="ItemSubtitle_0" />
+                            </td>
+                            <td class="ItemInvert" id="ItemInvert_0">
+                                <input class="InputItemInvert" type="checkbox" name="ItemInvert_0" id="ItemInvert_0" />
+                            </td>
+                            <td class="ItemLink" id="ItemLink_0">
+                                <input class="InputItemLink" type="text" name="ImageLink_0" id="ImageLink_0" />
+                            </td>
+                            <td class="ItemActions" id="ItemActions_0">
+                                <a class="ItemActionMove">
+                                    <img alt="Click here to move this row" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAoZJREFUeNpsU81rE0EUf7uzu2lNVJL6Eb0IBWusepqcKm3wEFkvxqDgQbwUtYeeg5cccwj4F7QKChEPipRcdMGDiaAoJAexLYViwYsfbU1JYkx3Zz98b8220Wbg7ez7vXm/mffmN9Kh1G2QGQOmMDiRyYEkSaCoKjDGdAAooOUdxzFsIcDzPPhSvgeO7YDrOLBRmQdlJHULVE0DNRSCvqFjUuHqhWP8+etvhR5m0CeengVhmiAsywdl2Dt03K1wZSrO220XaCaf8AFrQel32s0mrDcaWfovrq3Vc9OTvHj/Tb0Xzh6JxQwNyxtIgPXpqqJk94fDM+1Oh6CaEF4QTiIOGJ/DdQtBObsEmGxbll/rkCyDPDwMzW4XhHD88EH0NcRxDUeX4/qdnsi0s8Aas+kEp8Zg82pMkmpDigKbjSbQTD7hFL94/jin9ZRHBNLo3Wrt+uUkbzQsiEZVMPGKfv76DaawodnahkhY86+PNnXxs77ZgVOjMahWVuufi1NJRZhWvvT0beHGtQn++Nm7en+DzqXO8vfVxX+wsYnT/JWxWEe95P0eILsvkkdPKn4PUEBJmunILab5992PLVU++skoNmOniT7JX2Fkt5GM1EjqbMohXzQmqo7KwCQ6zYKiabu30PpQAnZ0HKSRMcMRwnBddw4ZOO4GLRYKFFdDhrrteTMMdWB9/QTdH8sIp0EKmNT4GWDjGZAPJ3TcrbBv+ibfwtwDqBvzYck/truxYjjLZRDflwLt7JUmEoAymdPV7INa5IXn0Uw+4f8PIqATMLQIWpQ0E/RFTmQ4nLx0B1Zfzrsr5eAmbLQW2hYpHwkcqfegNBJhzwY9sGC4aCZaF81CAvePAAMAcwtApJX/Wo0AAAAASUVORK5CYII="
+                                    />
+                                </a>
+                                <a class="ItemActionDelete">
+                                    <img title="Click here to delete this image" src="/images/delete_16.png">
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="VerticalOption">
+
+            <div class="SelectOption">
+                <div class="SelectOptionField">
+                    <div class="FieldHeading">
+                        <label for="txtCarouselID">Carousel ID:</label>
+                    </div>
+
+                    <div class="FieldContent">
+                        <input id="txtCarouselID" type="text" maxlength="50" name="txtCarouselID">
+                    </div>
+
+                </div>
+
+                <div class="SelectOptionHelp">
+                    <div class="SelectOptionHelpInterior"><img class="SelectOptionHelpArrow" src="/bbis_bha_tra/images/FieldHelpArrow.gif" alt="">
+                        <div class="SelectOptionHelpText">
+
+                            This will be appended to the IDs of the carousels so you can target this particular image gallery. Use only alpha, numeric, hyphens and underscores.
+
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+
+        <div class="VerticalOption">
+            <table class="CheckboxOption" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class="CheckboxOptionField">
+                            <input id="chkBullets" type="checkbox" name="chkBullets"><label for="chkBullets">Enable navigation bullets?</label>
+                        </td>
+                        <td class="CheckboxOptionHelpArrow">
+                            <img src="/bbis_bha_tra/images/FieldHelpArrow.gif" alt="">
+                        </td>
+                        <td class="CheckboxOptionHelp">
+                            <span class="CheckboxOptionHelpText">This will show a bullet point under the slider that can be used to navigate slides.</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <div class="VerticalOption">
+            <table class="CheckboxOption" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class="CheckboxOptionField">
+                            <input id="chkArrows" type="checkbox" name="chkArrows"><label for="chkArrows">Enable navigation arrows?</label>
+                        </td>
+                        <td class="CheckboxOptionHelpArrow">
+                            <img src="/bbis_bha_tra/images/FieldHelpArrow.gif" alt="">
+                        </td>
+                        <td class="CheckboxOptionHelp">
+                            <span class="CheckboxOptionHelpText">This will show a navigation arrows over the slider that can be used to navigate slides.</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="VerticalOption">
+            <table class="CheckboxOption" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class="CheckboxOptionField">
+                            <input id="chkAutoplay" type="checkbox" name="chkAutoplay"><label for="chkAutoplay">Autoplay?</label>
+                        </td>
+                        <td class="CheckboxOptionHelpArrow">
+                            <img src="/bbis_bha_tra/images/FieldHelpArrow.gif" alt="">
+                        </td>
+                        <td class="CheckboxOptionHelp">
+                            <span class="CheckboxOptionHelpText">Cycle through slides automatically.</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="VerticalOption">
+            <table class="CheckboxOption" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class="CheckboxOptionField">
+                            <input id="chkFade" type="checkbox" name="chkFade"><label for="chkFade">Fade?</label>
+                        </td>
+                        <td class="CheckboxOptionHelpArrow">
+                            <img src="/bbis_bha_tra/images/FieldHelpArrow.gif" alt="">
+                        </td>
+                        <td class="CheckboxOptionHelp">
+                            <span class="CheckboxOptionHelpText">Fade slides (otherwise will slide horizontally).</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="VerticalOption">
+            <table class="CheckboxOption" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class="CheckboxOptionField">
+                            <input id="chkInfinite" type="checkbox" name="chkInfinite"><label for="chkInfinite">Loop slides?</label>
+                        </td>
+                        <td class="CheckboxOptionHelpArrow">
+                            <img src="/bbis_bha_tra/images/FieldHelpArrow.gif" alt="">
+                        </td>
+                        <td class="CheckboxOptionHelp">
+                            <span class="CheckboxOptionHelpText">Cycle through slides infinitely.</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="VerticalOption">
+
+            <div class="SelectOption">
+                <div class="SelectOptionField">
+                    <div class="FieldHeading">
+                        <label for="txtDelay">Delay:</label>
+                    </div>
+
+                    <div class="FieldContent">
+                        <input id="txtDelay" type="text" name="txtDelay">
+                    </div>
+
+                </div>
+
+                <!-- BEGIN HelpContent.Bubble -->
+                <div class="SelectOptionHelp">
+                    <div class="SelectOptionHelpInterior"><img class="SelectOptionHelpArrow" src="/bbis_bha_tra/images/FieldHelpArrow.gif" alt="">
+                        <div class="SelectOptionHelpText">
+
+                            Only for autoplay, how many miliseconds between slides.
+
+                        </div>
+                    </div>
+                    <!-- END FieldHorizontalHelpInterior -->
+                </div>
+                <!-- END FieldHorizontalHelp -->
+                <div class="clear"></div>
+                <!-- END HelpContent.Bubble -->
+            </div>
+
+        </div>
+
+        <div class="VerticalOption">
+
+            <div class="SelectOption">
+                <div class="SelectOptionField">
+                    <div class="FieldHeading">
+                        <label for="txtSpeed">Speed:</label>
+                    </div>
+
+                    <div class="FieldContent">
+                        <input id="txtSpeed" type="text" name="txtSpeed">
+                    </div>
+
+                </div>
+
+                <!-- BEGIN HelpContent.Bubble -->
+                <div class="SelectOptionHelp">
+                    <div class="SelectOptionHelpInterior"><img class="SelectOptionHelpArrow" src="/bbis_bha_tra/images/FieldHelpArrow.gif" alt="">
+                        <div class="SelectOptionHelpText">
+
+                            Speed of the transition (miliseconds).
+
+                        </div>
+                    </div>
+                    <!-- END FieldHorizontalHelpInterior -->
+                </div>
+                <!-- END FieldHorizontalHelp -->
+                <div class="clear"></div>
+                <!-- END HelpContent.Bubble -->
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    // Custom Content Part for Image Selector (e.g. for use in slideshow)
+    // Author:	Chris Kastner (chris.kastner@blackbaud.com.au)
+    // Date:	16/07/2014
+    // Version:	1.0
+
+    // Note 1: to install - set up as BBNC/BBIS Custom Content Part, placing edit.html and display.html and the function as: "track"
+
+    //variables etc.
+    var count = 0;
+
+    var $itemRow = $('#ItemRowTemplate').clone();
+    var $itemContainer = $('#ItemContainer');
+    var $itemTable = $('#ItemTable');
+    var $itemTableBody = $itemTable.find('tbody');
+    var $itemTableHead = $itemTable.find('thead');
+
+    $('#ItemRowTemplate').remove();
+    $itemTableHead.hide();
+    $itemContainer.hide();
+
+    //loop through saved settings, and set text fields, select lists, textareas, and checkboxes (NB: not currently updating radio buttons as none have been required yet)
+    $(document).ready(function() {
+        $.each(BLACKBAUD.api.customPartEditor.settings, function(key, value) {
+            if (key.substr(0, 3) === "chk" && value === "on") {
+                $('#' + key).prop('checked', 'checked').parents('table').first().addClass('CheckboxOptionSelected');
+            } else {
+                $('#' + key).val(value);
+            }
+        });
+        $.each(BLACKBAUD.api.customPartEditor.settings["items"], function(i) {
+            addRow(BLACKBAUD.api.customPartEditor.settings["items"][i]);
+        });
+    });
+
+    //run this when it saves (hint: return false to cancel the save)
+    BLACKBAUD.api.customPartEditor.onSave = function() {
+
+        var items = [];
+
+        $itemTableBody.find('tr').each(function(i) {
+
+            var rowdata = {
+                image: $(this).find('.ItemImage img').attr('src').replace('?tsize=100', ''),
+                title: $(this).find('.InputItemTitle').val(),
+                subtitle: $(this).find('.InputItemSubtitle').val(),
+                invert: $(this).find('.InputItemInvert').val(),
+                link: $(this).find('.InputItemLink').val(),
+
+            };
+
+            items.push(rowdata);
+
+        });
+
+        BLACKBAUD.api.customPartEditor.settings["items"] = items;
+        $('.StepGrouping input[type="text"],.StepGrouping input[type="checkbox"], .StepGrouping input[type="radio"], .StepGrouping textarea, .stepGrouping select').each(function() {
+            var value = $(this).val().trim();
+            var setting = $(this).attr('name');
+            BLACKBAUD.api.customPartEditor.settings[setting] = value;
+        });
+        return true;
+
+    };
+
+    //trigger on checkbox change to set the value properly... there's a bug in chrome that sets the checkbox value to 'on' even when it's been unchecked.
+    $('input[type="checkbox"]').live('change', function() {
+        var checked = $(this).is(':checked');
+        if (!checked) {
+            $(this).val("off");
+        } else {
+            $(this).val("on");
+        }
+    });
+
+    // Return a helper with preserved width of cells
+    var fixHelper = function(e, ui) {
+        ui.children().each(function() {
+            $(this).width($(this).width());
+        });
+        return ui;
+    };
+
+    $itemTableBody.sortable({
+        handle: '.ItemActionMove',
+        cursor: 'move',
+        helper: fixHelper
+    });
+
+
+    //functions
+    function addRow(item) {
+        var $newRow = $itemRow.clone();
+        var image = {
+            callback: function(data) {
+                //$newRow.addClass(evenodd);
+                $newRow.find('.InputItemTitle').val(data.alt);
+                $newRow.find('.ItemImage').append($('<img src="' + data.url + '?tsize=100" />'));
+                if (data.url.length) {
+                    $itemTableBody.append($newRow);
+                    if (!$('.ItemRowHeader:visible').length) {
+                        $itemTableHead.show();
+                        $itemContainer.fadeIn('slow');
+                    }
+                }
+
+            },
+        };
+        $newRow.find('td, input').each(function() {
+            var ID = $(this).attr('id');
+            var name = $(this).attr('name');
+
+            if (ID !== undefined) {
+                var newID = ID.replace("_0", "_" + count);
+                $(this).attr('id', newID);
+            }
+            if (name !== undefined) {
+                var newName = name.replace("_0", "_" + count);
+                $(this).attr('name', newName);
+            }
+        });
+        //if we pass data into this, do not use the API to load a new image
+        if (item == undefined) {
+            BLACKBAUD.api.customPartEditor.images.launchImagePicker(image);
+        } else {
+            $newRow.find('.InputItemTitle').val(item.title);
+            $newRow.find('.InputItemSubtitle').val(item.subtitle);
+            if (item.invert == "on") {
+                $newRow.find('.InputItemInvert').prop('checked', 'checked').val('on');
+            }
+            $newRow.find('.InputItemLink').val(item.link);
+            $newRow.find('.ItemImage').append($('<img src="' + item.image + '?tsize=100" />'));
+            $itemTableBody.append($newRow);
+            if (!$('.ItemRowHeader:visible').length) {
+                $itemTableHead.show();
+                $itemContainer.fadeIn('slow');
+            }
+        }
+        count++;
+    }
+
+
+    function deleteRow(row) {}
+
+    $('.ItemActionAdd').live('click', function(e) {
+        e.preventDefault();
+        if (!BLACKBAUD.api.customPartEditor.images.canLaunchImagePicker) {
+            alert("Sorry, you can't access the image library at this moment.  Please wait for the page to finish loading and try again.");
+        } else {
+            addRow();
+        }
+    });
+    $('.ItemActionDelete').live('click', function(e) {
+        e.preventDefault();
+        if (confirm("This will remove this record.  Are you sure?")) {
+            $(this).parents('.ItemRow').remove();
+            count--;
+            if (count == 0) {
+                $itemContainer.fadeOut('slow');
+                $itemTableHead.fadeOut('slow');
+            }
+        }
+    });
+</script>
