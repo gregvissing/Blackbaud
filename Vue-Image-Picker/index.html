@@ -1,0 +1,44 @@
+<div class="TabContainer">
+	<div class="FieldSetRow">
+		<div class="FieldSetColumn FieldSetColumnFirst">
+			<div class="Field">
+				<div class="FieldHeading">
+					<label class="FieldLabel" for="field-highlighter-image">Image:</label> <span class="FieldRequired">*</span> <span class="clear"></span>
+				</div>
+				<div class="FieldContent">
+					<div class="SearchFieldContainer">
+						<div class="SearchFieldBox">
+							<a class="SearchField ImagePicker" href="#"><span class="SearchFieldIcon"><img alt="" src="/images/pencil_16.gif"></span> <span class="SearchFieldText">{{event.welcomeImage.searchFieldText}}</span> <span class="SearchFieldButton"><img alt="" src="/images/Admin/Buttons/search.gif"></span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="Field ImagePickerRender"><img></div>
+		</div>
+	</div>
+</div>
+
+<script src="https://www.alumni.uc.edu/file/web-dev/js/vue.min.js"></script>
+<script src="https://unpkg.com/vue-material@beta"></script>
+
+<script type = "text/javascript"> 
+!function($) {
+	$(function() {
+			Vue.use(VueMaterial.default)
+			var eventValues = [{
+				welcomeImage: {
+					searchFieldText: 'Bearcat-mascot-homecoming1.png',
+					srcURL: 'https://www.alumni.uc.edu/image/Bearcat-mascot-homecoming1.png'
+				},
+			}];
+			new Vue({
+					el: '#app',
+					data() {
+						return {
+							events: eventValues
+						}
+					})
+			})
+	});
+}(jQuery); 
+</script>
