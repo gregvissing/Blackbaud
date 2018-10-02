@@ -108,16 +108,9 @@
 						}
 					},
 					bindImagePicker:function (e) {
-						// if (!BLACKBAUD.api.customPartEditor.images.canLaunchImagePicker) {
-						// 	$('.error-permission').show();
-						// } else {
-						//	$('a.ImagePicker').click(function(e) {
-								//e.preventDefault();
-								BLACKBAUD.api.customPartEditor.images.launchImagePicker({
-									callback: renderImage
-								});
-						//	});
-						//}
+						BLACKBAUD.api.customPartEditor.images.launchImagePicker({
+							callback: renderImage
+						});
 					},
 					bindSave:function () {
 						BLACKBAUD.api.customPartEditor.onSave = function() {
