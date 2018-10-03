@@ -14,6 +14,16 @@
 		$(function() {
 			Vue.use(VueMaterial.default)
 
+            // var testEventValues = [
+            // {
+            //     image: {
+			// 		name: 'AboutUs.jpg',
+			// 		url: 'https://www.alumni.uc.edu/image/events/homecoming/2018/image2.png'
+			// 	},
+			// 	text: 'New image text',
+				
+			// }];	
+
             new Vue({
 				el: '#app',
 				data() {
@@ -21,7 +31,8 @@
 						events: BLACKBAUD.api.customPartEditor.settings
 					};
 				},
-                mounted: function($) {                    
+                mounted: function($) {     
+                    console.log(BLACKBAUD.api.customPartEditor.settings);               
                     this.setupSettings();
                     this.bindImagePicker();
                     this.bindSave();
