@@ -26,8 +26,6 @@
                     this.bindImagePicker();
                     this.bindSave();
                     this.renderText();
-                    console.log(BLACKBAUD.api.customPartEditor.settings.image);
-                    
                     this.renderImage(BLACKBAUD.api.customPartEditor.settings.image);                   
 				},
                 methods: {
@@ -75,7 +73,8 @@
                     renderImage:function(o) {
                         
                         $('.ImagePicker .SearchFieldText').text(o.name);
-                        $('.ImagePickerRender img').html('<img alt="" src="' + o.url + '" />');
+                        $('.ImagePickerRender').html('<img alt="" src="' + o.url + '" />');
+                        
                         $('#field-highlighter-image-name').val(o.name);
                         $('#field-highlighter-image-url').val(o.url);
                         
@@ -99,6 +98,7 @@
         <li class="error error-validation error-image">Image is required.</li>
     </ul>
 </div>
+
 
 <div class="TabContainer">
     <div class="FieldSetRow">
