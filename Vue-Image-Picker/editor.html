@@ -14,21 +14,21 @@
 		$(function() {
 			Vue.use(VueMaterial.default)
 
-            // var testEventValues = [
-            // {
-            //     image: {
-			// 		name: 'AboutUs.jpg',
-			// 		url: 'https://www.alumni.uc.edu/image/events/homecoming/2018/image2.png'
-			// 	},
-			// 	text: 'New image text',
+            var testEventValues = [
+            {
+                image: {
+					name: 'AboutUs.jpg',
+					url: 'https://www.alumni.uc.edu/image/events/homecoming/2018/image2.png'
+				},
+				text: 'New image text',
 				
-			// }];	
+			}];	
 
             new Vue({
 				el: '#app',
 				data() {
 					return {						
-						events: BLACKBAUD.api.customPartEditor.settings
+						events: testEventValues
 					};
 				},
                 mounted: function($) {     
