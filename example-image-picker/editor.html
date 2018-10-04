@@ -1,0 +1,126 @@
+<script>
+!function($) {
+  
+  function setupSettings() {
+    if (typeof BLACKBAUD.api.customPartEditor.settings.text == 'undefined' || 
+        typeof BLACKBAUD.api.customPartEditor.settings.image == 'undefined') {
+      BLACKBAUD.api.customPartEditor.settings = {
+        text: '',
+        image: {
+          url: ''
+        }
+      }
+    }
+  }
+  
+  function bindImagePicker() {
+    if (!BLACKBAUD.api.customPartEditor.images.canLaunchImagePicker) {
+      $('.error-permission').show();
+    } else {
+      $('a.ImagePicker').click(function(e) {
+        e.preventDefault();
+        BLACKBAUD.api.customPartEditor.images.launchImagePicker({
+          callback: renderImage
+        });
+      });
+    }
+  }
+  
+  function bindSave() {
+    BLACKBAUD.api.customPartEditor.onSave = function() {
+      var success = true;
+      
+      $('.error-validation').hide();
+      $('[data-validate]').each(function() {
+        var element = $(this);
+        if (element.val() == '') {
+          $(element.data('validate')).show();
+          success = false;
+        }
+      });
+      
+      // Save text
+      BLACKBAUD.api.customPartEditor.settings.text = $('#field-highlighter-text').val();
+            
+      return success;
+    }    
+  }
+    
+  function renderText() {
+    $('#field-highlighter-text').val(BLACKBAUD.api.customPartEditor.settings.text); 
+  }
+  
+  function renderImage(o) {
+    if (typeof o.name != 'undefined' && o.url != 'undefined') {
+      $('.ImagePicker .SearchFieldText').text(o.name);
+      $('.ImagePickerRender').html('<img alt="" src="' + o.url + '" />');
+      $('#field-highlighter-image-name').val(o.name);
+      $('#field-highlighter-image-url').val(o.url);
+    }
+    BLACKBAUD.api.customPartEditor.settings.image = o;
+  }
+  
+  $(function() {
+    setupSettings();
+    bindImagePicker();
+    bindSave();
+    renderText();
+    renderImage(BLACKBAUD.api.customPartEditor.settings.image);
+  });
+  
+}(jQuery);
+</script>
+
+<style>
+.error { display: none; color: #FF0000; font-weight: bold; }
+</style>
+
+<div>
+  <ul>
+    <li class="error error-permission">You do not have permission to launch the image picker.</li>
+    <li class="error error-validation error-text">Text is required.</li>
+    <li class="error error-validation error-image">Image is required.</li>
+  </ul>
+</div>
+
+<div class="TabContainer">
+  <div class="FieldSetRow">
+    <div class="FieldSetColumn FieldSetColumnFirst">
+      <div class="Field">
+        <div class="FieldHeading">
+          <label for="field-highlighter-text" class="FieldLabel">Text:</label>
+          <span class="FieldRequired">*</span>
+          <span class="clear"></span>
+        </div>
+        <div class="FieldContentText">
+          <input type="text" id="field-highlighter-text" class="FieldSelect FieldInput" data-validate=".error-text" />
+          <input type="hidden" id="field-highlighter-image-name" data-validate=".error-image" />
+          <input type="hidden" id="field-highlighter-image-url" data-validate=".error-image" />
+        </div>
+      </div>
+      <div class="Field">
+        <div class="FieldHeading">
+          <label for="field-highlighter-image" class="FieldLabel">Image:</label>
+          <span class="FieldRequired">*</span>
+          <span class="clear"></span>
+        </div>
+        <div class="FieldContent">
+          <div class="SearchFieldContainer">
+            <div class="SearchFieldBox">
+              <a href="#" class="SearchField ImagePicker">
+                <span class="SearchFieldIcon">
+                  <img src="/images/pencil_16.gif" alt="" />
+                </span>
+                <span class="SearchFieldText"></span>
+                <span class="SearchFieldButton">
+                  <img src="/images/Admin/Buttons/search.gif" alt="" />
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="Field ImagePickerRender"></div>
+    </div>
+  </div>
+</div>
