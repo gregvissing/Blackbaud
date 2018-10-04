@@ -84,7 +84,7 @@
             	var bbisValues = BLACKBAUD.api.customPartEditor.settings;
 		
 		// Get part ID
- 	        var $partID = $('#pagecntnt_tmpltcntnt_tabContentTabs__ctl1_props1_lblPartId').text();
+ 	        // var $partID = $('#pagecntnt_tmpltcntnt_tabContentTabs__ctl1_props1_lblPartId').text();
 
 		new Vue({
 			el: '#app',
@@ -105,6 +105,7 @@
 				setupSettings:function() {
 					if (typeof BLACKBAUD.api.customPartEditor.settings.text == 'undefined' || typeof BLACKBAUD.api.customPartEditor.settings.image == 'undefined') {
 					    BLACKBAUD.api.customPartEditor.settings = {
+						id: '',
 						text: '',
 						image: {
 						    url: ''
@@ -140,7 +141,7 @@
 						console.log(BLACKBAUD.api.customPartEditor.settings);
 						
 						// Save ID to be same as part ID
-						BLACKBAUD.api.customPartEditor.settings.id = $partID;
+						BLACKBAUD.api.customPartEditor.settings.id = 5285;
 						return success;
                         		}
 				},
@@ -160,7 +161,7 @@
 			computed:{
 				partIDEvent: function() {
 					return this.events.filter(function(event) {
-						return event.id == $partID;
+						return event.id == 5285;
 					})
 				}
 			}
