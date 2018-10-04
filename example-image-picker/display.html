@@ -1,0 +1,10 @@
+<script>
+function imageHighlighterRender(o) {
+  var html = [
+    '<p class="circle" style="background-image: url(' + o.settings.image.url + ')">',
+    '<span class="text">' + o.settings.text + '</span>',
+    '</p>'
+  ];
+  $('#' + o.elementId).html(html.join(''));
+}
+</script>
