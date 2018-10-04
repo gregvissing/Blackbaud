@@ -100,39 +100,41 @@
     .error { display: none; color: #FF0000; font-weight: bold; }
 </style>
 
-<div>
-    <ul>
-        <li class="error error-permission">You do not have permission to launch the image picker.</li>
-        <li class="error error-validation error-text">Text is required.</li>
-        <li class="error error-validation error-image">Image is required.</li>
-    </ul>
-</div>
+<div id="app">
+	<div>
+	    <ul>
+		<li class="error error-permission">You do not have permission to launch the image picker.</li>
+		<li class="error error-validation error-text">Text is required.</li>
+		<li class="error error-validation error-image">Image is required.</li>
+	    </ul>
+	</div>
 
 
-<div class="TabContainer">
-    <div class="FieldSetRow">
-        <div class="FieldSetColumn FieldSetColumnFirst">
-            <div class="Field">
-                <div class="FieldHeading">
-                    <label class="FieldLabel" for="field-highlighter-text">Text:</label> <span class="FieldRequired">*</span> <span class="clear"></span>
-                </div>
-                <div class="FieldContentText">
-                    <input class="FieldSelect FieldInput" data-validate=".error-text" id="field-highlighter-text" type="text" v-model="text"> <input data-validate=".error-image" id="field-highlighter-image-name" type="hidden"> <input data-validate=".error-image" id="field-highlighter-image-url" type="hidden">
-                </div>
-            </div>
-            <div class="Field">
-                <div class="FieldHeading">
-                    <label class="FieldLabel" for="field-highlighter-image">Image:</label> <span class="FieldRequired">*</span> <span class="clear"></span>
-                </div>
-                <div class="FieldContent">
-                    <div class="SearchFieldContainer">
-                        <div class="SearchFieldBox">
-                            <a class="SearchField ImagePicker" href="#" ><span class="SearchFieldIcon"><img alt="" src="/images/pencil_16.gif"></span> <span class="SearchFieldText"></span> <span class="SearchFieldButton"><img alt="" src="/images/Admin/Buttons/search.gif"></span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="Field ImagePickerRender"></div>
-        </div>
-    </div>
+	<div class="TabContainer">
+	    <div class="FieldSetRow">
+		<div class="FieldSetColumn FieldSetColumnFirst">
+		    <div class="Field">
+			<div class="FieldHeading">
+			    <label class="FieldLabel" for="field-highlighter-text">Text:</label> <span class="FieldRequired">*</span> <span class="clear"></span>
+			</div>
+			<div class="FieldContentText">
+			    <input class="FieldSelect FieldInput" data-validate=".error-text" id="field-highlighter-text" type="text" v-model="text"> <input data-validate=".error-image" id="field-highlighter-image-name" type="hidden"> <input data-validate=".error-image" id="field-highlighter-image-url" type="hidden">
+			</div>
+		    </div>
+		    <div class="Field">
+			<div class="FieldHeading">
+			    <label class="FieldLabel" for="field-highlighter-image">Image:</label> <span class="FieldRequired">*</span> <span class="clear"></span>
+			</div>
+			<div class="FieldContent">
+			    <div class="SearchFieldContainer">
+				<div class="SearchFieldBox">
+				    <a class="SearchField ImagePicker" href="#" ><span class="SearchFieldIcon"><img alt="" src="/images/pencil_16.gif"></span> <span class="SearchFieldText"></span> <span class="SearchFieldButton"><img alt="" src="/images/Admin/Buttons/search.gif"></span></a>
+				</div>
+			    </div>
+			</div>
+		    </div>
+		    <div class="Field ImagePickerRender"></div>
+		</div>
+	    </div>
+	</div>
 </div>
