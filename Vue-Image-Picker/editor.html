@@ -10,90 +10,85 @@
 
 <script type="text/javascript">
 	!function($) {
-
 		$(function() {
 			Vue.use(VueMaterial.default)
 
-            var testEventValues = [
-            {
-                image: {
+            		var testEventValues = [
+            		{
+                		image: {
 					name: 'AboutUs.jpg',
 					url: 'https://www.alumni.uc.edu/image/events/homecoming/2018/image2.png'
 				},
-				text: 'New image text',
-				
+				text: 'New image text',				
 			}];	
 
-            new Vue({
+            		new Vue({
 				el: '#app',
 				data() {
 					return {						
 						events: testEventValues
 					};
 				},
-                mounted: function($) {     
-                    console.log(BLACKBAUD.api.customPartEditor.settings);               
-                    this.setupSettings();
-                    this.bindImagePicker();
-                    this.bindSave();
-                    this.renderText();
-                    this.renderImage(BLACKBAUD.api.customPartEditor.settings.image);                   
+                		mounted: function($) {     
+					console.log(BLACKBAUD.api.customPartEditor.settings);               
+				    	this.setupSettings();
+				    	this.bindImagePicker();
+				    	this.bindSave();
+				    	this.renderText();
+				    	this.renderImage(BLACKBAUD.api.customPartEditor.settings.image);                   
 				},
-                methods: {
-                    setupSettings:function() {
-                        if (typeof BLACKBAUD.api.customPartEditor.settings.text == 'undefined' || typeof BLACKBAUD.api.customPartEditor.settings.image == 'undefined') {
-                            BLACKBAUD.api.customPartEditor.settings = {
-                                text: '',
-                                image: {
-                                    url: ''
-                                }
-                            }
-                        }
-                    },
-                    bindImagePicker:function () {
-                        if (!BLACKBAUD.api.customPartEditor.images.canLaunchImagePicker) {
-                            $('.error-permission').show();
-                        } else {
-                            $('a.ImagePicker').click(function(e) {
-                                e.preventDefault();
-                                BLACKBAUD.api.customPartEditor.images.launchImagePicker({
-                                    callback: renderImage
-                                });
-                            });
-                        }
-                    },
-                    bindSave:function () {
-                        BLACKBAUD.api.customPartEditor.onSave = function() {
-                            var success = true;
-                            $('.error-validation').hide();
-                            $('[data-validate]').each(function() {
-                                var element = $(this);
-                                if (element.val() == '') {
-                                    $(element.data('validate')).show();
-                                    success = false;
-                                }
-                            });
-                            // Save text
-                            BLACKBAUD.api.customPartEditor.settings.text = $('#field-highlighter-text').val();
-                            return success;
-                        }
-                    },
-                    renderText:function () {
-                        $('#field-highlighter-text').val(BLACKBAUD.api.customPartEditor.settings.text); 
-                    },
-                    renderImage:function(o) {
-                        
-                        $('.ImagePicker .SearchFieldText').text(o.name);
-                        $('.ImagePickerRender').html('<img alt="" src="' + o.url + '" />');
-                        
-                        $('#field-highlighter-image-name').val(o.name);
-                        $('#field-highlighter-image-url').val(o.url);
-                        
-                        BLACKBAUD.api.customPartEditor.settings.image = o;
-                        
-                    }
-                }
-            })
+                		methods: {
+					setupSettings:function() {
+						if (typeof BLACKBAUD.api.customPartEditor.settings.text == 'undefined' || typeof BLACKBAUD.api.customPartEditor.settings.image == 'undefined') {
+						    BLACKBAUD.api.customPartEditor.settings = {
+							text: '',
+							image: {
+							    url: ''
+							}
+						    }
+						}
+				    	},
+					bindImagePicker:function () {
+						if (!BLACKBAUD.api.customPartEditor.images.canLaunchImagePicker) {
+						    $('.error-permission').show();
+						} else {
+						    $('a.ImagePicker').click(function(e) {
+							e.preventDefault();
+							BLACKBAUD.api.customPartEditor.images.launchImagePicker({
+							    callback: renderImage
+							});
+						    });
+						}
+					},
+					bindSave:function () {
+						BLACKBAUD.api.customPartEditor.onSave = function() {
+						    var success = true;
+						    $('.error-validation').hide();
+						    $('[data-validate]').each(function() {
+							var element = $(this);
+							if (element.val() == '') {
+							    $(element.data('validate')).show();
+							    success = false;
+							}
+						    });
+						    // Save text
+						    BLACKBAUD.api.customPartEditor.settings.text = $('#field-highlighter-text').val();
+						    return success;
+						}
+					},
+					renderText:function () {
+						$('#field-highlighter-text').val(BLACKBAUD.api.customPartEditor.settings.text); 
+					},
+					renderImage:function(o) {
+						$('.ImagePicker .SearchFieldText').text(o.name);
+						$('.ImagePickerRender').html('<img alt="" src="' + o.url + '" />');
+						$('#field-highlighter-image-name').val(o.name);
+						$('#field-highlighter-image-url').val(o.url);
+
+						BLACKBAUD.api.customPartEditor.settings.image = o;
+					}
+				}
+			})
 		});
 	}(jQuery);
 </script>
