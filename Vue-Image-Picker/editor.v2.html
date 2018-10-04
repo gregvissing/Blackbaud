@@ -40,7 +40,7 @@
                     <div class="FieldContent">
                         <div class="SearchFieldContainer">
                         <div class="SearchFieldBox">
-                            <a class="SearchField ImagePicker" href="#" @click.prevent="bindImagePicker">
+                            <a class="SearchField ImagePicker" href="#" @click="bindImagePicker">
                                 <span class="SearchFieldIcon">
                                     <img alt="" src="/images/pencil_16.gif">
                                 </span> 
@@ -119,8 +119,8 @@
                         if (!BLACKBAUD.api.customPartEditor.images.canLaunchImagePicker) {
                             $('.error-permission').show();
                         } else {
-                            $('a.ImagePicker').on('click', () => {
-                                //e.preventDefault();
+                            $('a.ImagePicker').on('click', (e) => {
+                                e.preventDefault();
                                 BLACKBAUD.api.customPartEditor.images.launchImagePicker({
                                     callback: this.renderImage
                                 });
