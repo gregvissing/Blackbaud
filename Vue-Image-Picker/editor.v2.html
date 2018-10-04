@@ -40,7 +40,7 @@
                     <div class="FieldContent">
                         <div class="SearchFieldContainer">
                         <div class="SearchFieldBox">
-                            <a class="SearchField ImagePicker" href="#" @click="bindImagePicker">
+                            <a class="SearchField ImagePicker" href="#" @click="renderImage">
                                 <span class="SearchFieldIcon">
                                     <img alt="" src="/images/pencil_16.gif">
                                 </span> 
@@ -54,7 +54,7 @@
                     </div>
                     </div>
                     <div class="Field ImagePickerRender">
-                        <img :src="event.image.url" />
+                        <img id="imagePicker" :src="event.image.url" />
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
 
             var testEventValues = [
                 {
-                    id: 5285,
+                    id: 3268,
                     text: 'New image text',
                     image: {
                         name: 'AboutUs.jpg',
@@ -86,13 +86,13 @@
             var bbisValues = BLACKBAUD.api.customPartEditor.settings;
 
             // Get part ID
-            // var $partID = $('#pagecntnt_tmpltcntnt_tabContentTabs__ctl1_props1_lblPartId').text();
+            var $partID = $('#pagecntnt_tmpltcntnt_tabContentTabs__ctl1_props1_lblPartId').text();
 
             new Vue({
                 el: '#app',
                 data() {
                     return {						
-                        events: testEventValues
+                        events: bbisValues
                     };
                 },
                 mounted: function($) {     
@@ -101,8 +101,7 @@
                     this.bindImagePicker();
                     this.bindSave();
                     this.renderText();
-                    //this.renderImage(BLACKBAUD.api.customPartEditor.settings.image);   
-                     
+                    //this.renderImage(BLACKBAUD.api.customPartEditor.settings.image);                      
                      
                 },
                 methods: {
@@ -139,6 +138,7 @@
                                 }
                             });
                             // Save text
+                            BLACKBAUD.api.customPartEditor.settings.id = $partID;
                             BLACKBAUD.api.customPartEditor.settings.text = $('#field-highlighter-text').val();
                             BLACKBAUD.api.customPartEditor.settings.image.url = $('.Field.ImagePickerRender img').prop('src');
                             return success;
@@ -150,21 +150,17 @@
                     renderImage:function(o) {
                         if (typeof o.name != 'undefined' && o.url != 'undefined') {
                             $('.ImagePicker .SearchFieldText').text(o.name);
-                            event.image.url = o.url;
-                            //$('.ImagePickerRender').html('<img alt="" src="' + o.url + '" />');
+                            $('#imagePicker').prop('src', o.url);
                             $('#field-highlighter-image-name').val(o.name);
                             $('#field-highlighter-image-url').val(o.url);
                         }
                         BLACKBAUD.api.customPartEditor.settings.image = o;
                     }
                 },
-                watch: {
-
-                },
                 computed:{
 		           	partIDEvent: function() {
 		                return this.events.filter(function(event) {
-		                	return event.id == 5285;
+		                	return event.id == $partID;
 		                })
 		    		}
 	            }
