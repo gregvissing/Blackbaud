@@ -95,6 +95,13 @@
                         events: bbisValues
                     };
                 },
+                computed:{
+		           	partIDEvent: function() {
+		                return this.events.filter(function(event) {
+		                	return event.id == 3268;
+		                })
+		    		}	            
+	            },
                 mounted: function($) {     
                     console.log(BLACKBAUD.api.customPartEditor.settings);               
                     //this.setupSettings();
@@ -103,7 +110,7 @@
                     this.renderText();
                     //this.renderImage(BLACKBAUD.api.customPartEditor.settings.image);                      
                      
-                },
+                },                
                 methods: {
                     // setupSettings:function() {
                     //     if (typeof BLACKBAUD.api.customPartEditor.settings.text == 'undefined' || typeof BLACKBAUD.api.customPartEditor.settings.image == 'undefined') {
@@ -156,14 +163,7 @@
                         }
                         BLACKBAUD.api.customPartEditor.settings.image = o;
                     }
-                },
-                computed:{
-		           	partIDEvent: function() {
-		                return this.events.filter(function(event) {
-		                	return event.id == $partID;
-		                })
-		    		}
-	            }
+                }                
             })
         });
 	}(jQuery);
