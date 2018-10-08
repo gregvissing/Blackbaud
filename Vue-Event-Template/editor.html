@@ -1,0 +1,993 @@
+<link href="https://foundation.uc.edu/file/config/customContentPartEditor.css" rel="stylesheet" type="text/css">
+<link href="https://foundation.uc.edu/file/webdev/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
+<link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/vue-material.min.css">
+<link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/theme/default.css">
+
+<style type="text/css">
+    @import url("https://fonts.googleapis.com/css?family=Roboto");
+	body {
+		margin: 0;
+		font-family: 'Roboto';
+	}
+	.colorPanel {
+		position: absolute;
+		margin: 20px auto;
+		left: 0;
+		right: 0;
+		height: 200px;
+		width: 200px;
+		z-index: 3;
+		background: #fff;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		border-radius: 25px;
+		box-shadow: 0 0 30px #aaa;
+		transition: all 0.12s;
+	}
+	.colorPanel__colorSlot {
+		box-sizing: border-box;
+		width: 33%;
+		height: 33%;
+		padding: 10px;
+	}
+	.colorPanel__color {
+		height: 100%;
+		width: 100%;
+		border-radius: 100px;
+		cursor: pointer;
+		background: #eee;
+		transition-duration: 0.12s;
+	}
+	.colorPanel__color:hover {
+		opacity: 0.7;
+	}
+	.menu {
+		padding: 10px 0;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom: 1px solid #eee;
+	}
+	.menu__header {
+		padding: 0 20px;
+		cursor: default;
+		font-weight: 900;
+	}
+	.menu__button {
+		height: 100%;
+		cursor: pointer;
+		background: #0084ff;
+		color: #fff;
+		margin: 0 10px;
+		padding: 5px 20px;
+		border-radius: 99px;
+		transition-duration: 0.1s;
+		box-sizing: border-box;
+	}
+	.menu__button:hover {
+		opacity: 0.7;
+	}
+	.menu__button--red {
+		background: #fa3c4c;
+	}
+	.table {
+		margin: 20px auto;
+		width: 80%;
+		max-width: 900px;
+		padding: 2px;
+		border-radius: 25px;
+		box-shadow: 0 0 20px #eee;
+		background: #fff;
+	}
+	.table__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: nowrap;
+		font-weight: 900;
+		padding: 5px;
+		width: 100%;
+		text-align: center;
+		cursor: default;
+		border-bottom: 2px solid #f5f5f5;
+		box-sizing: border-box;
+	}
+	.table__headerText {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.table__headerButtons {
+		display: flex;
+		align-items: center;
+	}
+	.table__inputs {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 5px;
+		box-sizing: border-box;
+	}
+	.table__input {
+		text-align: center;
+		min-width: 0;
+		font-size: 1em;
+		margin: 2px;
+		padding: 10px 20px;
+		border: none;
+		width: 100%;
+		background: #f5f5f5;
+		box-sizing: border-box;
+		border-radius: 25px;
+	}
+	.table__input--hidden {
+		background: transparent;
+		margin: 0;
+		padding: 0;
+		color: inherit;
+	}
+	.table table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	.table tr {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		padding: 5px;
+		box-sizing: border-box;
+		justify-content: space-between;
+	}
+	.table__cell {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		cursor: default;
+		margin: 2px;
+		width: 100%;
+		padding: 10px 20px;
+		box-sizing: border-box;
+		background: #f5f5f5;
+		border-radius: 25px;
+		transition-duration: 0.1s;
+	}
+	.table__cell:hover {
+		opacity: 0.7;
+	}
+	.table__cell--primary {
+		background: #0084ff;
+		color: #fff;
+	}
+	.table__button {
+		font-family: 'Material Icons';
+		font-weight: 900;
+		height: 100%;
+		cursor: pointer;
+		background: #0084ff;
+		color: #fff;
+		margin: 2px;
+		padding: 5px 6px;
+		border-radius: 99px;
+		transition-duration: 0.1s;
+		box-sizing: border-box;
+	}
+	.table__button:hover {
+		opacity: 0.7;
+	}
+	.table__button--red {
+		background: #fa3c4c;
+		border: 2px solid #fff;
+	}
+	@media screen and (max-width: 800px) {
+		.table {
+			width: 100%;
+		}
+	}
+	input {
+		width: 100%;
+		margin: 5px 0 10px;
+	}
+	h2 {
+		font-size: 1.5em;
+		text-decoration: underline;
+	}
+	h3 {
+	    font-size: 1.17em;
+    }
+</style>
+
+<div id="app">
+    <div v-for="event in partIDEvent" :key="event.id">
+	    <div class="container">
+			<label>ID:</label>
+			<input id="eventID" v-model="event.id" />
+			
+			<hr />
+
+		    <h2>HERO SECTION</h2>
+		    <div class="md-layout md-gutter">
+				<div class="md-layout-item">
+					<label>Event Title</label>
+	                <input id="eventTitle" v-model="event.title" />
+				</div>
+			</div>
+
+			<div class="md-layout md-gutter">
+				<div class="md-layout-item">
+					<label>Hero Heading</label>
+                    <input id="heroSubheading" v-model="event.heroSubheading" />
+				</div>
+			</div>
+
+			<h3>Hero Content</h3>
+
+			<div class="md-layout md-gutter">
+				<div class="md-layout-item">
+					<label>Video URL</label>
+                    <input id="heroVideoURL" v-model="event.heroVideoURL" />
+				</div>
+			</div>
+
+			<div class="md-layout md-gutter">
+				<div class="md-layout-item">
+					<h5>Hero Image</h5>
+                    <!-- <label>Search Field Text</label>
+                    <input v-model="event.heroBGimage.searchFieldText" />
+                    <label>srcURL</label>
+                    <input v-model="event.heroBGimage.srcURL" /> -->
+
+                    <!--<div class="TabContainer">
+						<div class="FieldSetRow">
+							<div class="FieldSetColumn FieldSetColumnFirst">
+								<div class="Field">
+									<div class="FieldHeading">
+										<label class="FieldLabel" for="field-highlighter-image">Image:</label> <span class="FieldRequired">*</span> <span class="clear"></span>
+									</div>
+									<div class="FieldContent">
+										<div class="SearchFieldContainer">
+											<div class="SearchFieldBox">
+												<a class="SearchField ImagePicker" href="#" v-on:click="bindImagePicker()">
+													<span class="SearchFieldIcon"><img alt="" src="https://www.alumni.uc.edu/images/pencil_16.gif"></span>
+													<span class="SearchFieldText">{{event.heroBGimage.searchFieldText}}</span>
+													<span class="SearchFieldButton"><img alt="" src="https://www.alumni.uc.edu/images/Admin/Buttons/search.gif"></span>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="Field ImagePickerRender">
+									<img alt="" :src="event.heroBGimage.srcURL">
+								</div>
+							</div>
+						</div>
+					</div>-->
+
+					<div class="TabContainer">
+						<div class="FieldSetRow">
+							<div class="FieldSetColumn FieldSetColumnFirst">
+								<div class="Field">
+									<div class="FieldHeading">
+										<label class="FieldLabel" for="field-highlighter-image">Image:</label> 
+										<span class="FieldRequired">*</span> 
+										<span class="clear"></span>
+									</div>
+									<div class="FieldContent">
+										<div class="SearchFieldContainer">
+											<div class="SearchFieldBox">
+												<a class="SearchField ImagePicker" href="#" @click="renderImage">
+													<span class="SearchFieldIcon">
+														<img alt="" src="/images/pencil_16.gif">
+													</span> 
+													<span class="SearchFieldText">{{event.image.name}}</span> 
+													<span class="SearchFieldButton">
+														<img alt="" src="/images/Admin/Buttons/search.gif">
+													</span>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="Field ImagePickerRender">
+									<img id="imagePicker" :src="event.image.url" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+            <hr />
+
+            <h2>WELCOME SECTION</h2>
+            <div class="md-layout md-gutter">
+				<div class="md-layout-item">
+					<label>Welcome Heading</label>
+	                <input id="welcomeHeading" v-model="event.welcomeHeading" />
+				</div>
+			</div>
+
+			<div class="md-layout md-gutter">
+				<div class="md-layout-item">
+					<label>Welcome Text</label>
+	                <input id="welcomeText" v-model="event.welcomeText" />
+				</div>
+			</div>
+
+	        <div class="md-layout md-gutter">
+				<div class="md-layout-item">
+					<h5>Welcome Image</h5>
+					<label>Search Field Text</label>
+					<input id="welcomeImageText" v-model="event.welcomeImage.searchFieldText" />
+					<label>srcURL</label>
+					<input id="welcomeImageURL" v-model="event.welcomeImage.srcURL" />
+				</div>
+			</div>
+
+			<h4>Welcome Event Dates</h4>
+
+	        <md-table>
+				<md-table-row>
+					<md-table-head>TITLE</md-table-head>
+					<md-table-head>DATE</md-table-head>
+					<md-table-head>TIME</md-table-head>
+					<md-table-head>LOCATION</md-table-head>
+					<md-table-head>ACTIONS</md-table-head>
+				</md-table-row>
+
+				<md-table-row v-for="welcomeEvent in event.welcomeEvents" :key="welcomeEvent.id">
+					<md-table-cell><input v-model="welcomeEvent.title" /></md-table-cell>
+					<md-table-cell><input v-model="welcomeEvent.date" /></md-table-cell>
+					<md-table-cell><input v-model="welcomeEvent.time" /></md-table-cell>
+					<md-table-cell><input v-model="welcomeEvent.location" /></md-table-cell>
+					<md-table-cell><md-button class="md-raised md-primary" @click="removeWelcomeEventFromEvent(event)">REMOVE</md-button></md-table-cell>
+				</md-table-row>
+			</md-table>
+			<md-button class="md-raised md-primary" @click="addWelcomeEventToEvent(event)">Add Event Date</md-button>
+
+			<div class="md-layout md-gutter">
+				<div class="md-layout-item">
+					<label>Welcome Look For Text</label>
+	                <input id="welcomeLookForText" v-model="event.welcomeLookForText" />
+				</div>
+			</div>
+	        <hr />
+
+	        <h2>FULL EVENT LISTING SECTION</h2>
+	        <md-table>
+				<md-table-row>
+					<md-table-head>DATE</md-table-head>
+					<md-table-head>TITLE</md-table-head>
+					<md-table-head>LINK</md-table-head>
+					<md-table-head>ACTIONS</md-table-head>
+				</md-table-row>
+
+				<md-table-row v-for="listing in event.eventListing" :key="listing.id">
+					<md-table-cell><input v-model="listing.date" /></md-table-cell>
+					<md-table-cell><input v-model="listing.title" /></md-table-cell>
+					<md-table-cell><input v-model="listing.link" /></md-table-cell>
+					<md-table-cell><md-button class="md-raised md-primary" @click="removeEventListingFromEvent(event)">REMOVE</md-button></md-table-cell>
+				</md-table-row>
+			</md-table>
+			<md-button class="md-raised md-primary" @click="addEventListingToEvent(event)">Add Event Listing</md-button>
+
+			<hr />
+
+			<h2>50/50 SECTION</h2>
+			<md-table>
+				<md-table-row>
+					<md-table-head>HEADING</md-table-head>
+					<md-table-head>TEXT</md-table-head>
+					<md-table-head>SEARCH FIELD TEXT/SRC URL</md-table-head>
+					<md-table-head>ACTIONS</md-table-head>
+				</md-table-row>
+
+				<md-table-row v-for="fiftyFifty in event.fiftyFiftySection" :key="fiftyFifty.id">
+					<md-table-cell><input v-model="fiftyFifty.heading" /></md-table-cell>
+					<md-table-cell><input v-model="fiftyFifty.text" /></md-table-cell>
+					<md-table-cell>
+						<input v-model="fiftyFifty.searchFieldText" />
+						<input v-model="fiftyFifty.srcURL" />
+					</md-table-cell>
+					<md-table-cell><md-button class="md-raised md-primary" @click="removeFiftyFiftyRowFromFiftyFifty(event)">REMOVE</md-button></md-table-cell>
+				</md-table-row>
+			</md-table>
+			<md-button class="md-raised md-primary" @click="addFiftyFiftyRowToFiftyFifty(event)">Add 50/50 Row</md-button>
+
+			<hr />
+
+			<h2>PHOTO GALLERY GRID</h2>
+			<md-table>
+				<md-table-row>
+					<md-table-head>SEARCH FIELD TEXT/SRC URL</md-table-head>
+					<md-table-head>ACTIONS</md-table-head>
+				</md-table-row>
+
+				<md-table-row v-for="galleryImage in event.galleryImages" :key="galleryImage.id">
+					<md-table-cell>
+						<input v-model="galleryImage.searchFieldText" />
+						<input v-model="galleryImage.srcURL" />
+					</md-table-cell>
+					<md-table-cell><md-button class="md-raised md-primary" @click="removeGalleryImageFromGallery(event)">REMOVE</md-button></md-table-cell>
+				</md-table-row>
+			</md-table>
+			<md-button class="md-raised md-primary" @click="addGalleryImageToGallery(event)">Add Gallery Image</md-button>
+
+			<hr />
+
+			<h2>SPONSORS SECTION</h2>
+			<md-table>
+				<md-table-row>
+					<md-table-head>URL</md-table-head>
+					<md-table-head>LEVEL</md-table-head>
+					<md-table-head>SEARCH FIELD TEXT/SRC URL</md-table-head>
+					<md-table-head>ACTIONS</md-table-head>
+				</md-table-row>
+
+				<md-table-row v-for="sponsor in event.sponsors" :key="sponsor.id">
+					<md-table-cell><input v-model="sponsor.url" /></md-table-cell>
+					<md-table-cell><input v-model="sponsor.level" /></md-table-cell>
+					<md-table-cell>
+						<input v-model="sponsor.searchFieldText" />
+						<input v-model="sponsor.srcURL" />
+					</md-table-cell>
+					<md-table-cell><md-button class="md-raised md-primary" @click="removeSponsorRowFromSponsor(event)">REMOVE</md-button></md-table-cell>
+				</md-table-row>
+			</md-table>
+			<md-button class="md-raised md-primary" @click="addSponsorRowToSponsor(event)">Add Sponsor</md-button>
+
+	    </div>
+    </div>
+</div>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script> -->
+<!-- <script src="https://unpkg.com/vue"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-material@beta"></script>
+<!-- <script type="text/javascript">
+	var hook = true;
+	window.onbeforeunload = function() {
+	  if (hook) {
+		return "Did you save your stuff?"
+	  }
+	}
+	function unhook() {
+	  hook=false;
+	}
+  </script> -->
+<script type="text/javascript">
+	!function($) {
+
+		$(function() {
+			Vue.use(VueMaterial.default)
+
+			var $testEventValues = [
+            {
+				id: 5311,
+				title: 'Homecoming 2018',
+				heroSubheading: 'STAND FIRST AND LAST FOR OLD UC',
+				heroVideoURL: 'https://www.youtube.com/watch?v=qg-TGLSF-ho',
+				image: {
+					// id: 915,
+					// alt: '',
+					name: 'image2.png',
+					url: 'https://www.alumni.uc.edu/image/events/homecoming/2018/image2.png'
+				},
+				welcomeHeading: 'WELCOME HOME, BEARCATS',
+				welcomeImage: {
+					searchFieldText: 'Bearcat-mascot-homecoming1.png',
+					srcURL: 'https://www.alumni.uc.edu/image/Bearcat-mascot-homecoming1.png'
+				},
+				welcomeText: 'Cincinnati has been waiting for you. Come back to campus for the annual Homecoming Weekend! This year’s Homecoming serves as the official start of the UC Bicentennial and is sure to be a unique celebration of Bearcat spirit. Connect with old friends, make new memories, and cheer on our team to victory! The first 250 to register for our Homecoming activities will receive exclusive UC spirit items!',
+				welcomeEvents: [
+					{
+						id: 1,
+						title: 'Kickoff Party',
+						date: 'Friday, October 5',
+						time: '6:00 p.m.',
+						location: 'U Square Piazza'
+					},
+					{
+						id: 2,
+						title: 'Homecoming Parade',
+						date: 'Saturday, October 6',
+						time: '4 hours prior to kickoff',
+						location: 'Clifton Avenue'
+					},
+					{
+						id: 3,
+						title: 'Homecoming Tailgate',
+						date: 'Saturday, October 6',
+						time: '',
+						location: 'McMicken Commons'
+					}
+				],
+				welcomeLookForText: 'Looking for our full listing of Homecoming events?',
+				eventListing: [
+    				{
+						id: 1,
+	    				date: 'Thursday, October 4',
+	    				title: 'College of Arts & Sciences Alumni Awards Dinner',
+			    		link: 'http://www.alumni.uc.edu/artsciawards'
+					},
+					{
+						id: 2,
+						date: 'Thursday, October 4',
+						title: 'College of Engineering & Applied Sciences Alumni Awards Dinner',
+						link: 'http://www.alumni.uc.edu/ceasawards'
+					},
+					{
+						id: 3,
+						date: 'Thursday, October 4',
+						title: 'UC vs. Xavier Baseball',
+						link: 'https://gobearcats.com/news/2018/8/10/baseball-to-play-two-games-during-fall-season.aspx'
+					},
+					{
+						id: 4,
+						date: 'Friday, October 5',
+						title: 'College of Allied Health Sciences Alumni & Friends Back in Class',
+						link: 'http://www.alumni.uc.edu/cahs/homecoming'
+					},
+					{
+						id: 5,
+						date: 'Friday, October 5',
+						title: 'UC Alumni Association Network Leaders Conference',
+						link: ''
+					},
+					{
+						id: 6,
+						date: 'Friday, October 5',
+						title: 'Homecoming Kickoff Party',
+						link: '#eventRegister'
+					},
+					{
+						id: 7,
+						date: 'Friday, October 5',
+						title: 'International Co-op Program (ICP) Reunion 2018',
+						link: 'https://www.alumni.uc.edu/ICPReunion'
+					},
+					{
+						id: 8,
+						date: 'Friday, October 5',
+						title: 'Greek Alumni Homecoming Party',
+						link: 'https://www.alumni.uc.edu/greekhomecoming'
+					},
+					{
+						id: 9,
+						date: 'Friday, October 5',
+						title: '1819 Innovation Hub Grand Opening',
+						link: 'http://president.uofcincy.events/ihub-opening/'
+    				},
+					{
+						id: 10,
+						date: 'Saturday, October 6',
+						title: 'Homecoming Parade Participant Registration',
+						link: 'https://www.alumni.uc.edu/sachomecoming/parade'
+					},
+					{
+						id: 11,
+						date: 'Saturday, October 6',
+						title: 'Homecoming Parade presented by UCAA and SAC',
+						link: '#eventRegister'
+					},
+					{
+						id: 12,
+						date: 'Saturday, October 6',
+						title: 'Homecoming Tailgate on McMicken Commons',
+						link: ''
+					},
+					{
+						id: 13,
+						date: 'Saturday, October 6',
+						title: 'College of Engineering & Applied Sciences and College of Nursing Homecoming Tailgate',
+						link: 'http://www.alumni.uc.edu/collegehomecoming'
+					},
+					{
+						id: 14,
+						date: 'Saturday, October 6',
+						title: 'The Grid Tailgating and Bearcats Football Gameday',
+						link: 'https://gobearcats.com/sports/2017/6/13/2017-bearcats-football-gameday.aspx'
+					},
+					{
+						id: 15,
+						date: 'Saturday, October 6',
+						title: 'UC vs. Tulane Football',
+						link: ''
+					},
+					{
+						id: 16,
+						date: 'Saturday, October 6',
+						title: 'Homecoming Court Halftime Presentation',
+						link: ''
+					},
+					{
+						id: 17,
+						date: 'Saturday, October 6',
+						title: '4A: Homecoming Football Game Block',
+						link: 'https://www.alumni.uc.edu/4a/homecoming/footballgame'
+    				},
+    				{
+						id: 18,
+	    				date: 'Sunday, October 7',
+						title: 'Bearcats Dash & Bash',
+						link: 'http://runsignup.com/Race/OH/Cincinnati/BearcatsDashnBash'
+    				},
+				],
+				fiftyFiftySection: [
+    				{
+						id: 1,
+	    				searchFieldText: 'Homecoming-Kick-Off-Party1.png',
+			    		srcURL: 'https://www.alumni.uc.edu/image/events/homecoming/2018/Homecoming-Kick-Off-Party1.png?tsize=100',
+	    				heading: 'Homecoming Kickoff Party',
+	    				text: 'Start your weekend under the lights of the U Square Piazza. Bring your whole family to the Official Homecoming Kickoff Party! Featuring local food and beer vendors and music by The Whammies, it’s the perfect Friday night in Clifton.'
+	    			},
+	    			{
+						id: 2,
+	    				searchFieldText: 'Homecoming-Kick-Off-Party1.png',
+						srcURL: 'https://www.alumni.uc.edu/image/events/homecoming/2018/Homecoming-Kick-Off-Party1.png?tsize=100',
+						heading: 'Homecoming Parade',
+	    				text: 'Line Clifton Avenue to watch the ultimate “down the drive!” Saturday morning, student groups and community members alike show off their best Bearcat spirit.<br /><br />Be sure to stop by the UC Alumni Association pop-up tent for complimentary coffee from Rooted Grounds.'
+	    			},
+	    			{
+						id: 3,
+	    				searchFieldText: 'Homecoming-Kick-Off-Party1.png',
+						srcURL: 'https://www.alumni.uc.edu/image/events/homecoming/2018/Homecoming-Kick-Off-Party1.png?tsize=100',
+						heading: 'Homecoming Tailgate',
+	    				text: 'Before Cincinnati takes on Tulane, stop by the all-alumni tailgate, located on McMicken Commons.<br /><br />It’s the perfect place to catch up with fellow alumni. This is also your opportunity to pick up exclusive Bicentennial giveaways, so don’t miss out!'
+	    			}
+				],
+				galleryImages: [
+    				{
+						id: 1,
+	    				searchFieldText: 'Homecoming-Kick-Off-Party1.png',
+			    		srcURL: 'https://www.alumni.uc.edu/image/events/Homecoming-Football-Game-_372_1.png?tsize=100'
+    				},
+    				{
+						id: 2,
+	    				searchFieldText: 'Homecoming-Parade-_130_.png',
+			    		srcURL: 'https://www.alumni.uc.edu/image/events/Homecoming-Parade-_130_.png?tsize=100'
+    				},
+    				{
+						id: 3,
+	    				searchFieldText: 'Homecoming-Football-Game-_213_.png',
+			    		srcURL: 'https://www.alumni.uc.edu/image/events/Homecoming-Football-Game-_213_.png?tsize=100'
+    				},
+    				{
+						id: 4,
+	    				searchFieldText: '091024vGame108.png',
+			    		srcURL: 'https://www.alumni.uc.edu/image/events/091024vGame108.png?tsize=100'
+    				},
+    				{
+						id: 5,
+	    				searchFieldText: '091024vGame036.png',
+			    		srcURL: 'https://www.alumni.uc.edu/image/events/091024vGame036.png?tsize=100'
+    				},
+    				{
+						id: 6,
+	    				searchFieldText: 'Homecoming-Football-Game-_289_.png',
+			    		srcURL: 'https://www.alumni.uc.edu/image/events/Homecoming-Football-Game-_289_.png?tsize=100'
+    				}
+				],
+				sponsors: [
+    				{
+						id: 1,
+	    				searchFieldText: 'Nationwide-Logo.png',
+						srcURL: 'https://www.alumni.uc.edu/image/email/logos/partners/homecoming/Nationwide-Logo.png?tsize=100',
+						url: 'https://www.nationwide.com/',
+	    				level: 'Premier'
+					},
+					{
+						id: 2,
+	    				searchFieldText: 'skyline_logo.png',
+						srcURL: 'https://www.alumni.uc.edu/image/email/logos/partners/homecoming/skyline_logo.png?tsize=100',
+						url: 'https://www.skylinechili.com/',
+	    				level: 'Bearcat'
+					},
+					{
+						id: 3,
+	    				searchFieldText: 'Ohio_529_CA_Logo_Outline_Web.png',
+						srcURL: 'https://www.alumni.uc.edu/image/email/logos/partners/homecoming/Ohio_529_CA_Logo_Outline_Web.png?tsize=100',
+						url: 'https://www.collegeadvantage.com/',
+	    				level: 'Redblack'
+					}
+				]
+			}];
+
+			var $eventValues = BLACKBAUD.api.customPartEditor.settings.eventData;
+			
+			// Get part ID
+            var $partID = $('#pagecntnt_tmpltcntnt_tabContentTabs__ctl1_props1_lblPartId').text();
+
+			new Vue({
+	            el: '#app',
+	            data() {
+	                return {
+	             		events: $eventValues
+	                };
+	            },
+	            computed:{
+		           	partIDEvent: function() {
+		                return this.events.filter(function(event) {
+							//console.log('return id: ' + event.id);
+		                	return event.id == 5311;
+		                })
+		    		}
+	            },
+			    mounted: function($) { 
+					console.log($testEventValues);
+					console.log($eventValues);
+					
+                    this.setupSettings();
+                    this.bindImagePicker();
+                    this.bindSave();                  
+                },
+	           	methods: {
+					setupSettings:function() {
+                        if (typeof BLACKBAUD.api.customPartEditor.settings.eventData == 'undefined') {
+                            BLACKBAUD.api.customPartEditor.settings.eventData = {
+                                id: $partID,
+								title: '',
+								heroSubheading: '',
+								heroVideoURL: '',
+								image: {
+									// name: '',
+                                    url: ''
+								},
+								welcomeHeading: '',
+								welcomeImage: {
+									searchFieldText: '',
+									srcURL: ''
+								},
+								welcomeText: '',
+								welcomeEvents: [
+									{
+										id: '',
+										title: '',
+										date: '',
+										time: '',
+										location: ''
+									}
+								],
+								welcomeLookForText: '',
+								eventListing: [
+									{
+										id: '',
+										date: '',
+										title: '',
+										link: ''
+									}
+								],
+								fiftyFiftySection: [
+									{
+										id: '',
+										searchFieldText: '',
+										srcURL: '',
+										heading: '',
+										text: ''
+									}
+								],
+								galleryImages: [
+									{
+										id: '',
+										searchFieldText: '',
+										srcURL: ''
+									}
+								]
+                            }
+                        }
+                    },				
+					bindImagePicker() {
+						if (!BLACKBAUD.api.customPartEditor.images.canLaunchImagePicker) {
+                            $('.error-permission').show();
+                        } else {
+                            $('a.ImagePicker').on('click', (e) => {
+                                e.preventDefault();
+                                BLACKBAUD.api.customPartEditor.images.launchImagePicker({
+                                    callback: this.renderImage
+                                });
+                            });
+                        }
+					},
+					bindSave:function () {
+                        BLACKBAUD.api.customPartEditor.onSave = function() {
+                            var $items = [],
+                                success = true;
+                            $('.error-validation').hide();
+                            $('[data-validate]').each(function() {
+                                var element = $(this);
+                                if (element.val() == '') {
+                                    $(element.data('validate')).show();
+                                    success = false;
+                                }
+                            });
+
+                            // Save data                            
+							var rowdata = {
+                                id: $('#eventID').val(),
+								title: $('#eventTitle').val(),
+								heroSubheading: $('#heroSubheading').val(),
+								heroVideoURL: $('#heroVideoURL').val(),
+								image: {
+									name: $('.ImagePicker .SearchFieldText').text(),
+                                    url: $('.ImagePickerRender img').prop('src')
+								},
+								welcomeHeading: $('#welcomeHeading').val(),
+								welcomeText: $('#welcomeText').val(),
+								welcomeImage: {
+									searchFieldText: $('#welcomeImageText').val(),
+									srcURL: $('#welcomeImageURL').val()
+								},
+								welcomeEvents: [
+									event.welcomeEvents
+								],
+								welcomeLookForText: $('#welcomeLookForText').val(),
+								eventListing: [
+									event.eventListing
+								],
+								fiftyFiftySection: [
+									event.fiftyFiftySection
+								],
+								galleryImages: [
+									event.galleryImages
+								]
+                            };
+
+                            $items.push(rowdata);
+
+                            BLACKBAUD.api.customPartEditor.settings["eventData"] = $items;
+
+							// BLACKBAUD.api.customPartEditor.settings["eventData"] = $testEventValues;
+
+							// BLACKBAUD.api.customPartEditor.settings["eventTestData"] = this.events;
+
+                            return success;
+                        }
+                    },
+					renderImage:function(o) {
+                        if (typeof o.name != 'undefined' && o.url != 'undefined') {
+                            $('.ImagePicker .SearchFieldText').text(o.name);
+                            $('#imagePicker').prop('src', o.url);
+                        }
+						console.log("o.name: " + o.name);
+                        console.log("o.url: " + o.url);                   
+
+						BLACKBAUD.api.customPartEditor.settings.eventData.image = o;
+                    },
+					addWelcomeEventToEvent(event) {
+					    // generate an id
+						let id = ''
+						if (event.welcomeEvents == 0) {
+							id = 1
+						} else {
+							id = Math.max(...(event.welcomeEvents.map((event) => event.id))) + 1
+						}
+
+				        event.welcomeEvents.push({ "id": id, "title": "", "time": "", "location": "" });
+
+				        // BLACKBAUD.api.customPartEditor.settings["todo"] = event.welcomeEvents;
+						BLACKBAUD.api.customPartEditor.settings["eventData"] = this.events;
+
+				        // Required to allow the settings to save and the part to close
+						return true;
+				    },
+					removeWelcomeEventFromEvent(event) {
+					    let eventIndex = event.welcomeEvents.findIndex(eventItem => eventItem === event)
+						event.welcomeEvents.splice(eventIndex, 1)
+
+						// BLACKBAUD.api.customPartEditor.settings["todo"] = event.welcomeEvents;
+						BLACKBAUD.api.customPartEditor.settings["eventData"] = this.events;
+
+				        // Required to allow the settings to save and the part to close
+						return true;
+				    },
+					addEventListingToEvent(event) {
+					    // generate an id
+						let id = ''
+						if (event.eventListing == 0) {
+							id = 1
+						} else {
+							id = Math.max(...(event.eventListing.map((event) => event.id))) + 1
+						}
+
+				        event.eventListing.push({ "id": id, "date": "", "title": "", "link": "" });
+
+				        // BLACKBAUD.api.customPartEditor.settings["todo"] = event.welcomeEvents;
+						BLACKBAUD.api.customPartEditor.settings["eventData"] = this.events;
+
+				        // Required to allow the settings to save and the part to close
+						return true;
+				    },
+					removeEventListingFromEvent(event) {
+					    let eventListingIndex = event.eventListing.findIndex(eventListingItem => eventListingItem === event)
+						event.eventListing.splice(eventListingIndex, 1)
+
+						// BLACKBAUD.api.customPartEditor.settings["todo"] = event.welcomeEvents;
+						BLACKBAUD.api.customPartEditor.settings["eventData"] = this.events;
+
+				        // Required to allow the settings to save and the part to close
+						return true;
+				    },
+					addFiftyFiftyRowToFiftyFifty(event) {
+					    // generate an id
+						let id = ''
+						if (event.fiftyFiftySection == 0) {
+							id = 1
+						} else {
+							id = Math.max(...(event.fiftyFiftySection.map((event) => event.id))) + 1
+						}
+
+				        event.fiftyFiftySection.push({ "id": id, "searchFieldText": "", "srcURL": "", "heading": "", "text": "" });
+
+						BLACKBAUD.api.customPartEditor.settings["eventData"] = this.events;
+
+				        // Required to allow the settings to save and the part to close
+						return true;
+				    },
+					removeFiftyFiftyRowFromFiftyFifty(event) {
+					    let fiftyFiftyIndex = event.fiftyFiftySection.findIndex(fiftyFiftyItem => fiftyFiftyItem === event)
+						event.fiftyFiftySection.splice(fiftyFiftyIndex, 1)
+
+						BLACKBAUD.api.customPartEditor.settings["eventData"] = this.events;
+
+				        // Required to allow the settings to save and the part to close
+						return true;
+				    },
+					addGalleryImageToGallery(event) {
+					    // generate an id
+						let id = ''
+						if (event.galleryImages == 0) {
+							id = 1
+						} else {
+							id = Math.max(...(event.galleryImages.map((event) => event.id))) + 1
+						}
+				        event.galleryImages.push({ "id": id, "searchFieldText": "", "srcURL": "" });
+						BLACKBAUD.api.customPartEditor.settings["eventData"] = this.events;
+				        // Required to allow the settings to save and the part to close
+						return true;
+				    },
+					removeGalleryImageFromGallery(event) {
+					    let galleryIndex = event.galleryImages.findIndex(galleryItem => galleryItem === event)
+						event.galleryImages.splice(galleryIndex, 1)
+						BLACKBAUD.api.customPartEditor.settings["eventData"] = this.events;
+				        // Required to allow the settings to save and the part to close
+						return true;
+				    },
+					addSponsorRowToSponsor(event) {
+					    // generate an id
+						let id = ''
+						if (event.sponsors == 0) {
+							id = 1
+						} else {
+							id = Math.max(...(event.sponsors.map((event) => event.id))) + 1
+						}
+				        event.sponsors.push({ "id": id, "searchFieldText": "", "srcURL": "", "url": "", "level": "" });
+						BLACKBAUD.api.customPartEditor.settings["eventData"] = this.events;
+				        // Required to allow the settings to save and the part to close
+						return true;
+				    },
+					removeSponsorRowFromSponsor(event) {
+					    let sponsorsIndex = event.sponsors.findIndex(sponsorsItem => sponsorsItem === event)
+						event.sponsors.splice(sponsorsIndex, 1)
+						BLACKBAUD.api.customPartEditor.settings["eventData"] = this.events;
+				        // Required to allow the settings to save and the part to close
+						return true;
+				    }
+	            }
+	        })
+		});
+
+	}(jQuery);
+
+	/* =================================== */
+
+    //var $partID = $('#pagecntnt_tmpltcntnt_tabContentTabs__ctl1_props1_lblPartId').text();
+
+       //var test = [{id: 5285, title: "Onyx and Ruby Gala", heroSubheading: "Onyx and Ruby Gala hero subheading", heroVideoURL: "https://www.youtube.com/watch?v=qg-TGLSF-ho"}];
+       //var test = BLACKBAUD.api.customPartEditor.settings.eventData;
+</script>
