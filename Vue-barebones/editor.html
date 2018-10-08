@@ -1,0 +1,84 @@
+<div id="app">
+    <div v-for="event in partIDEvents" :key="event.id">
+        <p>
+            <label for="greeting">Greeting:</label>
+            <input type="text" id="greeting" v-model="event.greeting" />
+        </p>
+        <!-- <button v-on:click="saveBarebones">Save Barebones Data</button> -->
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<script>
+!function($) {
+
+    $(function() {
+
+        var $greetingValues = [
+            {
+                id: 3272,
+                greeting: 'New greeting text'                  			
+            }
+        ];
+
+        var $bbisValues = BLACKBAUD.api.customPartEditor.settings.barebonesExample;
+
+        // Get part ID
+        var $partID = $('#pagecntnt_tmpltcntnt_tabContentTabs__ctl1_props1_lblPartId').text();
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {						
+                    events: $greetingValues
+                };
+            },
+            computed:{
+                partIDEvents: function() {
+                    return this.events.filter(function(event) {
+                        return event.id == 3272;
+                    })
+                }	            
+            },
+            mounted: function($) {
+                // console.log($greetingValues);
+                console.log($bbisValues);
+
+                this.setupSettings();
+                this.bindSave();
+
+            },
+            methods: {
+                setupSettings:function() {
+                    if (typeof BLACKBAUD.api.customPartEditor.settings.barebonesExample == 'undefined') {
+                        BLACKBAUD.api.customPartEditor.settings.barebonesExample = {
+                            id: $partID,
+                            greeting: ''
+                        }
+                    }
+                },
+                bindSave:function () {
+                    BLACKBAUD.api.customPartEditor.onSave = function() {
+                        // Save data
+                        var items = [];
+                        var rowdata = {
+                            id: parseInt($partID),                                 
+                            greeting: $('#greeting').val()
+                        };
+                        items.push(rowdata);                    
+
+                        // Save our greeting
+                        BLACKBAUD.api.customPartEditor.settings["barebonesExample"] = items;
+                        
+                        // Required to allow the settings to save and the part to close
+                        return true;
+                    };
+                }
+            }
+        });        
+    });
+
+}(jQuery);     
+</script>
