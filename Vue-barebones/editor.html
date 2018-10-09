@@ -1,10 +1,12 @@
 <div id="app">
     <div v-for="event in partIDEvents" :key="event.id">
         <p>
+            <label>ID: {{ event.id }}</label>            
             <label for="greeting">Greeting:</label>
             <input type="text" id="greeting" v-model="event.greeting" />
         </p>
-        <!-- <button v-on:click="saveBarebones">Save Barebones Data</button> -->
+        <button v-on:click.prevent="checkData">Check Data</button>
+
     </div>
 </div>
 
@@ -12,18 +14,23 @@
 
 
 <script>
-!function($) {
-
+!function($) {  
     $(function() {
 
         var $greetingValues = [
             {
                 id: 3272,
-                greeting: 'New greeting text'                  			
+                greeting: 'New 3272 greeting text'                  			
+            }, 
+            {
+                id: 9999,
+                greeting: 'New 9999 greeting text'                  			
+            },
+            {
+                id: 5111,
+                greeting: 'New 5111 greeting text'                  			
             }
         ];
-
-        var $bbisValues = BLACKBAUD.api.customPartEditor.settings.barebonesExample;
 
         // Get part ID
         var $partID = $('#pagecntnt_tmpltcntnt_tabContentTabs__ctl1_props1_lblPartId').text();
@@ -42,43 +49,53 @@
                     })
                 }	            
             },
+            watch: {
+                'event.greeting': function(value) {
+                    console.log('Greeting changed, new value: ' + value);
+                }
+            },
             mounted: function($) {
+                var $bbisValues = BLACKBAUD.api.customPartEditor.settings.barebonesExample;
                 // console.log($greetingValues);
-                console.log($bbisValues);
+                console.log('$bbisValues');
+                console.log(BLACKBAUD.api.customPartEditor.settings.barebonesExample);
 
-                this.setupSettings();
+                console.log('this.events');
+                console.log(this.events);
+
+                // this.setupSettings();
                 this.bindSave();
 
-            },
+            },      
             methods: {
-                setupSettings:function() {
-                    if (typeof BLACKBAUD.api.customPartEditor.settings.barebonesExample == 'undefined') {
-                        BLACKBAUD.api.customPartEditor.settings.barebonesExample = {
-                            id: $partID,
-                            greeting: ''
-                        }
-                    }
+                checkData: function() {
+                    this.updateGreeting('The VueJS Instance (Updated)')
                 },
-                bindSave:function () {
+                updateGreeting: function(greeting) {
+                    this.greeting = greeting;
+                    console.log(this.events);
+                    $bbisValues = this.events;
+                    console.log($bbisValues);
+                },
+                bindSave: function () {
                     BLACKBAUD.api.customPartEditor.onSave = function() {
                         // Save data
-                        var items = [];
-                        var rowdata = {
-                            id: parseInt($partID),                                 
-                            greeting: $('#greeting').val()
-                        };
-                        items.push(rowdata);                    
+                        var items = [],
+                            success = true;
+
+                        items = $bbisValues;              
 
                         // Save our greeting
                         BLACKBAUD.api.customPartEditor.settings["barebonesExample"] = items;
-                        
+
                         // Required to allow the settings to save and the part to close
-                        return true;
-                    };
+                        return success;  
+                    }             
                 }
             }
-        });        
-    });
+            
+        });
 
-}(jQuery);     
+    });  
+}(jQuery);            
 </script>
