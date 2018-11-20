@@ -1,0 +1,1098 @@
+<p class="script-container">
+    <script type="text/javascript" src="https://foundation.uc.edu/file/annual-report/js/init-blackbaud.js"></script>
+</p>
+<div id="app" :ref="app">       
+    <nav id="cd-vertical-nav" >
+        <ul>
+            <li>
+                <a href="#cover" data-number="1">
+                    <span class="cd-dot"></span>
+                    <span class="cd-label">COVER</span>
+                </a>
+            </li>
+            <li>
+                <a href="#intro" data-number="2">
+                    <span class="cd-dot"></span>
+                    <span class="cd-label">INTRO</span>
+                </a>
+            </li>
+            <li>
+                <a href="#impact" data-number="3">
+                    <span class="cd-dot"></span>
+                    <span class="cd-label">IMPACT STORIES</span>
+                </a>
+            </li>
+            <li>
+                <a href="#financials" data-number="4">
+                    <span class="cd-dot"></span>
+                    <span class="cd-label">FINANCIAL REPORT</span>
+                </a>
+            </li>
+            <li>
+                <a href="#yearGlance" data-number="5">
+                    <span class="cd-dot"></span>
+                    <span class="cd-label">YEAR AT A GLANCE</span>
+                </a>
+            </li>
+            <li>
+                <a href="#pointsPride" data-number="6">
+                    <span class="cd-dot"></span>
+                    <span class="cd-label">POINTS OF PRIDE</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <a class="cd-nav-trigger cd-img-replace">Open navigation<span></span></a>
+    
+    <section id="cover" class="cd-section cover animateblock" v-bind:style="{ backgroundImage: 'url(' + cover.bgImage + ')' }">
+        <span class="borderTriangle" :ref="covertriangle"></span>
+        <h2 id="redefining">{{ cover.redefining }}</h2>
+        <h1 id="next">{{ cover.next }}</h1>
+        <div class="cover-text">
+            <h2>{{ cover.title }}</h2>
+            <h3>{{ cover.subtitle }}</h3>
+            <img :src="cover.logo" />
+        </div>
+    </section>
+    
+    <section id="intro" class="cd-section intro animateblock" v-bind:style="{ backgroundImage: 'url(' + intro.bgImage + ')' }">
+        <div class="intro-container" :ref="intro">
+            <div class="intro-text" v-html="intro.text"></div>
+        </div>
+        <span class="intro-diagonal" v-bind:style="{ right: right + 'px' }"></span>
+    </section>        
+
+    <section id="impact" class="cd-section">
+        <h2 class="mobile-heading">IMPACT STORIES</h2>
+        <div class="carousel animateblock">
+            <div class="carousel-inner">
+                <div v-for="(slide, index) in slides" class="carousel-inner-image" :data-active-slide="activeIndex === index" :style="{ backgroundImage: 'url(' + `${slide.image}` + ')' }">
+                    <div class="redBg" :style="{ backgroundImage: 'url(' + `${slide.textBg}` + ')' }">
+                        <div class="clipAngleUp"></div>
+                        <div class="slideTextContainer" v-html="slide.text"></div>
+                    </div>
+                    <p class="title"><span>REDEFINING <span class="nextTxt">NEXT</span> BY <span class="title-text">{{ slide.title }}</span></span></p>
+                    <span class="borderTriangle"></span>
+                    <h2 class="triangleText">REDEFINING <span>NEXT</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="thumbs">
+            <div v-for="(thumbnail,index) in thumbnails" class="thumbs-thumbnail">
+                <button :data-active-button="activeIndex === index" @click="update(index)">
+                    <img :src="`${thumbnail.image}`" />
+                    <p><span>{{ thumbnail.title }}</span></p>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="financials" class="cd-section financials animateblock">
+        <h2 class="mobile-heading">FUNDRAISING REPORT</h2>
+        <div class="one-half image" v-bind:style="{ backgroundImage: 'url(' + financials.image + ')' }">
+            <span class="borderTriangle"></span>
+            <h2 class="triangleText">FUNDRAISING<br />REPORT</h2>                
+        </div>
+        <div class="one-half graphs">
+            <h2>FISCAL YEAR 2018 COMMITMENTS*</h2>
+            <span class="odometer"></span>
+            <h4>in Total Funds</h4>
+            <div class="graph-type-container">                    
+                <ul>
+                    <li v-for="(type, index) in financials.types" :class="{ active: financials.selected == index }"> 
+                        <span @click="toggle(type)">{{ type.name }}</span> 
+                    </li>
+                </ul>
+            </div>
+            <div class="chart-container" v-if="financials.selected === '0'">
+                <purpose-chart></purpose-chart>
+            </div>              
+            <div class="chart-container" v-if="financials.selected === '1'">
+                <fund-chart></fund-chart>
+            </div>                
+            <div class="chart-container" v-if="financials.selected === '2'">
+                <source-chart></source-chart>
+            </div>      
+            <div class="button-container">
+                <button id="show-modal" @click.prevent="openModal(showModal)">View Financial Highlights</button>
+                
+            </div>  
+            <em>*Excludes UC Health contribution, non-government research fund, software gifts-in-kind, campaign-only gifts.</em> 
+        </div>
+        <modal v-if="showModal" @close="showModal = false">
+            <button slot="closebutton" class="modal-default-button" @click.prevent="closeModal(showModal)">X</button> 
+            <h3 slot="header"><span>FINANCIAL HIGHLIGHTS</span></h3>
+            <h4 slot="subHeader">UC FOUNDATION AND UC HEALTH FOUNDATION COMBINED*</h4>                                
+            <div slot="body">
+                <vue-tabs>
+                    <vue-tab label="REVENUES/EXPENSES" :active="true">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>REVENUES</th>
+                                    <th>2018 TOTAL</th>
+                                    <th>2017 TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="revenue in revenues" v-bind:class="{ bold: revenue.bold }">
+                                    <td>{{revenue.title}}</td>
+                                    <td><span v-if="revenue.bold">$</span>{{revenue.total18.toLocaleString()}}</td>
+                                    <td><span v-if="revenue.bold">$</span>{{revenue.total17.toLocaleString()}}</td>
+                                </tr>    
+                            </tbody>
+                            <thead>                                
+                                <tr class="strong">
+                                    <th>EXPENSES</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="expense in expenses" v-bind:class="{ bold: expense.bold }">
+                                    <td>{{expense.title}}</td>
+                                    <td><span v-if="expense.bold">$</span>{{expense.total18.toLocaleString()}}</td>
+                                    <td><span v-if="expense.bold">$</span>{{expense.total17.toLocaleString()}}</td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <tr v-for="otherExpense in otherExpenses" v-bind:class="{ bold: otherExpense.bold }">
+                                    <td>{{otherExpense.title}}</td>
+                                    <td><span v-if="otherExpense.bold">$</span>{{otherExpense.total18.toLocaleString()}}</td>
+                                    <td><span v-if="otherExpense.bold">$</span>{{otherExpense.total17.toLocaleString()}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </vue-tab>
+                    <vue-tab label="ASSETS/LIABILITIES">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ASSETS</th>
+                                    <th>2018 TOTAL</th>
+                                    <th>2017 TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="asset in assets" v-bind:class="{ bold: asset.bold }">
+                                    <td>{{asset.title}}</td>
+                                    <td><span v-if="asset.bold">$</span>{{asset.total18.toLocaleString()}}</td>
+                                    <td><span v-if="asset.bold">$</span>{{asset.total17.toLocaleString()}}</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th>LIABILITIES</th>
+                                    <th>2018 TOTAL</th>
+                                    <th>2017 TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="liability in liabilities" v-bind:class="{ bold: liability.bold }">
+                                    <td>{{liability.title}}</td>
+                                    <td><span v-if="liability.bold">$</span>{{liability.total18.toLocaleString()}}</td>
+                                    <td><span v-if="liability.bold">$</span>{{liability.total17.toLocaleString()}}</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th>NET ASSETS</th>
+                                    <th>2018 TOTAL</th>
+                                    <th>2017 TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="netAsset in netAssets" v-bind:class="{ bold: netAsset.bold }">
+                                    <td>{{netAsset.title}}</td>
+                                    <td><span v-if="netAsset.bold">$</span>{{netAsset.total18.toLocaleString()}}</td>
+                                    <td><span v-if="netAsset.bold">$</span>{{netAsset.total17.toLocaleString()}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </vue-tab>
+                </vue-tabs>                    
+            </div>
+        </modal>
+    </section>
+
+    <section id="yearGlance" class="cd-section year animateblock">
+        <h2 class="mobile-heading">YEAR AT A GLANCE</h2>
+        <div class="leftBg" v-bind:style="{ backgroundImage: 'url(' + yearGlanceBgLeft + ')' }"></div>
+        <span class="borderTriangle"></span>
+        <div class="triangleText">
+            <h2>YEAR AT<br />A GLANCE</h2>
+            <p class="extraBold"><strong>With the support of philanthropy, we are redefining next at UC and UC Health.</strong></p>
+            <p class="semiBold">This timeline captures some of the memorable moments of fiscal year 2018.</p>
+        </div> 
+        <div class="page">
+            <div class="app" id="glance">
+                <a v-for="yearGlance in yearGlances" class="card" :href="yearGlance.link">
+                    <div class="card__content">
+                        <div class="card__title">
+                            <img :src="yearGlance.avatar" />
+                            <div class="social-header">
+                                <p class="social-title">{{ yearGlance.name }}</p>
+                                <p class="social-date">{{ yearGlance.date }} <strong>.</strong> </p><img class="globe" :src="yearGlanceGlobe" />
+                            </div>
+                        </div>
+                        <p class="card__text">{{ yearGlance.text }}</p>
+                        <div v-if="yearGlance.position == 'top'" class="card__image top" v-bind:style="{ backgroundImage: 'url(' + yearGlance.image + ')' }"></div>
+                        <div v-else-if="yearGlance.position == 'right'" class="card__image right" v-bind:style="{ backgroundImage: 'url(' + yearGlance.image + ')' }"></div>
+                        <div v-else class="card__image" v-bind:style="{ backgroundImage: 'url(' + yearGlance.image + ')' }"></div>
+                    </div>
+                </a>                    
+            </div>
+        </div>
+    </section>
+
+    <section id="pointsPride" class="cd-section points animateblock">
+        <div class="btn-wrap">
+            <button class="prev" @click="prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            <button class="next" @click="next"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+        </div>                
+        <transition-group name="slide" tag="div" class="slider-container">
+            <div v-for="slide in pointsSlides" :key="slide.id" class="slide" v-show="slide.id == currentSlide">
+                <div v-if="slide.full" class="full-container"  :style="{ backgroundImage: `url(${slide.bgImage})` }">
+                    <span v-if="slide.id == 0" class="borderTriangle"></span>
+                    <h2 v-if="slide.triangleText" class="triangleText">POINTS<br />OF PRIDE</h2> 
+                    <h1>{{ slide.heading }}</h1>
+                    <div class="bottomright" v-html="slide.stat"></div>
+                </div>
+                <div v-else-if="slide.id == 1" class="split-image-container slide1">
+                    <div class="hero_skewed--left">
+                        <div class="unskewed--left" v-bind:style="{ backgroundImage: 'url(' + slide.leftBgImage + ')' }"></div>
+                    </div>
+                    <div class="hero_skewed--right">
+                        <div class="unskewed--right" v-bind:style="{ backgroundImage: 'url(' + slide.rightBgImage + ')' }"></div>
+                    </div>
+                    <div class="text-bottomBgImage">
+                        <div class="image-text-container">                    
+                            <div class="text-image">
+                                <p v-html="slide.kelceCelekText"></p>
+                                <img class="half" :src="slide.kelceImage" />
+                                <img class="half" :src="slide.celekImage" />
+                                <p class="caption half">{{ slide.kelceCaption }}</p>
+                                <p class="caption half">{{ slide.celekCaption }}</p>
+                            </div>                    
+                            <div class="text-image">
+                                <p v-html="slide.spencerText"></p>
+                                <img :src="slide.spencerImage" />
+                            </div>
+                        </div>
+                        <img class="bottomBgImage" :src="slide.bottomBgImage" />                             
+                    </div>
+                    <p class="trishaText" v-html="slide.trishaWiseText"></p>
+                    
+                </div>
+                <div v-else-if="slide.id == 2" class="split-image-container slide2">
+                    <div class="hero_skewed--left">
+                        <div class="unskewed--left" v-bind:style="{ backgroundImage: 'url(' + slide.leftBgImage + ')' }">
+                            <div class="text-container" v-html="slide.leftText"></div>
+                        </div>
+                    </div>
+                    <div class="hero_skewed--right">
+                        <div class="unskewed--right" v-bind:style="{ backgroundImage: 'url(' + slide.rightBgImage + ')' }">
+                            <img class="globe" :src="slide.rightTopBgImage">
+                            <div class="topright" v-html="slide.rightTopText"></div>
+                            <div class="bottomright" v-html="slide.rightBgText"></div>
+                        </div>
+                    </div>
+                </div>
+                <div v-else-if="slide.id == 3" class="split-image-container slide3">
+                    <div class="hero_skewed--left">
+                        <div class="unskewed--left">
+                            <img class="us-china-students" :src="slide.leftBgImage">
+                            <img class="map" :src="slide.map">
+                            <div class="leftText" v-html="slide.leftText"></div>
+                        </div>
+                    </div>
+                    <div class="hero_skewed--right">
+                        <div class="unskewed--right" v-bind:style="{ backgroundImage: 'url(' + slide.rightBgImage + ')' }">
+                            <div class="topright" v-html="slide.rightText"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition-group>
+    </section>
+
+    <section id="footer">
+        <div class="container centerAlign">
+            <img class="logo" :src="cover.logo" />
+        </div>
+        <div class="container">
+            <div class="one-third">
+                <h2>{{ contactTitle }}</h2>
+                <p>{{ institution }}</p>
+                <p>{{ poBox }} | {{ citySt }} {{ zip }}</p>
+                <p>{{ phone }} | {{ altPhone }}</p>
+                <p>{{ fax }} | <a :href="'mailto:' + email">{{ email }}</a></p>
+            </div>
+            <div class="one-third">
+                <h2>{{ campusTitle }}</h2>
+                <p><a :href="campusGoogleMapLink">{{ campusBuilding }}<br />{{ campusAddress }} | {{ campusCityStZip }}</a></p>
+            </div>
+            <div class="one-third">
+                <h2>{{ signUpTitle }}</h2>
+                <p>{{ signUpText }}</p>
+                <p class="margin-top-bottom-10"><a class="button" :href="signUpButtonLink">SIGN UP NOW</a></p>
+                <p><a :href="privacyPolicyLink">UC Foundation Privacy Policy</a></p>
+            </div>
+        </div>
+        <div class="copyright container centerAlign">
+            <p>Copyright Information | &copy; 2018 University of Cincinnati</p>
+        </div>            
+    </section>
+</div>
+<script type="text/javascript" src="https://foundation.uc.edu/file/annual-report/js/main.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue-carousel@0.13.1/dist/vue-carousel.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.2/lodash.min.js"></script>
+<script type="text/javascript" src="https://projects.lukehaas.me/scrollify/script/jquery.scrollify.js"></script>
+<script type="text/javascript" src="https://unpkg.com/vue-chartjs@2.6.5"></script>
+<script type="text/javascript" src="https://unpkg.com/chart.piecelabel.js"></script>
+<script type="text/javascript" src="https://foundation.uc.edu/file/annual-report/js/components.js"></script>
+<script type="text/x-template" id="modal-financials-template">
+    <transition name="modal">
+        <div class="modal-mask">
+            <div class="modal-wrapper">
+                <div class="modal-container">  
+                    <slot name="closebutton">default close button</slot>                                         
+                    <div class="modal-header">
+                        <slot name="header">default header</slot>
+                        <slot name="subHeader">default sub-header</slot>
+                    </div>                    
+                    <div class="modal-body">
+                        <slot name="body">default body</slot>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
+</script>
+<script>
+// <![CDATA[
+        
+    // Initialize height of triangle and animate triangle with text on Cover
+    onResize = function() {
+        var triangleHeight = $('#cover').height();
+        // $('.triangle').css('width', triangleHeight);
+
+        var sliderTriangleHeight = $('.carousel').height();
+        $('#sliderTriangle').css('width', sliderTriangleHeight);
+
+        // Triangle height
+        var triangleMargin = parseInt($('.triangle').css('margin-top')) + 1;
+        $('.triangle').css('margin-left', '-' + triangleMargin + 'px');
+
+        var borderWidth = parseInt($('.cover .borderTriangle').css('border-left-width'));
+        borderWidth = borderWidth + 100 + 'px';
+        
+        var windowWidth = $('body').width();
+        if (windowWidth > 768) {
+            $('.triangle').css('width', triangleHeight);
+            setTimeout(function () {
+                $('.cover .borderTriangle').animate({
+                    left: '0'
+                }, 500, function() {
+                    $('.cover #redefining').animate({
+                        left: '1em'
+                    }, 500, function() {
+                        $('.cover #next').animate({
+                            left: borderWidth
+                        }, 500);
+                        $('.cover .cover-text').fadeIn('slow');
+                    });
+                });
+            }, 1500);
+        } else {
+            $('.triangle').css('width', triangleHeight * 0.75);
+            setTimeout(function () {
+                $('.cover .borderTriangle').animate({
+                    left: '0'
+                }, 500, function() {
+                    $('.cover #redefining').animate({
+                        left: '1em'
+                    }, 500, function() {
+                        $('.cover #next').animate({
+                            left: borderWidth
+                        }, 500);
+                        $('.cover .cover-text').fadeIn('slow');
+                    });
+                });
+            }, 1500);
+        }
+    }
+
+    $(document).ready(onResize);
+    $(window).resize(onResize);
+
+    $(document).ready(function() {   
+        $('.odometer').html(000000000);
+    });
+// ]]>
+</script>
+
+<script> 
+// <![CDATA[     
+    $(function() {
+        var $elems = $('.animateblock');
+        var winheight = $(window).height();
+        var fullheight = $(document).height();
+
+        $(window).scroll(function() {
+            animate_elems();
+        });
+
+        function animate_elems() {
+            wintop = $(window).scrollTop(); // calculate distance from top of window
+
+            // loop through each item to check when it animates
+            $elems.each(function() {
+                $elm = $(this);
+
+                if ($elm.hasClass('animated')) {
+                    return true;
+                } // if already animated skip to the next item
+
+                topcoords = $elm.offset().top; // element's distance from top of page in pixels
+                
+                var windowWidth = $('body').width();
+                if (windowWidth < 768) {
+                    // ABOVE 768px
+                    if (wintop > (topcoords - (winheight * .75))) {
+                        // animate when top of the window is 3/4 above the element
+                        $elm.addClass('animated'); 
+
+                        if ($elm.hasClass('intro')) {
+                            $('.intro p').each(function(i) {
+                                delay =(i)*500;
+                                setTimeout(function (p) {
+                                    p.show().addClass('animated slideInLeft');
+                                }, delay, $(this));
+                            });
+                        }  
+                        if ($elm.hasClass('carousel')) {
+                            setTimeout(function () {
+                                $('.carousel .borderTriangle').animate({
+                                    left: '0'
+                                }, 500, function() {
+                                    $('.carousel .triangleText').animate({
+                                        left: '1em'
+                                    }, 500);
+                                    $('.thumbs-thumbnail p > span').each(function(i) {
+                                        delay =(i)*400;
+                                        setTimeout(function (span) {
+                                            span.show().addClass('animated slideInDown');
+                                        }, delay, $(this));
+                                    });
+                                });
+                            }, 1500);
+                        }
+                        if ($elm.hasClass('financials')) {
+                            setTimeout(function () {
+                                $('.odometer').text(104008153);
+                                $('.financials .borderTriangle').animate({
+                                    left: '0'
+                                }, 500, function() {
+                                    $('.financials .triangleText').animate({
+                                        left: '1em'
+                                    }, 500);
+                                });
+                            }, 1500);
+                        }                      
+                        if ($elm.hasClass('year')) {
+                            setTimeout(function () {
+                                $('.year .borderTriangle').animate({
+                                    left: '0'
+                                }, 500, function() {
+                                    $('.year .triangleText').animate({
+                                        left: '1em'
+                                    }, 500);
+                                });
+                            }, 1500);
+                        }                               
+                        if ($elm.hasClass('points')) {
+                            setTimeout(function () {
+                                $('.points .borderTriangle').animate({
+                                    left: '0em'
+                                }, 500, function() {
+                                    $('.points .triangleText').animate({
+                                        left: '1em'
+                                    }, 500);
+                                });
+                            }, 1500);
+                        } 
+                    }
+                } else {
+                    if (wintop > (topcoords - (winheight * .75))) {
+                        // animate when top of the window is 3/4 above the element
+                        $elm.addClass('animated'); 
+
+                        if ($elm.hasClass('intro')) {
+                            $('.intro p').each(function(i) {
+                                delay =(i)*500;
+                                setTimeout(function (p) {
+                                    p.show().addClass('animated slideInLeft');
+                                }, delay, $(this));
+                            });
+                        }  
+                        if ($elm.hasClass('carousel')) {
+                            setTimeout(function () {
+                                $('.carousel .borderTriangle').animate({
+                                    left: '0'
+                                }, 500, function() {
+                                    $('.carousel .triangleText').animate({
+                                        left: '1em'
+                                    }, 500);
+                                    $('.thumbs-thumbnail p > span').each(function(i) {
+                                        delay =(i)*400;
+                                        setTimeout(function (span) {
+                                            span.show().addClass('animated slideInDown');
+                                        }, delay, $(this));
+                                    });
+                                });
+                            }, 1500);
+                        }
+                        if ($elm.hasClass('financials')) {
+                            setTimeout(function () {
+                                $('.odometer').text(104008153);
+                                $('.financials .borderTriangle').animate({
+                                    left: '0'
+                                }, 500, function() {
+                                    $('.financials .triangleText').animate({
+                                        left: '1em'
+                                    }, 500);
+                                });
+                            }, 1500);
+                        }  
+                        if ($elm.hasClass('year')) {
+                            setTimeout(function () {
+                                $('.year .borderTriangle').animate({
+                                    left: '0'
+                                }, 500, function() {
+                                    $('.year .triangleText').animate({
+                                        left: '1em'
+                                    }, 500);
+                                });
+                            }, 1500);
+                        }                                                                 
+                        if ($elm.hasClass('points')) {
+                            setTimeout(function () {
+                                $('.points .borderTriangle').animate({
+                                    left: '0em'
+                                }, 500, function() {
+                                    $('.points .triangleText').animate({
+                                        left: '1em'
+                                    }, 500);
+                                });
+                            }, 1500);
+                        } 
+                    }
+                }
+            });
+        } // end animate_elems()
+    });   
+// ]]>         
+</script>
+
+<script>
+// <![CDATA[
+    $(function() {
+        $.scrollify({
+            section: ".cd-section",
+            //sectionName:false,
+            updateHash: false,
+            scrollbars: false,
+            scrollSpeed: 1100,
+            after: function(i) {                    
+                if(i===2) {
+                    $.scrollify.setOptions({
+                        easing:"easeOutExpo"
+                    });
+                }
+            }
+        });
+        $(".scroll,.scroll-btn").click(function(e) {
+            e.preventDefault();
+            $.scrollify.next();
+        });
+    });
+// ]]>
+</script>
+<script type="text/javascript">
+// <![CDATA[
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            right: '0px',
+            fullWidth: document.documentElement.clientWidth,
+
+            cover: {
+                bgImage: '/image/annual-report/2018/cover/UC-Campus-Scenes0286.jpg',
+                redefining: 'REDEFINING',
+                next: 'NEXT',
+                title: 'ANNUAL REPORT',
+                subtitle: 'Fiscal Year 2018',
+                logo: '/image/annual-report/2018/logo-ucFoundation.png'
+            },
+            
+            intro: {
+                bgImage: '/image/annual-report/2018/intro/UC-Campus-Scenes0164.jpg',
+                text: '<p>At the University of Cincinnati and UC Health, <span class="nextTxt">NEXT</span> means breaking a path for a new generation of leaders and affording opportunities to broaden our worldview.</p><p><span class="nextTxt">NEXT</span> means expanding our creative potential to innovate our approach to education and patient care.</p><p><span class="nextTxt">NEXT</span> means solving complex societal problems and saving people\'s lives.</p><p><strong>We\'re not just anticipating the future—with your help, we\'re already changing its course. Together, we can redefine <span class="nextTxt">NEXT</span> for our region, nation and world.</strong></p>'
+            },
+            
+            // Impact Stories
+            activeIndex: 0,
+            slides: [
+                { 
+                    image: '/image/annual-report/2018/impactstories/chara-hood.jpg',
+                    title: 'INVENTING TOMORROW',
+                    text: '<p>Chara Hood is not easily discouraged. During a recent co-op with L&#39;Oréal, the third year chemical engineering student was asked to resolve why a machine wasn\'t capping a shampoo bottle efficiently, a challenge she relished.</p><blockquote>"I have a knack for looking at multiple perspectives of a problem and finding solutions," she says. "That\'s why I am drawn to engineering."</blockquote><p>The same determination that allowed her to conquer the shampoo cap propelled Hood to seek out UC\'s Emerging Ethnic Engineers (E3), a program empowering underrepresented ethnic students in UC\'s College of Engineering and Applied Science. Through E3, Hood found her best friends, connected with faculty and received a much-needed scholarship from the Marathon Petroleum Scholars program.</p><p>Marathon Petroleum, a Fortune 500 Company, has been providing E3 students with scholarship support, co-op placements and student opportunities since 2015.</p><p>As one of seven children, Hood is solely responsible for her education. She has an excellent academic record, but paying her bills is tough.</p><p>Even innate problem-solvers need help, and to date 34 students, including Hood, have received scholarships from Marathon; eight students have completed Marathon co-ops.</p><p>"The Marathon scholarship changed my life," Hood says. "Without it, I would not have been able to stay in school."</p>',
+                    textBg: '/image/annual-report/2018/impactstories/UC-Campus-Scenes0920-bw.jpg'
+                },
+                { 
+                    image: '/image/annual-report/2018/impactstories/crawford.jpg',
+                    title: 'OPENING DOORS',
+                    text: '<p>After 55 years of marriage, Dr. Alvin Crawford and Alva Jean Crawford still make each other laugh. Together, they\'ve attended college, raised a family, built successful careers. All of this is rooted in the love and lessons bestowed by their families.</p><p>The Memphis natives learned that lifting others was part of daily life. Taking this to heart, Dr. Crawford became a pediatric orthopedic surgeon; he is Professor Emeritus in Pediatrics and Orthopedic Surgery at UC\'s College of Medicine and a UC Health physician. Mrs. Crawford is a retired high school educator.</p><blockquote>"If someone helps you and you\'re on the receiving end, you really never ever forget that," Dr. Crawford says. "If you\'re on the giving end, it just feels good."</blockquote><p>Because of their passion for supporting students with diverse backgrounds and financial need, as well as a mutual love for education and the arts, the Crawfords created two new scholarships—one at the College of Medicine, another at the College-Conservatory of Music.</p><p>"People are assured better health care, a better life and a better retirement if they go to college," Mrs. Crawford says. "I want people who can help students to realize they can make a difference."</p><div class="image-text"><img  src="/image/annual-report/2018/impactstories/Dr_Crawford_President_Pinto.jpg"><em>Dr. Alvin Crawford was conferred with an honorary doctoral degree at 2018 commencement. He is pictured with UC Trustee Margaret K. Valentine and President Pinto.</em></div>',
+                    textBg: '/image/annual-report/2018/impactstories/UC-Campus-Scenes1001-bw.jpg'
+                },
+                { 
+                    image: '/image/annual-report/2018/impactstories/heidi-jark.jpg',
+                    title: 'SAVING LIVES',
+                    text: '<p>At 19, Heidi Jark endured 40 rounds of radiation for Hodgkin\'s lymphoma. She spent three months living alone in a hotel while receiving treatment in Rochester, Minnesota, 350 miles away from her parents\' farm where they were tending to planting season.</p><p>Thirty-four years later, as managing director and senior vice president of the Foundation Office at Fifth Third Bank, she played a role in the decision to give $10 million toward the Cincinnati Cancer Center\'s effort to achieve a National Cancer Institute (NCI) designation.</p><blockquote>"When you think of the impact any disease has and if we can do something to improve the quality of care for our own employees and citizens, why would we not do that?" she says. "Why would we not make the investment?"</blockquote><p>The Cincinnati Cancer Center is a collaboration of UC, UC Health and Cincinnati Children\'s Hospital Medical Center. NCI designation will attract more research funding, fuel economic growth and create better outcomes for cancer patients.</p><p>Jark credits her survival to research.</p><p>"To be able to bring more research and clinical trials here with NCI designation just opens the doors for so many more survivors. When you throw resources and great minds together, we\'re all going to benefit."</p>',
+                    textBg: '/image/annual-report/2018/impactstories/heidi-jark-bw.png'
+                },
+                { 
+                    image: '/image/annual-report/2018/impactstories/rachel-roseman.jpg',
+                    title: 'SOLVING PROBLEMS NOW',
+                    text: '<p>Daniel Cummins, UC\'s assistant dean of students, wants to change students\' lives—but first he wants to feed them.</p><blockquote>"Faculty and advisers were having conversations with students and saying, ‘You\'re not doing well, what\'s going on?\'" Cummins says. "The students are saying, ‘I haven\'t eaten in two days.\'"</blockquote><p>When the issue of food insecurity came to the attention of Cummins and campus leaders, they moved quickly. The Bearcat Pantry was established in fall 2017 and is led by students like Rachel Roseman (pictured at right). The Pantry has two campus locations, offering food, hygiene items and campus dining hall vouchers.</p><p>The Bearcat community has rallied behind this effort with food, volunteer hours and monetary donations. Funds raised during the first UC Day of Giving helped launch the UC Clermont Pantry. Donor support allows for the purchase of fresh food, the ability to address specific dietary needs and new initiatives such as a Bearcat Pantry Career Closet.</p><p>"Bearcats are very generous," Cummins says. "Once folks know, their generosity comes out."</p><div class="image-text"><img  src="/image/annual-report/2018/impactstories/Cummins.jpg"><em><strong>Daniel Cummins</strong> Assistant Dean of Students, University of Cincinnati</em></div>',
+                    textBg: '/image/annual-report/2018/impactstories/rachel-roseman0381-bw.jpg'
+                },
+                { 
+                    image: '/image/annual-report/2018/impactstories/boyd.jpg', 
+                    title: 'BENDING THE FUTURE',
+                    text: '<p>Drew and Wendy Boyd believe three of their passions—creativity, philanthropy and UC—are the perfect combination.</p><p>The Boyds moved to Cincinnati 24 years ago for Drew\'s position with Johnson & Johnson. He also became an adjunct professor at UC\'s Carl H. Lindner College of Business and is now executive director of the Master of Science in Marketing program.</p><p>Drew and Wendy discussed how they could give students an edge in creativity, innovation, and subsequently, the job market.</p><p>The answer was supporting faculty.</p><p>"If the faculty are great, the students have a great experience, and they become great alumni," Drew says.</p><p>Established in 2018, the Drew and Wendy Boyd Breakthrough in Innovative Teaching Excellence Award recognizes Lindner College faculty who challenge students to think differently. Elliott Manzon and David Rapien, who are enhancing marketing education through a creative curriculum and new technology, were the first recipients.</p><blockquote>"When teachers add creative training to their curriculum, we\'ll produce a better product," Drew says. "We can get graduates walking out of here with the cognitive skills companies want.</blockquote><p>"This put our money where our hearts are," Wendy says.</p>',
+                    textBg: '/image/annual-report/2018/impactstories/bending-future-textBg-bw.jpg'
+                }
+            ],
+            thumbnails: [
+                { 
+                    image: '/image/annual-report/2018/impactstories/chara-hood.jpg',
+                    title: 'INVENTING TOMORROW'
+                },
+                { 
+                    image: '/image/annual-report/2018/impactstories/crawford.jpg',
+                    title: 'OPENING DOORS'
+                },
+                { 
+                    image: '/image/annual-report/2018/impactstories/heidi-jark.jpg',
+                    title: 'SAVING LIVES'
+                },
+                { 
+                    image: '/image/annual-report/2018/impactstories/rachel-roseman.jpg',
+                    title: 'SOLVING PROBLEMS NOW'
+                },
+                { 
+                    image: '/image/annual-report/2018/impactstories/boyd.jpg', 
+                    title: 'BENDING THE FUTURE'
+                }
+            ],
+            images: ['/image/annual-report/2018/impactstories/chara-hood.jpg','/image/annual-report/2018/impactstories/crawford.jpg','/image/annual-report/2018/impactstories/heidi-jark.jpg', '/image/annual-report/2018/impactstories/rachel-roseman.jpg', '/image/annual-report/2018/impactstories/boyd.jpg'],
+            thumbnailImages: ['/image/annual-report/2018/impactstories/chara-hood.jpg','/image/annual-report/2018/impactstories/crawford.jpg','/image/annual-report/2018/impactstories/heidi-jark.jpg', '/image/annual-report/2018/impactstories/rachel-roseman.jpg', '/image/annual-report/2018/impactstories/boyd.jpg'],
+            thumbnailTitles: ['INVENTING TOMORROW', 'OPENING DOORS', 'SAVING LIVES', 'SOLVING PROBLEMS NOW', 'BENDING THE FUTURE'],
+            
+            // Financials
+            showModal: false,
+            financials: {
+                image: '/image/annual-report/2018/financials/ucgni-building.jpg',
+                initialTotalFunds: '000,000,000',
+                selected: '0',                    
+                types: [
+                    { 
+                        name: 'By Purpose',
+                        value: '0'
+                    },
+                    { 
+                        name: 'By Fund Type',
+                        value: '1'
+                    },
+                    { 
+                        name: 'By Source',
+                        value: '2' 
+                    }
+                ],
+            },
+            revenues: [
+                { title: 'Contributions', total18: 76450224, total17: 72110627, bold: false },
+                { title: 'University support', total18: 18010286 , total17: 11996517, bold: false },
+                { title: 'Fundraising fees', total18: 9817699, total17: 11206249, bold: false },
+                { title: 'Investment gains, net', total18: 29798702, total17: 39378367, bold: false },
+                { title: 'Other', total18: 2489308, total17: 1757564, bold: false },
+                { title: 'TOTAL REVENUES', total18: 136566219, total17: 136449324, bold: true },
+            ],
+            expenses: [
+                { title: 'Distributions to University of Cincinnati', total18: 60522872, total17: 50471635, bold: false },
+                { title: 'Operating expenses', total18: 25181877 , total17: 26561165, bold: false },
+                { title: 'UC Foundation endowment fee', total18: 4755942, total17: 5073849, bold: false },
+                { title: 'TOTAL EXPENSES', total18: 90460691, total17: 82106649, bold: true },
+            ],
+            otherExpenses: [
+                { title: 'Change in present value of annuities payable', total18: 784529, total17: 457435, bold: false },
+                { title: 'TOTAL EXPENSES AND OTHER DEDUCTIONS', total18: 91245220, total17: 82564084, bold: true },
+                { title: 'CHANGE IN NET ASSETS before acquisition income', total18: 45320999, total17: 53885240, bold: true },
+                { title: 'Excess of Fair Value of Net assets over consideration of the acquired entity', total18: '-', total17: 2219307, bold: false },
+                { title: 'CHANGE IN NET ASSETS', total18: 45320999, total17: 56104547, bold: true },
+                { title: 'NET ASSETS, BEGINNING OF YEAR', total18: 519243173, total17: 463138626, bold: true },
+                { title: 'NET ASSETS, END OF YEAR', total18: 564564172, total17: 519243173, bold: true },
+            ],
+            assets: [
+                { title: 'Cash and cash equivalents', total18: 23856663, total17: 19653549, bold: false },
+                { title: 'Pledges receivable, net of allowance', total18: 98479600, total17: 94699382, bold: false },
+                { title: 'Investments', total18: 443222848, total17: 405851400, bold: false },
+                { title: 'Beneficial interest in assets', total18: 16544386, total17: 13029897, bold: false },
+                { title: 'Property and equipment', total18: 2360497, total17: 13029897, bold: false },
+                { title: 'Other assets', total18: 2360497, total17: 3736320, bold: false },
+                { title: 'TOTAL ASSETS', total18: 587600429, total17: 540180449, bold: true },
+            ],
+            liabilities: [
+                { title: 'Accounts payable and accrued expenses', total18: 11441536, total17: 10601027, bold: false },
+                { title: 'Agency payable', total18: 1512725, total17: 907675, bold: false },
+                { title: 'Trusts held for the benefit of others', total18: 1799437, total17: 1455514, bold: false },
+                { title: 'Present value of annuities payable', total18: 6823623, total17: 6619239, bold: false },
+                { title: 'Other liabilities', total18: 1458936, total17: 1353821, bold: false },
+                { title: 'TOTAL liabilities', total18: 23036257, total17: 20937276, bold: true },
+            ],
+            netAssets: [
+                { title: 'TOTAL LIABILITIES AND NET ASSETS', total18: 587600429, total17: 540180449, bold: false },
+            ],
+            
+            currentSlide: 0,
+            pointsSlides: [
+                {
+                    id: 0,
+                    full: true,
+                    url: '/image/annual-report/2018/pointspride/MoveableFeast213.jpg',
+                    bgImage: '/image/annual-report/2018/pointspride/MoveableFeast213.jpg',
+                    triangle: true,
+                    triangleText: true,
+                    heading: 'Incredible things are happening at UC and UC Health',
+                    stat: '<span>2nd</span><p>CCM alumni rank second in Playbill\'s "Most-Represented Colleges on Broadway."</p>'    
+                },
+                {
+                    id: 1,
+                    full: false,
+                    url: '',
+                    triangle: false,
+                    triangleText: false,
+                    leftBgImage: '/image/annual-report/2018/pointspride/SuperBowlRing.jpg',
+                    rightBgImage: '/image/annual-report/2018/pointspride/CCC_kremer-85.jpg',
+                    bottomBgImage: '/image/annual-report/2018/pointspride/MarianSpencerHall.png',
+                    trishaWiseText: 'UC Health\'s Trisha Wise-Draper, PhD, COM \'08, MD COM \'10, is pioneering the use of immunotherapy in cancer patients while also training the next generation of physicians and studying cancer\'s underlying mechanisms to develop newer and better treatments.', 
+                    kelceCelekText: 'Alumni Jason Kelce, BUS \'10 and Brent Celek, BUS \'07 were part of the 2018 Super Bowl champion team, the Philadelphia Eagles.',
+                    kelceImage: '/image/annual-report/2018/pointspride/Jason-Kelce.png',
+                    kelceCaption: 'Jason Kelce',
+                    celekImage: '/image/annual-report/2018/pointspride/Celek-Brent.png',
+                    celekCaption: 'Brent Celek',
+                    spencerImage: '/image/annual-report/2018/pointspride/Marian-Spencer.png',
+                    spencerText: 'UC\'s newest resident hall has been named after civil rights activist and lifelong community servant Marian Spencer, A&S \'42, Hon \'06.'
+                },
+                {
+                    id: 2,
+                    full: false,
+                    url: '',
+                    triangle: false,
+                    triangleText: false,
+                    leftBgImage: '/image/annual-report/2018/pointspride/UCGraduation159_2018-bw.jpg',
+                    leftText: '<h1>CLASS OF 2018</h1><div class="container"><span>6,500</span><p>students earned degrees of various levels in UC\'s largest-ever spring commencement.</p></div><div class="container"><span>50.5%</span> <img class="icon" src="/image/annual-report/2018/pointspride/icon-atom.png"> <img class="icon" src="/image/annual-report/2018/pointspride/icon-math.png"> <img class="icon" src="/image/annual-report/2018/pointspride/icon-gears.png"> <img class="icon" src="/image/annual-report/2018/pointspride/icon-compass.png"><p class="block">of this year\'s graduates were awarded degrees in the STEM areas of science, technology, engineering and math.</p></div><div class="container"><span>16%</span> <img class="icon" src="/image/annual-report/2018/pointspride/icon-graduates.png"><p class="block">of these students were first-generation college students.</p></div><div class="container"><p class="margin-bottom-10">They hailed from <span>49</span> states and <span>76</span> countries.</p><em>By comparison, the Class of 2017 had graduates from 51 countries.</em></div>',                        
+                    rightTopBgImage: '/image/annual-report/2018/pointspride/earth.png',
+                    rightTopText: '<span>113%</span><p>increase in students studying internationally since 2010.</p>',
+                    rightBgImage: '/image/annual-report/2018/pointspride/mens-basketball-bw.png',
+                    rightBgText: '<span>3.224</span><p>UC student-athletes\' cumulative grade-point average for the Fall 2017 semester.</p><em>It was the 19th consecutive grading period our Bearcats have exceeded a 3.00 GPA.</em>'
+                },
+                {
+                    id: 3,
+                    full: false,
+                    url: '',
+                    triangle: false,
+                    triangleText: false,
+                    leftBgImage: '/image/annual-report/2018/pointspride/uc_china.jpg',
+                    map: '/image/annual-report/2018/pointspride/map.png',
+                    leftText: '<span>56</span><p>students earned engineering degrees from UC and China\'s Chongqing University as part of UC\'s Joint Engineering Co-op Institute\'s first graduating class.</p>',
+                    rightBgImage: '/image/annual-report/2018/pointspride/UC_Health_West_Chester.jpg',
+                    rightText: '<span>Top 5%</span><p>UC Health\'s West Chester Hospital ranked in top 5 percent of hospitals nationally for clinical outcomes (Healthgrades, 2018).</p><em>The distinction recognizes West Chester Hospital as being within the top five percent of nearly 4,500 hospitals nationwide for its clinical performance as measured by Healthgrades, the leading online resource for comprehensive information about physicians and hospitals.</em>'
+                }
+            ],
+
+            current: 0,
+            percent: 0,
+            timer: 0,
+            interval: 0,
+            progress: 0,
+            duration: 5000,
+            playslides: [],
+
+            // Year At A Glance
+            yearGlanceBgLeft: '/image/annual-report/2018/yearglance/MainSt061.jpg',
+            yearGlanceGlobe: '/image/annual-report/2018/yearglance/globe.png',
+            yearGlances: [
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-alumni.jpg',
+                    name: 'University of Cincinnati Alumni Association',
+                    date: 'July 13, 2017',
+                    text: 'Fifth Third Bank and Fifth Third Foundation give $10 million to support the Cincinnati Cander Center and the effort to achieve National Cancer Center Institute Designation.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/5-3-Release.png',
+                    link: 'https://foundation.uc.edu/05-news--events/press-releases/fifth-third',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-foundation.png',
+                    name: 'UC Foundation',
+                    date: 'August 16, 2017',
+                    text: 'Peter Landgren is named president of the UC Foundation and vice president for advancement at UC.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/Peter-Landgren.jpg',
+                    link: 'https://foundation.uc.edu/05-news--events/press-releases/peter-landgren-named-president-of-university-of-cincinnati-foundation',
+                    position: 'top'
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-foundation.png',
+                    name: 'UC Foundation',
+                    date: 'August 22, 2017',
+                    text: 'The Marge & Charles J. Schott Foundation announces a $3.13 million gift to the Trauma Center and Surgical Intensive Care Unit at the UC Medical Center and UC College of Medicine.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/August-22.jpg',
+                    link: 'https://foundation.uc.edu/05-news--events/press-releases/schott',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-foundation.png',
+                    name: 'UC Foundation',
+                    date: 'October 4, 2017',
+                    text: 'The UC College of Medicine announces a $1.5 million gift to support the R. Bruce and Barbara Bracken Endowed Chair in Surgical Urology.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/Bracken-portrait.jpg',
+                    link: 'https://foundation.uc.edu/05-news--events/press-releases/bracken-endowed-chair',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/walk-ahead.jpg',
+                    name: 'Walk Ahead for a Brain Tumor Cure',
+                    date: 'October 13, 2017',
+                    text: 'The UC Foundation announces five philanthropy award winners: Robert L. Fealy, Marvin P. Kolodzik, Mark A. Godsey, Jessica Brawand and Walk Ahead for a Brain Tumor Cure.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/walk-ahead-2017-245.jpg',
+                    link: 'https://www.youtube.com/watch?v=eRyGDV3E2Ho',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-cahs.jpg',
+                    name: 'University of Cincinnati College of Allied Health Sciences',
+                    date: 'October 20, 2017',
+                    text: 'The inauguration of UC President Neville Pinto takes place during Homecoming weekend. He is the university\'s 30th president.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/161217vPinto0008.jpg',
+                    link: 'https://youtu.be/8BMcWxIbeds',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-foundation.png',
+                    name: 'UC Foundation',
+                    date: 'October 24, 2017',
+                    text: 'Robert "Bob" Fealy, who served 10 months as interim UC Foundation President, receives the UC President\'s Award for Excellence.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/robert-bob-fealy.jpg',
+                    link: 'https://youtu.be/n4HNYIu1Exs',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-alumni.jpg',
+                    name: 'University of Cincinnati Alumni Association',
+                    date: 'November 28, 2017',
+                    text: 'The Islamic Center of Greater Cincinnati gives $1 million to create the Inayat and Ishrat Malik Professorship in Islamic Studies within the McMicken College of Arts & Sciences at UC.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/Malik-Edited-8212.jpg',
+                    link: 'https://foundation.uc.edu/05-news--events/press-releases/Malik',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-foundation.png',
+                    name: 'UC Foundation',
+                    date: 'November 30, 2017',
+                    text: 'The 2017 #GivingTuesday campaign is the most successful to date. More than 2,000 donors give $116,000 to UC and UC Health.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/DP5G-YFVQAAll5l.jpg',
+                    link: 'https://foundation.uc.edu/05-news--events/press-releases/2017-givingtuesday-campaign-most-successful-yet',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-foundation.png',
+                    name: 'UC Foundation',
+                    date: 'December 21, 2017',
+                    text: 'Procter & Gamble joins the effort to earn National Cancer Institute designation with a $10 million gift to the Cincinnati Cancer Center.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/cancerlabphoto.png',
+                    link: 'https://foundation.uc.edu/05-news--events/press-releases/press-release-Proctor-and-Gamble',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/president-pinto.jpg',
+                    name: 'Neville G. Pinto',
+                    date: 'January 5, 2018',
+                    text: 'The UC Alumni Association announces the recipients of its four signature awards: Marian A. Spencer, A&S \'42, Hon \'06; Russell C. "Rusty" Myers, Bus \'82; Jacqueline L. Bailey-Davis, CECH \'92 and Austin G. Allison, CEAS \'08.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/DSzMCuGU0AAwYsz.jpg-large.jpeg',
+                    link: 'https://youtu.be/sTpkxBcGCDE',
+                    position: 'top'
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-alumni.jpg',
+                    name: 'University of Cincinnati Alumni Association',
+                    date: 'February 9, 2018',
+                    text: 'UC Blue Ash College\'s 50-year anniversary coincides with the largest gift in its history. The estate of retired professor Judith Baughin provides nearly $400,000 to support two scholarships.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/Judith-Baughin.jpg',
+                    link: 'https://foundation.uc.edu/05-news--events/press-releases/press-release---uc-blue-ash-college-receives-largest-gift-in-its-history',
+                    position: 'top'
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/president-pinto.jpg',
+                    name: 'Neville G. Pinto',
+                    date: 'February 12, 2018',
+                    text: 'The Farmer Family Foundation donates $10 million to the Cincinnati Cancer Center\'s pursuit of National Cancer Institute designation.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/DV3L60IVQAAPFWl.jpg-large.jpeg',
+                    link: 'https://foundation.uc.edu/05-news--events/press-releases/press-release---farmer-family-foundation-donates-10-million-to-cincinnati-cancer-center',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-alumni.jpg',
+                    name: 'University of Cincinnati Alumni Association',
+                    date: 'February 20, 2018',
+                    text: 'President Pinto kicks off UC\'s new strategic direction, Next Lives Here.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/next-lives-here.png',
+                    link: 'https://youtu.be/poudyMpFrFI',
+                    position: 'right'
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-lindner-cob.jpg',
+                    name: 'UC Lindner College of Business',
+                    date: 'March 2, 2018',
+                    text: 'The new UC Carl H. Lindner College of Business hits a milestone with the placement of its final beam. The construction of this $120 million structure was made possible by the generosity of donors.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/DXScGEDX0AAO0qX.jpg-large.jpeg',
+                    link: 'https://youtu.be/t4t0JBkynBo',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-foundation.png',
+                    name: 'UC Foundation',
+                    date: 'March 21, 2018',
+                    text: 'UC\'s College of Engineering and Applied Science is one of eight schools worldwide to receive a 3D metal printer from GE Additive.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/Mlab-cusing-R_GRAU_blau_0717.jpg',
+                    link: 'https://foundation.uc.edu/news/geadditive',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-foundation.png',
+                    name: 'UC Foundation',                        
+                    date: 'April 2, 2018',
+                    text: 'UC Health supports diversity scholarships in UC\'s Academic Health Center with a $1.5 million commitment.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/180227ckAppeadu_016-72dpi.jpg',
+                    link: 'https://foundation.uc.edu/press-releases/uc-health-makes-leadership-investment-to-create-diversity-scholarships-at-uc',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-health.jpg',
+                    name: 'UC Health',
+                    date: 'April 10, 2018',
+                    text: 'Supporters of the UC Gardner Neuroscience Institute commemorate the installation of the last beam. The $60.5 million facility was made possible with the support of generous donors.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/Bearcat-mascot-thank-you.jpg',
+                    link: 'https://youtu.be/HKbEfvBW17I',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/president-pinto.jpg',
+                    name: 'Neville G. Pinto',
+                    date: 'April 13, 2018',
+                    text: 'The University of Cincinnati announces its Bicentennial activities at a kickoff event.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/180413aBicentennial150.jpg',
+                    link: 'https://youtu.be/YWV3NhFNrLM',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/president-pinto.jpg',
+                    name: 'University of Cincinnati Alumni Association',
+                    date: 'May 8, 2018',
+                    text: 'The inaugural UC Day of Giving raises $240,599 in support of programs and initiatives at UC and UC Health.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/UCDayofGiving-200.jpg',
+                    link: 'https://youtu.be/Wshnz952HGc',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-foundation.png',
+                    name: 'UC Foundation',
+                    date: 'May 8, 2018',
+                    text: 'The UC Foundation Board of Trustees elects five new members: William J. Davis, BBA \'91; Leigh Fox, MBA \'01; Jerry Fritz, BBA \'73; Stephen Kimpel, BBA \'90; and Andrea Zahumensky, BSIE \'00.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/NewUCFBoardMembers2018.png',
+                    link: 'https://foundation.uc.edu/news/trustees',
+                    position: ''
+                },
+                {
+                    avatar: '/image/annual-report/2018/yearglance/logos/uc-foundation.png',
+                    name: 'UC Foundation',
+                    date: 'June 27, 2018',
+                    text: 'Emeriti professors Richard & Laura Kretschmer endow a Native American children\'s literature collection at UC Libraries.',
+                    image: '/image/annual-report/2018/yearglance/socialimages/Kretschmer.jpg',
+                    link: 'https://foundation.uc.edu/stories/Kretschmer',
+                    position: ''
+                },
+            ],
+            
+            // Footer
+            contactTitle: 'Contact Us', 
+            institution: 'The University of Cincinnati Foundation', 
+            poBox: 'PO Box 19970', 
+            citySt: 'Cincinnati, OH', 
+            zip: '45219', 
+            phone: '513--556-6781', 
+            altPhone: '888-556-8889', 
+            fax: '513-556-4300 (fax)', 
+            email: 'ucfoundation@uc.edu',
+
+            campusTitle: 'Campus',
+            campusBuilding: 'University Hall, Suite 100',
+            campusAddress: '51 Goodman Drive',
+            campusCityStZip: 'Cincinnati, OH 45219',
+            campusGoogleMapLink: 'https://www.google.com/maps/place/University+Hall,+51+Goodman+St+%23100,+Cincinnati,+OH+45221/@39.1365897,-84.5106596,17z/data=!3m1!4b1!4m5!3m4!1s0x8841b3911b29ad97:0xc37b8e60713384a2!8m2!3d39.1365897!4d-84.5084709',
+
+            signUpTitle: 'Sign Up For Email',
+            signUpText: 'You\'ll get timely updates on news, events and more from the UC Foundation.',
+            signUpButtonLink: 'https://foundation.uc.edu/email-sign-up-form',
+            privacyPolicyLink: 'https://foundation.uc.edu/privacy-policy'  
+        },
+        mounted() {
+            this.computedRight()
+        },
+        methods: {
+            toggle: function (type) {
+                type.isActive = !type.isActive;
+                this.financials.selected = type.value;
+            },
+            update(index) {
+                this.activeIndex = index;
+            },
+            openModal: function(showModal) {
+                $.scrollify.disable();
+                this.showModal = true
+            },
+            closeModal: function(showModal) {
+                $.scrollify.enable();
+                this.showModal = false                    
+            },
+            
+            prev: function () {
+                this.currentSlide = this.currentSlide === 0 ? this.slides.length - 1 : this.currentSlide - 1
+            },                
+            next: function () {
+                this.currentSlide = this.currentSlide === this.slides.length - 1 ? 0 : this.currentSlide + 1
+            },
+
+            computedRight: function () {
+                this.right = this.$refs.app.clientWidth - this.$refs.intro.clientWidth + 290;
+                return this.right;
+            }
+        }    
+    });
+// ]]>
+</script>
+<!-- #Begin BBIS -->
+<p class="hide"><img alt="AR-Head-Scripts - Annual Report Head Scripts" src="https://foundation.uc.edu/view.image?pane=AR-Head-Scripts&amp;panename=AR-Head-Scripts%20-%20Annual%20Report%20Head%20Scripts" title="AR-Head-Scripts - Annual Report Head Scripts" data-runat="server" data-template_pane="1" data-paneid="AR-Head-Scripts" data-panedescription="Annual%20Report%20Head%20Scripts" /></p>
+<!-- #End BBIS -->
