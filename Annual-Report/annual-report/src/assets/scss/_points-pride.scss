@@ -1,0 +1,1045 @@
+* { margin: 0; padding: 0; box-sizing: border-box;}
+body { overflow: hidden; }
+
+#pointsPride {
+    background: transparent;
+    .btn-wrap {
+        position: absolute;
+        z-index: 999;
+        bottom: 0;
+        left: 5em;
+        right: 5em;
+        text-align: center;
+        //background: rgba($black, 0.5);
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+50,000000+100&0+0,0.5+20,0.5+50,0.5+80,0+100 */
+        background: -moz-linear-gradient(left, rgba($black,0) 0%, rgba($black,0.5) 20%, rgba($black,0.5) 50%, rgba($black,0.5) 80%, rgba($black,0) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, rgba($black,0) 0%,rgba($black,0.5) 20%,rgba($black,0.5) 50%,rgba($black,0.5) 80%,rgba($black,0) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, rgba($black,0) 0%,rgba($black,0.5) 20%,rgba($black,0.5) 50%,rgba($black,0.5) 80%,rgba($black,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+        height: 6vh;
+        @include media('<=tablet') {
+            left: 2em;
+            right: 2em;
+        }
+        button {
+            padding: 10px 100px;
+            @include transition(all, 0.4s, ease-out);
+            border: none;
+            height: 100%;
+            &:hover {
+                color: $white;
+            }
+            &.prev {
+                float: left;
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,1+50,1+100 */
+                background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+                &:hover {
+                    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,de1c24+100&0+0,1+50,1+100 */
+                    background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(239,142,146,1) 50%, rgba(222,28,36,1) 100%); /* FF3.6-15 */
+                    background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(239,142,146,1) 50%,rgba(222,28,36,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(239,142,146,1) 50%,rgba(222,28,36,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#de1c24',GradientType=1 ); /* IE6-9 */
+                }
+            }
+            &.next {
+                float: right;
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&1+0,1+50,0+100 */
+                background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 */
+                &:hover {
+                    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#de1c24+0,ffffff+100&1+0,1+50,0+100 */
+                    background: -moz-linear-gradient(left, rgba(222,28,36,1) 0%, rgba(239,142,146,1) 50%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
+                    background: -webkit-linear-gradient(left, rgba(222,28,36,1) 0%,rgba(239,142,146,1) 50%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to right, rgba(222,28,36,1) 0%,rgba(239,142,146,1) 50%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#de1c24', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 */
+                }
+            }
+            .fa {
+                font-size: 2em;
+            }            
+        }
+    }
+    .slider-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        .slide {
+            position: absolute;
+            height: 100vh;
+            width: 100%;            
+            .full-container {
+                position: relative;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                height: 100vh;
+                width: 100%;
+                .triangle {
+                    z-index: 6;
+                    left: -25em;
+                    @include media('<=tablet') {
+                        display: none;
+                    }
+                }
+                .triangleText {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: -10em;
+                    margin: auto;
+                    height: 75px;
+                    z-index: 6;    
+                    color: $white;
+                    font-weight: bold;
+                    font-size: 3em;
+                    font-style: italic;
+                    width: 300px;
+                } 
+                h1 {
+                    font-size: 3em;
+                    width: 55%;
+                    position: absolute;
+                    top: 2em;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    text-align: left;
+                    text-transform: uppercase;
+                    font-style: italic
+                }
+                .bottomright {
+                    position: absolute;
+                    right: 5em;
+                    bottom: 7em;
+                    width: 13%;
+                    p {
+                        font-style: italic;
+                        font-weight: bold;
+                    }                    
+                    span {
+                        font-size: 4em;
+                        color: $red;
+                        font-weight: bold;
+                    }
+                }
+            }
+            .split-image-container {
+                position: relative;
+                width: 100%;
+                height: 100vh;
+                p {
+                    font-style: italic !important;
+                }
+                &.slide1 {
+                    height: 100vh;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    overflow: hidden;
+                    .text-bottomBgImage {
+                        position: absolute;
+                        top: 0;
+                        left: -12%;
+                        width: 100%;
+                        height: 100vh;
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            left: 12%;
+                            margin-left: 0;
+                            z-index: 10;
+                            width: 30%;
+                            height: 100vh;
+                            background: -moz-linear-gradient(left, rgba($black,1) 0%, rgba($black,1) 25%, rgba($black,0.85) 85%, rgba($black,0) 100%); /* FF3.6-15 */
+                            background: -webkit-linear-gradient(left, rgba($black,1) 0%,rgba($black,1) 25%,rgba($black,0.85) 85%,rgba($black,0) 100%); /* Chrome10-25,Safari5.1-6 */
+                            background: linear-gradient(to right, rgba($black,1) 0%,rgba($black,1) 25%,rgba($black,0.85) 85%,rgba($black,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+                        }
+                        .image-text-container {
+                            width: 20%;
+                            top: 5em;
+                            left: 15%;
+                            position: absolute;
+                            z-index: 55;
+                            padding: 0 2em 0 3em;        
+                            .text-image {
+                                width: 100%;
+                                margin-bottom: 2em;
+                                img {
+                                    width: 75%;
+                                    &.half {
+                                        width: 45%;
+                                        margin-right: 4%;
+                                        &:last-child {
+                                            float: right;
+                                            margin-right: 0;
+                                        }
+                                    }                        
+                                }
+                                p {
+                                    margin-bottom: 1em;
+                                    font-weight: bold;
+                                    &.half {
+                                        width: 48%;
+                                        display: inline-block;
+                                        &.caption {
+                                            font-weight: 400;
+                                            color: $ltGray;
+                                            font-size: 0.75em;
+                                        }
+                                    }
+                                }
+                            }
+                        } 
+                        .bottomBgImage {
+                            position: absolute;
+                            bottom: -10%;
+                            right: -10%;
+                            margin: auto;
+                            z-index: 5;
+                            width: 60%;
+                        }
+                        
+                    }
+                    .trishaText {
+                        position: absolute;
+                        right: 3em;
+                        bottom: 5em;
+                        z-index: 50;
+                        width: 15%;
+                        text-align: right;
+                        font-size: 1em;
+                        font-weight: bold;
+                        line-height: 1.25em;
+                    }
+
+                    .hero_skewed--right,
+                    .hero_skewed--left {
+                        top: 0;
+                        height: 100%;
+                        width: 75%;
+                        position: absolute;
+                        overflow: hidden;
+                        transform: skew(-30deg, 0deg) translate(0, 0);
+                        .unskewed--left,
+                        .unskewed--right {
+                            height: 100%;
+                            width: 125%;
+                            position: absolute;
+                            background-size: cover;
+                            background-position: center;
+                            transform: skew(30deg, 0deg) translate(0, 0);
+                        }
+                    }
+                    .hero_skewed--left {
+                        left: -15%;
+                        width: 80%;
+                        .unskewed--left {
+                            left: 0;
+                            background-size: 80%;
+                            background-repeat: no-repeat;
+                            background-position: right -75px top -75px;
+                            height: 80vh;                              
+                        }  
+                    }                      
+                    .hero_skewed--right {
+                        right: -25%;
+                        width: 63%;
+                        .unskewed--right {
+                            right: 0;
+                            background-size: 55%;
+                            background-position: center left 220px;
+                            background-repeat: no-repeat;
+                            &:after {
+                                content: '';
+                                position: absolute;
+                                bottom: 0;
+                                right: 0;
+                                height: 45vh;
+                                width: 100%;
+                                background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 1) 100%);
+                                background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 1) 100%);
+                                background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 1) 100%);
+                                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#cc000000',GradientType=0 );
+                                z-index: 25;
+                            }
+                        }
+                    }  
+                    
+                    .one-half {
+                        &.left {
+                            top: 0;
+                            height: 100%;
+                            width: 75%;
+                            position: absolute;
+                            overflow: hidden;
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                bottom: 0;
+                                left: 0;
+                                margin-left: 0;
+                                z-index: 10;
+                                width: 25%;
+                                height: 100vh;
+                                background: -moz-linear-gradient(left, rgba($black,1) 0%, rgba($black,1) 25%, rgba($black,0.65) 85%, rgba($black,0) 100%); /* FF3.6-15 */
+                                background: -webkit-linear-gradient(left, rgba($black,1) 0%,rgba($black,1) 25%,rgba($black,0.65) 85%,rgba($black,0) 100%); /* Chrome10-25,Safari5.1-6 */
+                                background: linear-gradient(to right, rgba($black,1) 0%,rgba($black,1) 25%,rgba($black,0.65) 85%,rgba($black,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+                            }
+                        }
+                        &.right {
+                            &:after {
+                                content: '';
+                                position: absolute;
+                                bottom: 0;
+                                right: 0;
+                                height: 45vh;
+                                width: 100%;
+                                background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0.8) 100%);
+                                background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0.8) 100%);
+                                background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0.8) 100%);
+                                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#cc000000',GradientType=0 );
+                                z-index: 25;
+                            }
+                        }
+                    }                  
+                }                                               
+                > .one-half {
+                    &.left {
+                        width: 65%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background-size: cover;
+                        background-position: right -50px center;
+                        -webkit-clip-path: polygon(0 0, 100% 0, 60% 100%, 0% 100%);
+                        clip-path: polygon(0 0, 100% 0, 60% 100%, 0% 100%); 
+                        z-index: 24;
+                        &.top {
+                            z-index: 26;
+                            background-position: right 0px center;
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                bottom: 0;
+                                left: 0;
+                                right: 0;
+                                background: rgba($red, 0.85);
+                                z-index: 27;
+                                width: 100%;                                
+                            }
+                            .text-container {
+                                position: absolute;
+                                top: 2em;
+                                left: 2em;
+                                z-index: 28;
+                                margin: auto;
+                                h1 {
+                                    font-size: 4em;
+                                    margin-bottom: 0.25em;
+                                    -webkit-text-stroke: 2px $white;
+                                    -webkit-text-fill-color: transparent;
+                                    letter-spacing: 1px;
+                                }
+                                .container {
+                                    margin-bottom: 2em;
+                                    padding-bottom: 4em;
+                                    clear: both;
+                                    display: block;
+                                    &:after {
+                                        content: '';
+                                        display: block;
+                                    }
+                                    span {
+                                        font-size: 3em;
+                                        font-weight: bold;
+                                        display: inline;
+                                        width: auto;
+                                        float: left;
+                                        margin-right: 15px;
+                                    }
+                                    p {
+                                        display: inline;
+                                        font-weight: bold;
+                                        font-size: 1em;
+                                        width: 70%;
+                                        float: left;
+                                        font-style: italic;
+                                        &.margin-bottom-10 {
+                                            margin-bottom: 10px;
+                                        }
+                                        &.block {
+                                            display: block;
+                                            float: left;
+                                            clear: both;
+                                        }
+                                        span {
+                                            float: none;
+                                            font-weight: 1.5em !important;
+                                        }
+                                    }
+                                    em {
+                                        color: $white;
+                                        display: block;
+                                        float: left;
+                                    }
+                                    .icon {
+                                        width: 40px;
+                                        display: inline;
+                                        float: left;
+                                        margin-right: 20px;
+                                        &:last-of-type {
+                                            margin: 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }                        
+                             
+                    }
+                    &.right {
+                        width: 75%;
+                        position: absolute;
+                        top: 0;
+                        left: auto;
+                        right: 0 !important;
+                        float: right;
+                        background-position: top -50px right -100px;
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                        -webkit-clip-path: polygon(60% 0, 100% 0, 100% 100%, 0% 100%);
+                        clip-path: polygon(60% 0, 100% 0, 100% 100%, 0% 100%);
+                        z-index: 25;
+                        &.bottom {
+                            z-index: 20;
+                            em {
+                                color: $white;
+                            }
+                            &:after {
+                                display: none;
+                            }
+                            .topright {
+                                position: absolute;
+                                right: 4em;
+                                top: 2em;
+                                margin: auto;
+                                width: 225px;
+                                height: 200px;
+                                z-index: 30;
+                                span {
+                                    color: $red;
+                                    display: block;
+                                    font-size: 3em;
+                                    font-weight: bold;
+                                }
+                                p {
+                                    color: $black;
+                                    text-align: left;
+                                    display: block;
+                                    position: relative;
+                                    right: auto;
+                                    bottom: auto;
+                                    width: auto;
+                                }
+                            }
+                            .bottomright {
+                                position: absolute;
+                                top: 35%;
+                                right: 15%;
+                                margin: auto;
+                                width: 325px;
+                                height: 200px;
+                                z-index: 30;
+                                span {
+                                    color: $red;
+                                    display: block;
+                                    font-size: 3em;
+                                    font-weight: bold;
+                                }
+                                p {
+                                    color: $white;
+                                    text-align: left;
+                                    display: block;
+                                    position: relative;
+                                    right: auto;
+                                    bottom: auto;
+                                    width: auto;
+                                    margin: 0;
+                                }
+                            }
+                        }
+                        p {
+                            position: absolute;
+                            right: 3em;
+                            bottom: 5em;
+                            z-index: 50;
+                            width: 30%;
+                            text-align: right;
+                            font-size: 1em;
+                            font-weight: bold;
+                            line-height: 1.25em;
+                        }
+                        .top {
+                            position: absolute;
+                            top: -25%;
+                            right: -10%;
+                            width: 500px;
+                            z-index: 25;
+                        }
+                        .bottom {
+                            position: absolute;
+                            right: -10%;
+                            bottom: -7%;
+                            width: 95%;
+                        }
+                    }
+                }
+                .bottomBgImage {
+                    position: absolute;
+                    bottom: -10%;
+                    left: -5%;
+                    right: 0;
+                    margin: auto;
+                    z-index: 25;
+                    width: 60%;
+                } 
+                &.slide2 {
+                    background: $black;
+                    .hero_skewed--right,
+                    .hero_skewed--left {
+                        top: 0;
+                        height: 100%;
+                        width: 75%;
+                        position: absolute;
+                        overflow: hidden;
+                        transform: skew(-30deg, 0deg) translate(0, 0);
+                        .unskewed--left {
+                            left: 0;
+                            background-size: 74%;
+                            background-position: right;
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                bottom: 0;
+                                left: 0;
+                                right: 0;
+                                background: rgba($red, 0.85);
+                                z-index: 27;
+                                width: 100%;                                
+                            }
+                            .text-container {
+                                position: absolute;
+                                top: 2em;
+                                left: 30%;
+                                z-index: 28;
+                                margin: auto;
+                                h1 {
+                                    font-size: 4em;
+                                    margin-bottom: 0.25em;
+                                    -webkit-text-stroke: 2px $white;
+                                    -webkit-text-fill-color: transparent;
+                                    letter-spacing: 1px;
+                                }
+                                .container {
+                                    margin-bottom: 2em;
+                                    padding-bottom: 2em;
+                                    clear: both;
+                                    display: block;
+                                    &:after {
+                                        content: '';
+                                        display: block;
+                                        clear: both;
+                                    }
+                                    span {
+                                        font-size: 4em;
+                                        font-weight: bold;
+                                        display: inline;
+                                        width: auto;
+                                        float: left;
+                                        margin-right: 15px;
+                                    }
+                                    p {
+                                        display: inline;
+                                        font-weight: bold;
+                                        font-size: 1.25em;
+                                        width: 70%;
+                                        float: left;
+                                        font-style: italic;
+                                        &.margin-bottom-10 {
+                                            margin-bottom: 10px;
+                                        }
+                                        &.block {
+                                            display: block;
+                                            float: left;
+                                            clear: both;
+                                        }
+                                        span {
+                                            float: none;
+                                            font-weight: 1.5em !important;
+                                        }
+                                    }
+                                    em {
+                                        color: $white;
+                                        display: block;
+                                        float: left;
+                                    }
+                                    .icon {
+                                        width: 60px;
+                                        display: inline;
+                                        float: left;
+                                        margin-right: 20px;
+                                        &:last-of-type {
+                                            margin: 0;
+                                        }
+                                    }
+                                    &:last-child {
+                                        padding: 0;
+                                        margin: 0;
+                                        span {
+                                            font-size: 2em;
+                                        }
+                                        p {
+                                            margin: 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .unskewed--right {
+                            right: 17%;
+                            bottom: -15%;
+                            background-position: right -100px;
+                            background-size: contain;
+                            .globe {
+                                position: absolute;
+                                top: -35%;
+                                right: 5%;
+                                width: 30%;
+                            }
+                            .topright {
+                                position: absolute;
+                                right: 15em;
+                                top: -5em;
+                                margin: auto;
+                                width: 15%;
+                                height: 200px;
+                                z-index: 30;
+                                span {
+                                    color: $red;
+                                    display: block;
+                                    font-size: 4em;
+                                    font-weight: bold;
+                                }
+                                p {
+                                    color: $black;
+                                    text-align: left;
+                                    font-weight: bold;
+                                    display: block;
+                                    position: relative;
+                                    right: auto;
+                                    bottom: auto;
+                                    width: auto;
+                                }
+                            }
+                            .bottomright {
+                                position: absolute;
+                                top: 20%;
+                                right: 30em;
+                                margin: auto;
+                                width: 325px;
+                                height: 180px;
+                                z-index: 30;
+                                span {
+                                    color: $red;
+                                    display: block;
+                                    font-size: 4em;
+                                    font-weight: bold;
+                                }
+                                p {
+                                    color: $white;
+                                    text-align: left;
+                                    display: block;
+                                    position: relative;
+                                    right: auto;
+                                    bottom: auto;
+                                    width: auto;
+                                    margin: 0;
+                                }
+                                em {
+                                    color: $white;
+                                }
+                            }
+                        }
+                    }
+                    .hero_skewed--left {
+                        left: -25%;
+                    }
+                    .hero_skewed--right {
+                        right: -25%;
+                    }
+                    .unskewed--left,
+                    .unskewed--right {
+                        height: 100%;
+                        width: 125%;
+                        position: absolute;   
+                        background-repeat: no-repeat;
+                        transform: skew(30deg, 0deg) translate(0, 0);
+                    }
+                    
+                }
+                &.slide3 {
+                    .hero_skewed--right,
+                    .hero_skewed--left {
+                        top: 0;
+                        height: 100%;
+                        position: absolute;
+                        overflow: hidden;
+                        transform: skew(-30deg, 0deg) translate(0, 0);
+                        .unskewed--left {
+                            left: 0;
+                            &:after {
+                                content: '';
+                                position: absolute;
+                                left: 0;
+                                bottom: 0;
+                                margin: auto;
+                                width: 100%;
+                                height: 55vh;
+                                z-index: 30;
+                                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,1+15 */
+                                background: -moz-linear-gradient(top, rgba($black,0) 0%, rgba($black,1) 15%, rgba($black,1) 100%); /* FF3.6-15 */
+                                background: -webkit-linear-gradient(top, rgba($black,0) 0%,rgba($black,1) 15%,rgba($black,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                                background: linear-gradient(to bottom, rgba($black,0) 0%,rgba($black,1) 15%,rgba($black,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+                            }
+                            .us-china-students {
+                                height: 76vh;
+                                width: auto;
+                                position: absolute;
+                                right: -17%;
+                                left: 0;
+                                top: -5%;
+                                margin: auto;
+                            }
+                            .map {
+                                width: 25%;
+                                position: absolute;
+                                left: 30%;
+                                top: 45%;
+                                z-index: 35;
+                            }
+                            .leftText {
+                                position: absolute;
+                                bottom: 4em;
+                                left: 30%;
+                                width: 30%;
+                                z-index: 35;
+                                &:before {
+                                    content: '';
+                                    width: 28%;
+                                    height: 200px;
+                                    -webkit-shape-outside: polygon(70% 0, 100% 0, 100% 100%, 0 100%);
+                                    shape-outside: polygon(70% 0, 100% 0, 100% 100%, 0 100%);
+                                    float: right;
+                                }
+                                span {
+                                    color: $red;
+                                    display: block;
+                                    font-size: 4em;
+                                    font-weight: bold;
+                                }
+                                p {
+                                    color: $white;
+                                    text-align: left;
+                                    font-weight: bold;
+                                    display: block;
+                                    position: relative;
+                                    right: auto;
+                                    bottom: auto;
+                                    width: auto;
+                                }
+                            }  
+
+                            .text-container {
+                                position: absolute;
+                                top: 2em;
+                                left: 30%;
+                                z-index: 28;
+                                margin: auto;
+                                h1 {
+                                    font-size: 4em;
+                                    margin-bottom: 0.25em;
+                                    -webkit-text-stroke: 2px $white;
+                                    -webkit-text-fill-color: transparent;
+                                    letter-spacing: 1px;
+                                }
+                                .container {
+                                    margin-bottom: 2em;
+                                    padding-bottom: 2em;
+                                    clear: both;
+                                    display: block;
+                                    &:after {
+                                        content: '';
+                                        display: block;
+                                        clear: both;
+                                    }
+                                    span {
+                                        font-size: 4em;
+                                        font-weight: bold;
+                                        display: inline;
+                                        width: auto;
+                                        float: left;
+                                        margin-right: 15px;
+                                    }
+                                    p {
+                                        display: inline;
+                                        font-weight: bold;
+                                        font-size: 1.25em;
+                                        width: 70%;
+                                        float: left;
+                                        font-style: italic;
+                                        &.margin-bottom-10 {
+                                            margin-bottom: 10px;
+                                        }
+                                        &.block {
+                                            display: block;
+                                            float: left;
+                                            clear: both;
+                                        }
+                                        span {
+                                            float: none;
+                                            font-weight: 1.5em !important;
+                                        }
+                                    }
+                                    em {
+                                        color: $white;
+                                        display: block;
+                                        float: left;
+                                    }
+                                    .icon {
+                                        width: 60px;
+                                        display: inline;
+                                        float: left;
+                                        margin-right: 20px;
+                                        &:last-of-type {
+                                            margin: 0;
+                                        }
+                                    }
+                                    &:last-child {
+                                        padding: 0;
+                                        margin: 0;
+                                        span {
+                                            font-size: 2em;
+                                        }
+                                        p {
+                                            margin: 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .unskewed--right {
+                            right: 10%;
+                            bottom: 0%;
+                            background-position: center bottom;
+                            background-repeat: no-repeat;
+                            background-size: 79%;
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                bottom: -15%;
+                                left: 32%;
+                                height: 150vh;
+                                width: 10%;
+                                z-index: 25;
+                                transform: rotate(30deg);
+                                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.65+0,0+100;Neutral+Density */
+background: -moz-linear-gradient(left, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+                            }
+                            .topright {
+                                position: absolute;
+                                top: 5%;
+                                right: 30em;
+                                margin: auto;
+                                width: 30%;
+                                height: 200px;
+                                z-index: 30;
+                                &:before {
+                                    content: '';
+                                    width: 28%;
+                                    height: 200px;
+                                    clip-path: polygon(0 0, 0 100%, 100% 0);
+                                    -webkit-shape-outside: polygon(0 0, 0 100%, 91% 0);
+                                    -webkit-clip-path: polygon(0 0, 0 100%, 100% 0);
+                                    float: left;
+                                }
+                                span {
+                                    color: $red;
+                                    display: block;
+                                    font-size: 4em;
+                                    font-weight: bold;
+                                    margin-bottom: 15px;
+                                }
+                                p {
+                                    color: $white;
+                                    text-align: left;
+                                    display: block;
+                                    position: relative;
+                                    right: auto;
+                                    bottom: auto;
+                                    width: auto;
+                                    margin: 0 0 10px;
+                                }
+                                em {
+                                    color: $white;
+                                }
+                            }
+                        }
+                    }
+                    .hero_skewed--left {
+                        left: -25%;
+                        width: 85%;
+                    }
+                    .hero_skewed--right {
+                        right: -25%;
+                        width: 65%;
+                    }
+                    .unskewed--left,
+                    .unskewed--right {
+                        height: 100%;
+                        width: 125%;
+                        position: absolute;   
+                        background-repeat: no-repeat;
+                        transform: skew(30deg, 0deg) translate(0, 0);
+                    }
+
+                    .one-half {
+                        &.left {
+                            background-position: top -20px left -80px;
+                            background-size: 100%;
+                            .map {
+                                width: 40%;
+                                position: absolute;
+                                left: 4em;
+                                top: 40%;
+                                z-index: 35;
+                            }
+                            .bottomleft {
+                                position: absolute;
+                                left: 0;
+                                bottom: 2em;
+                                margin: auto;
+                                width: 100%;
+                                height: 50vh;
+                                z-index: 30;
+                                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,1+15 */
+                                background: -moz-linear-gradient(top, rgba($white,0) 0%, rgba($white,1) 15%, rgba($white,1) 100%); /* FF3.6-15 */
+                                background: -webkit-linear-gradient(top, rgba($white,0) 0%,rgba($white,1) 15%,rgba($white,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                                background: linear-gradient(to bottom, rgba($white,0) 0%,rgba($white,1) 15%,rgba($white,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+                                > div {
+                                    position: absolute;
+                                    bottom: 2em;
+                                    left: 4em;
+                                    width: 35%;
+                                    span {
+                                        color: $red;
+                                        display: block;
+                                        font-size: 4em;
+                                        font-weight: bold;
+                                    }
+                                    p {
+                                        color: $white;
+                                        text-align: left;
+                                        display: block;
+                                        position: relative;
+                                        right: auto;
+                                        bottom: auto;
+                                        width: auto;
+                                    }
+                                }                                
+                            }
+                        }
+                        &.right {
+                            background-size: cover;
+                            background-position: center bottom;
+                            &:before {
+                                display: none;
+                            }
+                            .topright {
+                                position: absolute;
+                                top: 5%;
+                                right: 5em;
+                                margin: auto;
+                                width: 325px;
+                                height: 200px;
+                                z-index: 30;
+                                span {
+                                    color: $red;
+                                    display: block;
+                                    font-size: 4em;
+                                    font-weight: bold;
+                                }
+                                p {
+                                    color: $white;
+                                    text-align: left;
+                                    display: block;
+                                    position: relative;
+                                    right: auto;
+                                    bottom: auto;
+                                    width: auto;
+                                    margin: 0;
+                                }
+                                em {
+                                    color: $white;
+                                }
+                            }
+                        }
+                    }
+                }               
+            }           
+        }
+    }
+}
+// Vue animation classes
+.slide-enter {
+    opacity: 0;
+}
+.slide-enter-active {
+    animation: slide-in 1s ease-out forwards;
+    transition: opacity 0.5s;
+}
+.slide-enter-to {
+  
+}
+
+.slide-leave {
+  
+}
+.slide-leave-active {
+    animation: slide-out 1s ease-out forwards;
+    transition: opacity 1s;
+    opacity: 0;
+}
+.slide-leave-to {
+  
+}
+
+.slide-move {
+  
+}

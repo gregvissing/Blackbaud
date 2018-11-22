@@ -1,0 +1,48 @@
+
+//Colors - Not needed for demo
+$r: #c03;
+$g: #429032;
+$b: #2963BD;
+$y: #c90;
+$blackTrapezoid: lighten($black, 20%);
+
+//Shapes demo starts
+@mixin rectangle($width, $height, $color) {
+	width: $width;
+	height: $height;
+	background: $color;
+}
+
+
+@mixin square($size, $color) {
+	@include rectangle($size, $size, $color);
+}
+
+@mixin trapezoid($width, $color) {
+	width: $width;
+	height: 100vh;
+	border-right: $width / 2 solid transparent;
+	border-top: $width solid $color;
+	//border-left: $width / 2 solid transparent;
+	box-sizing: content-box; //If you have 'box-sizing:border-box' the trapezoid doesn't work.
+}
+
+//Usage:
+
+.trapezoid {
+    @include trapezoid(70%, $blackTrapezoid );
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.info { display: inline-block; margin-bottom: 10px; background: none; box-shadow: none; color: rgba(white,.7); white-space: nowrap; background: rgba(black,.3); }
+
+//Styling stuff not needed for demo
+.ctnr { padding: 10px 20px 20px; margin: 10px; background: rgba(black,.2); border-radius: 2px; box-shadow: inset 0 0 0 2px rgba(black,.05), 1px 1px 5px rgba(black,.2); position: relative;
+   &--hex-adjust { @extend .ctnr; padding: 45px 50px 20px; }
+   div { margin: auto; }   
+}
+.ctnr--hex-adjust .info { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); }
+.flex-ctnr { display:flex; flex-wrap:wrap; align-items:center;  }
+.tal { text-align: left; }

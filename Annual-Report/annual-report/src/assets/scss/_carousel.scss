@@ -1,0 +1,464 @@
+$timing: cubic-bezier(0,.5,1,.5);
+
+body {
+  background: black;
+}
+
+.carousel {
+    @include media('>tablet') {
+        height: 80vh;
+    }
+    @include media('<=tablet') {
+        height: 85vh;
+    }
+    .carousel-inner {
+        display: flex;
+        overflow: hidden;
+        background: black;
+        height: 100%;
+        .carousel-inner-image {
+            width: 100%;
+            margin-right: -100%;
+            opacity: 0;
+            transform: translate(-100%);
+            transition: 500ms ease-out;
+            background-size: 72%;
+            //background-size: cover; // temporary
+            background-repeat: no-repeat;
+            background-position: left -40% center;
+            position: relative;
+            &:not(:first-child) {
+                .borderTriangle {
+                    display: none;
+                }                
+            }
+            @include media('<=tablet') {
+                // background: none;
+                // background-image: none !important;
+                background-size: cover;
+                background-position: top center !important;
+            }
+            &:after {
+                content: '';
+                width: 30px;
+                height: 100vh;
+                background: rgba($red, 0.5);
+                position: absolute;
+                top: -10vh;
+                left: 50.8%;
+                transform: rotate(30deg);
+                z-index: 14;
+                @include media('<=tablet') {
+                    display: none;
+                }
+            }
+            .redBg {
+                position: absolute !important;
+                top: 0;                
+                z-index: 9;
+                width: 65%;
+                height: 80vh;                
+                // background: $red;
+                position: relative;
+                padding: 0;
+                background-size: cover;
+                @include media('<=tablet') {
+                    display: none;
+                }
+                &:after {
+                    content:" ";
+                    display: block; 
+                    height: 0;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    z-index: 1;
+                }
+                .clipAngleUp {
+                    background-color: transparent;
+                    width: 42%;
+                    height: 80vh;    
+                }
+                .slideTextContainer {
+                    width: 100%; // 85%;
+                    position: relative;
+                    top: 8em;                    
+                    z-index: 2;
+                    display: block;                                        
+                    p {
+                        font-size: 1em;
+                        line-height: 1.35em;
+                    }
+                    p, blockquote {
+                        font-family: $gentium !important;                        
+                        width: 90%; 
+                        padding-right: 3%;
+                        margin-right: 0;
+                        margin-left: auto; 
+                        margin-bottom: 15px;
+                        display: block;                     
+                    }
+                    blockquote {
+                        font-weight: bold;
+                        font-size: 1.15em;
+                        margin: 1em 0;
+                        line-height: 1.75em; 
+                    }
+                    em {
+                        color: $white;
+                    }
+                    .image-text {
+                        margin-top: 10px;
+                        width: 30%;
+                        &:after {
+                            content: '';
+                            display: block;
+                            clear: both;
+                        }
+                        img {
+                            width: 100%;
+                            display: block;
+                            -webkit-clip-path: polygon(0 0, 100% 0, 60% 100%, 0% 100%);
+                            clip-path: polygon(0 0, 100% 0, 60% 100%, 0% 100%);
+                            float: left;
+                        }
+                        em {
+                            position: absolute;
+                            right: 0;
+                            bottom: 0;
+                            width: 40%;
+                            height: 200px;
+                            display: inline;
+                            float: left;
+                            &:before {
+                                content: '';
+                                width: 70%;
+                                height: 250px;
+                                clip-path: polygon(0 0, -110% 100%, 100% 0);
+                                -webkit-shape-outside: polygon(0 0, -110% 100%, 91% 0);
+                                -webkit-clip-path: polygon(0 0, -110% 100%, 100% 0);
+                                float: left;
+                                margin-left: 1em;
+                            }
+                        }
+                    }
+                }
+            }
+            .title {
+                position: absolute;
+                right: 0;
+                top: 4em;
+                z-index: 15;
+                padding: 0 2em;
+                color: $white;
+                text-align: right;
+                border-bottom: 30px solid $black;
+                border-left: 20px solid transparent;
+                border-right: 0px solid transparent;
+                height: 0;
+                width: 45%;
+                margin: auto;
+                line-height: 30px;
+                font-weight: 300;
+                span {
+                    font-style: italic;
+                    font-weight: bold;
+                    &.title-text {
+                        color: $white;
+                    }
+                }
+                @include media('<=tablet') {
+                    width: 85%;
+                }
+            }
+            &:nth-of-type(odd) {
+                &:after {
+                    left: 48.5%;
+                }
+                .redBg {
+                    right: 0;
+                    clip-path: polygon(39.5% 0, 100% 0, 100% 100%, 4.5% 100%);
+                    -webkit-shape-outside: polygon(39.5% 0, 100% 0, 100% 100%, 4.5% 100%);
+                    -webkit-clip-path: polygon(39.5% 0, 100% 0, 100% 100%, 4.5% 100%);
+                    &:after {
+                        border-bottom: 100vh solid rgba($impactRed, .9);
+                        border-left: 29.5vw solid transparent;
+                        border-right: 0px solid transparent;
+                        right: 0;
+                        left: -10%;
+                    }                    
+                    .clipAngleUp {
+                        // clip-path: polygon(0 0, 0 100%, 100% 0);
+                        // -webkit-shape-outside: polygon(0 0, 0 100%, 91% 0);
+                        // -webkit-clip-path: polygon(0 0, 0 100%, 100% 0);
+
+                        clip-path: polygon(0 0, 0 114%, 76% 0);
+                        -webkit-shape-outside: polygon(0 0, 0 114%, 76% 0);
+                        -webkit-clip-path: polygon(0 0, 0 114%, 76% 0);
+                        float:left;                                        
+                        margin-left: 8em;
+                    }
+                    .slideTextContainer {
+                        right: 2em;
+                        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                        -webkit-shape-outside: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                        margin-right: 1.5em;
+                        margin-left: auto;
+                    }
+                }
+            }
+            &:nth-of-type(even) {
+                background-position: right -8em center;
+                &:after {
+                    left: 51%;
+                }
+                .redBg {
+                    left: 0;
+                    -webkit-shape-outside: polygon(0 0, 97.5% 0, 62.5% 100%, 0% 100%);
+                    -webkit-clip-path: polygon(0 0, 97.5% 0, 62.5% 100%, 0% 100%);
+                    clip-path: polygon(0 0, 97.5% 0, 62.5% 100%, 0% 100%);
+                    &:after {
+                        border-top: 100vh solid rgba($impactRed, 0.9);
+                        border-right: 34vw solid transparent;
+                        border-left: 0px solid transparent;
+                        left: 0;
+                        right: -10%;
+                    }
+                    .clipAngleUp {
+                        background-color: transparent;
+                        width: 42%;
+                        height: 80vh;
+                        clip-path: polygon(0 0, 0 100%, 100% 0);
+                        -webkit-shape-outside: polygon(0 0, 0 100%, 91% 0);
+                        -webkit-clip-path: polygon(0 0, 0 100%, 100% 0);
+                        float:right;
+                        margin-left: 1em;
+                        display: none;
+                    }
+                    .slideTextContainer {
+                        left: 2em;
+                        margin-right: 0;
+                        margin-left: 0;
+                        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                        -webkit-shape-outside: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                        &:before {
+                            content: '';
+                            width: 45%;
+                            height: 50vh;
+                            -webkit-shape-outside: polygon(60% 0, 100% 0, 100% 100%, 0 100%);
+                            shape-outside: polygon(60% 0, 100% 0, 100% 100%, 0 100%);
+                            float: right;
+                        }
+                        p, blockquote {
+                            padding-right: 3%;
+                            margin-right: auto;
+                            margin-left: 0;                     
+                        }
+                    }
+                }
+                > .title {
+                    left: 0;
+                    text-align: left;
+                    border-bottom: 0px solid #000000;
+                    border-top: 30px solid $black;
+                    border-right: 17px solid transparent !important;
+                    border-left: 0px solid transparent !important;
+                    margin: 0 !important;
+                    width: 50%;
+                    position: relative;
+                    @include media('<=tablet') {
+                        width: 85%;
+                    }
+                    > span {
+                        position: absolute;
+                        top: -30px;
+                        bottom: 0;
+                        height: 30px;
+                        margin-top: 0;
+                    }
+                }
+            } 
+            &:nth-child(3) {
+                .redBg {
+                    width: 68%;
+                    padding-left: 50px;
+                    &:after {
+                        display: none;
+                    }
+                }
+            }           
+            #sliderTriangle, .triangleText {
+                display: none;
+            }
+            .borderTriangle {
+                @include media('<=tablet') {
+                    display: none;
+                }
+            }
+            &:first-child {
+                .borderTriangle {
+                    border-bottom-width: 40vh;
+                    border-top-width: 40vh;
+                    border-left: 40vh solid rgba($red, 0.9);
+                }
+                #sliderTriangle {
+                    display: block;
+                    position: absolute;
+                    bottom: 0;
+                    top: 0;
+                    z-index: 30;
+                    margin: auto;
+                    transform: rotate(90deg);
+                    filter: drop-shadow(0 0 30px #333);
+                    opacity: 0.8;
+                    @include media('>tablet') {
+                        left: -600px;     
+                    }
+                    @include media('<=tablet') {
+                        // left: -55em;
+                        display: none;      
+                    }
+                }
+                .triangleText {
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: -10em;
+                    margin: auto;
+                    height: 75px;
+                    z-index: 40;
+                    font-size: 2.5em;
+                    @include media('<=tablet') {
+                        display: none;      
+                    }
+                    span {
+                        display: block;
+                        color: $white;
+                        font-style: italic;
+                        font-size: 1.5em;
+                    }
+                }
+            }
+            &[data-active-slide] {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            &[data-active-slide] ~ .carousel-inner-image {
+                transform: translateX(100%);
+            }
+        }
+    }
+}
+
+.thumbs {
+    width: 100%;
+    display: flex;
+    position: absolute;    
+    @include media('>tablet') {
+        bottom: 0;
+        height: 20vh;
+    }
+    @include media('<=tablet') {
+        bottom: 0;
+        // right: 0;
+        // height: 95vh;
+        // width: 35%;
+        // flex-direction: column;
+        // align-items: flex-end;
+
+    }
+    .thumbs-thumbnail {
+        flex: 1;
+        @include media('<=tablet') {
+            flex-grow: 1;            
+        }
+        & img {
+            max-width: 100%;
+        }
+        button {
+            padding: 0;
+            border:0;
+            outline: 0;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            @include media('<=tablet') {
+                height: 15vh !important;
+            }
+            img {
+                display: block;
+                transition: 500ms ease-out;
+                transform: scale(1.0);
+                filter: grayscale(100%);
+                @include media('<=tablet') {
+                    transform: scale(1.75);
+                }
+            }
+            p {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                z-index: 40;
+                color: $white;
+                background: rgba($black, 0.8);
+                padding: 7px 0;
+                transition: 500ms ease-out;
+                font-style: italic;
+                font-weight: bold;
+                letter-spacing: 0.5px;
+                height: 26px;
+                @include media('<=tablet') {
+                    bottom: 0;
+                    height: 100%;
+                }
+                span {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    line-height: 26px;
+                    display: none;
+                    @include media('<=tablet') {
+                        font-size: 1.5em;
+                        height: 15vh;
+                        margin-top: 30px;
+                        padding: 10px 4px;
+                    }
+                }
+            }            
+            &:hover { 
+                img {
+                    filter: grayscale(0%);
+                    transform: scale(1.15);
+                    transform-origin: center;
+                }
+                p {
+                    color: $black;
+                    background: rgba($white, 0.8);
+                }  
+            }
+            &[data-active-button] { 
+                img {
+                    filter: grayscale(0%);
+                    transform: scale(1.15);
+                    @include media('<=tablet') {
+                        transform: scale(1.75);
+                    }
+                }
+                p {
+                    color: $black;
+                    background: rgba($white, 0.8);                    
+                }    
+            }
+            
+        }
+    }
+}
+

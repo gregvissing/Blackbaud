@@ -1,0 +1,85 @@
+.table {
+	a {
+		font-weight: bold;
+		text-decoration: none;  
+		
+		&.active {
+			font-weight: bold;
+			color: black;
+			text-decoration: underline;
+		}
+	}
+}
+
+// Vue data table
+table {
+    // border: 2px solid #42b983;
+    border-radius: 3px;
+    background-color: #fff;
+    width: 95%;
+    margin: 0 auto 1em;
+    border-collapse: collapse;
+    thead {
+        th {
+            color: $black;
+            text-align: right;
+            border-bottom: 2px solid $red;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            padding-top: 10px;
+            &:first-child {
+                color: $red;
+                text-align: left;
+                cursor: default;
+            }
+        }
+    }
+    tbody {
+        &:last-child {
+            tr:first-child {
+                td {
+                    padding-top: 10px;
+                }
+            }
+        }        
+        tr:last-child td {
+            border: none !important;
+        }
+        td {
+            border-bottom: 1px solid $ltGray;
+            color: $black;
+            font-weight: 300;
+            text-align: right;
+            &:first-child {
+                text-align: left;
+            }
+        }
+        tr {
+            &:nth-child(even) {
+                background: $gray-lightest;
+            }
+            &:nth-last-child(2) {
+                td {
+                    border-bottom: 2px solid $dkGray;
+                }
+            }
+            &:nth-last-child(1) {
+                background: $white;
+            }
+        }
+    }
+    tr {
+        &.bold {
+            td, th {
+                font-weight: bold;
+            }
+        }
+    }
+    th, td {
+        min-width: 120px;
+        padding: 5px 0px;
+    }    
+}

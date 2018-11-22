@@ -1,0 +1,113 @@
+// Color variables
+$red: #de1c24;
+$black: #000000;
+$white: #ffffff;
+$dkGray: #666666;
+$ltGray: #cccccc;
+
+$impactRed: #ce0e2d;
+
+// card layout colors
+$gray-darker:               #444444;
+$gray-dark:                 #696969;
+$gray:                      #999999;
+$gray-light:                #cccccc;
+$gray-lighter:              #ececec;
+$gray-lightest:             lighten($gray-lighter,4%);
+$timeline-text:				#232021;
+
+$width: 			20px;
+
+$scrollbar-height: 	15px;
+$scrollbar-padding: 15px;
+
+// Breakpoints
+$break-small: 320px;
+$break-medium: 768px;
+$break-large: 1200px;
+
+$breakpoint-tablet: 768px;
+
+
+// Mixins
+
+/* @include transition(all, 2s, ease-out); */
+
+@mixin transition($what: all, $time: 0.4s, $how: ease) {
+    -webkit-transition: $what $time $how;
+    -moz-transition: $what $time $how;
+    -ms-transition: $what $time $how;
+    -o-transition: $what $time $how;
+    transition: $what $time $how;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+$openSans:	'Open Sans', sans-serif;
+$gentium:	'Gentium Book Basic', serif;
+
+// General styles
+.nextTxt {
+	color: $red;
+	font-weight: bold;
+	font-style: italic;
+	padding-right: 3px;
+}
+
+p, h1, h2, h3, h4, span, button, div, em {
+	font-family: $openSans !important;
+}
+
+blockquote {
+	font-family: $gentium;
+}
+
+a {
+	@include transition(all, 0.4s, ease);
+	&.button {
+		margin: 1em 0;
+		background: $red;
+		text-decoration: none;
+		padding: 7px 20px;
+		line-height: 30px;
+		&:hover {
+			background: rgba($red, 0.75);
+		}
+	}
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+.rightAlign {
+	text-align: right !important;
+}
+
+em {
+	font-size: 0.7em;
+	color: $dkGray;
+}
+
+button {
+	cursor: pointer;
+	outline: none;
+}
+
+.centerAlign {
+	text-align: center !important;
+}
+
+.margin-top-bottom-10 {
+	margin: 10px 0 !important;
+}
+
+p:empty {
+	display: none;
+}
+
+.intro-diagonal, .carousel-inner-image:after {
+	display: none;
+}

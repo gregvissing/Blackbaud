@@ -1,0 +1,100 @@
+section {
+    &#intro {
+        .intro-diagonal {
+            position: absolute;
+            top: -15vh;
+            // right: 671px;
+            width: 30px;
+            height: 140vh;
+            background: rgba($red, 0.9);
+            transform: rotate(30deg);
+            @include media('<=tablet') {
+                display: none;
+            }
+        }
+        // .clipAngleUpRight {
+        //     background-color: transparent;
+        //     width: 45%;
+        //     height: 100vh;
+        //     margin-right: 2em;
+        //     -webkit-shape-outside: polygon(85% 0, 100% 0, 100% 100%, 0 100%);
+        //     shape-outside: polygon(85% 0, 100% 0, 100% 100%, 0 100%);
+        //     float:right;
+        //     @include media('<=tablet') {
+        //         display: none;
+        //     }   
+        // }
+        p {
+            display: none;
+        }
+        .intro-container {
+            position: relative;
+            top: 0;
+            left: 0;
+            z-index: 9; 
+            background: rgba($black, 0.8);
+            position: relative;
+            padding: 5px; 
+            
+            @include media('>tablet') {
+                width: 65%;
+                height: 100vh;
+                -webkit-shape-outside: polygon(0 0, 100% 0, 56% 100%, 0% 100%);
+                -webkit-clip-path: polygon(0 0, 100% 0, 56% 100%, 0% 100%);
+                clip-path: polygon(0 0, 100% 0, 56% 100%, 0% 100%);
+            }  
+            @include media('<=tablet') {
+                width: 100%;
+                bottom: 0;
+                height: 100vh;
+            }          
+            .intro-text {
+                position: relative;
+                left: 4em;
+                &:before {
+                    content: '';
+                    width: 40%;
+                    height: 50vh;
+                    -webkit-shape-outside: polygon(50% 0, 100% 0, 100% 100%, 0 100%);
+                    shape-outside: polygon(50% 0, 100% 0, 100% 100%, 0 100%);
+                    float: right;
+                }
+                p {
+                    color: $white;
+                    text-transform: uppercase;
+                    padding-right: 7em;
+                    font-weight: 300;
+                    position: relative;
+                    margin: 1em 0;
+                    line-height: 1.5em;
+                    &:first-child {
+                        margin-top: 13em;
+                    }
+                    strong {
+                        font-weight: bold;
+                        font-style: italic;
+                    }
+                    @include media('<=tablet') {
+                        margin: 2em 0;
+                    }   
+                }
+            }   
+        }
+        .credit-container {
+            position: absolute;
+            left: 4em;
+            bottom: 2em;
+            width: 40%;
+            height: 90px;
+            z-index: 9;
+            .clipAngleUpRight {
+                width: 50%;
+            }
+            p {
+                font-size: 0.7em;
+                font-style: italic;
+                margin: 0;
+            }
+        }
+    }
+}

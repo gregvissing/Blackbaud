@@ -1,0 +1,95 @@
+section {
+    position: relative;
+    &#cover {
+        text-align:right; 
+        display:table;
+        width:100%;
+        .bgImage {
+            top: auto;
+        }
+        // .triangle {
+        //     left: -40em; // 100%;
+        //     @include media('<=tablet') {
+        //         top: 192px;
+        //     }
+        // }
+        &:before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 40%;
+            z-index: 10;
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.65+100 */
+            background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=1 ); /* IE6-9 */
+        }
+        h1#next {
+            color: $red;
+            font-family: $openSans;
+            font-size: 13em;
+            margin: 0;
+            font-style: italic;
+            font-weight: bold;
+            position: relative;
+            left: -10em;
+            z-index: 11;
+            display: table-cell; 
+            vertical-align: middle;
+            text-align: left;
+            @include media("<=desktop") {
+                font-size: 8em;
+            }
+            @include media('>tablet') {
+                color: $red;
+                top: auto;
+            }
+        }
+        h2#redefining {
+            font-family: $openSans;
+            font-weight: 300;
+            color: $white;
+            position: absolute;
+            left: -35%;
+            top: 0;
+            bottom: 0;
+            font-size: 2.5em;
+            margin: auto;
+            z-index: 6;
+            letter-spacing: 2px;
+            height: 55px;
+        }
+        .cover-text {
+            position: absolute;
+            bottom: 2em;
+            right: 4em;
+            display: none;
+            text-align: right;
+            z-index: 11;
+            h2 {
+                color: $white;
+            }
+            h2 {
+                font-family: $openSans;
+                font-size: 1.4em;
+                font-weight: normal;
+                letter-spacing: 2px;
+                margin: 0;
+            }
+            h3 {
+                color: $red;
+                font-family: $openSans;
+                font-style: italic;
+                font-weight: 500;
+                margin-top: 0;
+                margin-bottom: 2.5em;
+            }
+            img {
+                height: 55px;
+            }
+        }
+    }
+}

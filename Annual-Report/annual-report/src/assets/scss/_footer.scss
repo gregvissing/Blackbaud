@@ -1,0 +1,63 @@
+#footer {
+    height: auto !important;
+    background: $black;
+    padding: 2em 0;
+    overflow: visible;
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        @include media('<=tablet') {
+            width: 90%;
+        }
+        .logo {
+            margin: 0 auto 20px;
+            display: inline-block;
+            max-width: 400px;
+        }
+        .one-third {
+            width: 33%;
+            display: inline-block;
+            vertical-align: top;
+            @include media('<=tablet') {
+                width: 32.9%;
+                &:nth-child(2) {
+                    padding: 0 5px;
+                }
+            }
+        }
+        h2 {
+            font-family: 'Bree Serif',Serif !important;
+            margin: 0;
+            padding-bottom: 0.5em;
+        }
+        p {
+            margin: 0;
+            font-size: .8125em;
+            line-height: 1.615em;
+            color: $white;
+        }
+        a {
+            color: $white;
+            &.button {
+                
+            }
+        }
+        &.copyright {
+            width: 100%;
+            padding: 0;
+            height: 30px;
+            margin: 1.5em 0 0;
+            background: rgba($white, 0.75);
+            background-image: url('https://foundation.uc.edu/image/annual-report/2018/navBackground.png');
+            color: $white;
+            text-align: center;
+            p {
+                display: inline;
+                margin: 0 auto;
+                font-size: .725em;
+                line-height: 1.75rem;
+                font: $openSans;
+            }
+        }
+    }
+}
