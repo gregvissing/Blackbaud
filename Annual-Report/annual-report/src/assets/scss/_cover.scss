@@ -1,51 +1,80 @@
+
+
 section {
     position: relative;
     &#cover {
         text-align:right; 
         display:table;
         width:100%;
+        height: 100vh;
+        @include media("<=tablet") {
+            overflow: hidden !important;
+        }
         .bgImage {
             top: auto;
         }
-        // .triangle {
-        //     left: -40em; // 100%;
-        //     @include media('<=tablet') {
-        //         top: 192px;
-        //     }
-        // }
         &:before {
             content: '';
             position: absolute;
             right: 0;
-            top: 0;
             bottom: 0;
-            width: 40%;
             z-index: 10;
             /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.65+100 */
-            background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%); /* FF3.6-15 */
-            background: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=1 ); /* IE6-9 */
+            @include media(">tablet") {
+                width: 40%;
+                top: 0;
+                background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            }
+            @include media("<=tablet") {
+                width: 100%;
+                height: 40vh;
+                left: 0;
+                background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            }
         }
         h1#next {
             color: $red;
             font-family: $openSans;
-            font-size: 13em;
             margin: 0;
             font-style: italic;
             font-weight: bold;
             position: relative;
-            left: -10em;
             z-index: 11;
-            display: table-cell; 
-            vertical-align: middle;
-            text-align: left;
-            @include media("<=desktop") {
-                font-size: 8em;
+            padding: 0;
+            @include media('>desktop') {
+                font-size: 13em;
+            }
+            @include media('<=desktop') {
+                font-size: 9em;
             }
             @include media('>tablet') {
+                display: table-cell;
+                text-align: left;
+                left: -13em;
                 color: $red;
                 top: auto;
+                vertical-align: middle;
+                margin-top: 10px;
+            }
+            @include media('<=tablet') {
+                position: absolute;
+                font-size: 7.5em;
+                top: 48vh;
+                left: -13em;
+                text-align: center;
+                color: $black;
+            }
+            @include media("<=phone") {
+                font-size: 4em;                
+                text-align: left;
+                top: 45vh;
+                display: inline-block;
+                margin: auto;
             }
         }
         h2#redefining {
@@ -53,14 +82,28 @@ section {
             font-weight: 300;
             color: $white;
             position: absolute;
-            left: -35%;
-            top: 0;
-            bottom: 0;
-            font-size: 2.5em;
             margin: auto;
             z-index: 6;
             letter-spacing: 2px;
             height: 55px;
+            @include media('>tablet') {
+                font-size: 2.5em;
+                left: -35%;
+                top: 0;
+                bottom: 0;
+            }
+            @include media('<=tablet') {
+                left: -10em;
+                font-size: 3em;
+                top: 40vh;
+                line-height: 2em;
+            }
+            @include media('<=phone') {
+                left: -10em;
+                font-size: 1.75em;
+                top: 38vh;
+                line-height: 1.75em;
+            }
         }
         .cover-text {
             position: absolute;
@@ -70,14 +113,13 @@ section {
             text-align: right;
             z-index: 11;
             h2 {
-                color: $white;
-            }
-            h2 {
                 font-family: $openSans;
                 font-size: 1.4em;
                 font-weight: normal;
                 letter-spacing: 2px;
                 margin: 0;
+                color: $white;
+                text-align: right !important;
             }
             h3 {
                 color: $red;
@@ -85,11 +127,38 @@ section {
                 font-style: italic;
                 font-weight: 500;
                 margin-top: 0;
-                margin-bottom: 2.5em;
+                margin-bottom: 0;
+                text-align: right !important;
+                @include media("<=tablet") {
+                    margin-bottom: 0;
+                }
             }
             img {
                 height: 55px;
+                @include media("<=tablet") {
+                    height: 45px;
+                }
             }
+            @include media("<=tablet") {
+                bottom: 3em;
+                left: 1em;
+                right: 1em;
+                h2, h3 {
+                    margin-bottom: 0;
+                    margin-top: 0;
+                    padding-bottom: 0;
+                    padding-top: 0;
+                    text-align: right;
+                }
+            }
+            @include media("<=phone") {
+                h2, h3 {
+                    text-align: right;
+                }
+                h2 {
+                    font-size: 1.25em;
+                }
+            }           
         }
     }
 }

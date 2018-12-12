@@ -23,26 +23,38 @@ body {
 		position: relative;
 		@include media('<=tablet') {
 			align-items: flex-end;
+			height: 93vh;
 		}
 		.app {
 			width: 80%;
 			height: 100vh;
-			margin: 0 40px 0 auto;
-			display: grid;
-			grid-gap: 0;
-			grid-template-columns: repeat(11, 20%);
-			grid-template-rows: 49vh 45vh;
+			margin: 0 40px 0 auto;			
+    		display: grid;
+			grid-gap: 0;			
+			grid-template-columns: repeat(11, 20%);			
+			grid-template-rows: 47.5vh 47.5vh;			
 			grid-auto-flow: column;
 			overflow-x: auto;
 			overflow-y: hidden;
+			@include media('<=desktop') {
+				width: 75%;				
+				grid-template-columns: repeat(11, 35%);
+				grid-template-rows: 47.5vh 47.5vh;
+			}
 			@include media('<=tablet') {
 				height: 90vh;
 				width: 100%;
-				grid-template-columns: repeat(11, 40%);
-            }
+				grid-template-columns: repeat(22, 85%);
+				grid-template-rows: 80vh;
+				margin-right: 0;
+			}
 			&::-webkit-scrollbar {
 				height: (($scrollbar-padding * 2) + $scrollbar-height);
 				background-color: rgba(255,255,255,0);
+				@include media('<=tablet') {
+					height: (($scrollbar-padding * 3) + $scrollbar-height);
+					
+				}
 			}			 
 			&::-webkit-scrollbar-track,
 			&::-webkit-scrollbar-thumb {
@@ -64,15 +76,15 @@ body {
 				justify-content: center;
 				text-decoration: none;
 				&:nth-child(3):before, &:nth-child(7):before, &:nth-child(11):before, &:nth-child(15):before, &:nth-child(19):before {
-                    position: absolute;
-                    top: -50px;
-                    content: '';
-                    background-image: linear-gradient(120deg, #dcddde 41.67%, #b9babc 41.67%, #b9babc 50%, #dcddde 50%, #dcddde 91.67%, #b9babc 91.67%, #b9babc 100%);
-                    background-size: 6.93px 12.00px;
-                    height: 110vh;
-                    width: 100%;
-                    z-index: 0;
-                }
+					position: absolute;
+					top: -50px;
+					content: '';
+					background-image: linear-gradient(120deg, #dcddde 41.67%, #b9babc 41.67%, #b9babc 50%, #dcddde 50%, #dcddde 91.67%, #b9babc 91.67%, #b9babc 100%);
+					background-size: 6.93px 12.00px;
+					height: 110vh;
+					width: 100%;
+					z-index: 0;
+				}
 				.card__content {
 					background: $white;
 					border-radius: 0.25rem;
@@ -164,6 +176,9 @@ body {
 								padding-top: 66.6%; // 3:2 aspect ratio
 							}
 						}
+						@include media('<=tablet') {
+							height: 40vh;
+						}
 					}
 				}
 			}
@@ -204,7 +219,7 @@ body {
 		bottom: 0;
 		margin: auto;
 		width: 15%;
-		height: 200px;
+		height: 285px;
 		z-index: 20;
 		font-style: italic;
 		color: $white;
@@ -221,11 +236,13 @@ body {
 			margin: 10px 0;
 			&.extraBold {
 				font-size: 0.45em;
+				line-height: inherit;
 			}
 			&.semiBold {
 				font-size: 0.45em;
 				margin-bottom: 0;
 				font-weight: 500;
+				line-height: inherit;
 			}
 		}
 	} 	

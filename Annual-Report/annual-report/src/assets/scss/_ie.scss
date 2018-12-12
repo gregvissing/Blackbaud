@@ -1,0 +1,386 @@
+#app {
+    &.ieBrowser {
+        // INTRO
+        #intro {
+            .intro-container {
+                -webkit-shape-outside: none;
+                -webkit-clip-path: none;
+                clip-path: none;
+                width: 50%;
+                .intro-text {
+                    padding-right: 4em;
+                    &:before {
+                        display: none;
+                    }
+                    p {
+                        padding-right: 0;
+                    }
+                }
+            }
+        }
+        // LETTERS
+        #letters {
+            .tabs {
+                .tabs__list {
+                    .tabs__tab {
+                        &.tabs__tab_active {
+
+                        }
+                    }
+                }
+                .tabs__container {
+                    .tabs__wrapper {
+                        .tabs__content {
+                            img {
+                                -webkit-clip-path: none;
+                                clip-path: none;
+                            }
+                            &:first-child {
+                                .letter-text-container {
+                                    background-image: url('https://foundation.uc.edu/image/annual-report/2018/letters/UC-Campus-Scenes0232.jpg ');
+                                    background-repeat: no-repeat;
+                                    background-size: auto 94vh;
+                                    background-position: left -400px center;
+                                    p {
+                                        width: 50%;
+                                        float: right;
+                                        padding-left: 1em;
+                                        padding-right: 3em;
+                                        &:before {
+                                            display: none;
+                                        }
+                                        .image-signature {
+                                            margin: 0;
+                                        }
+                                    }                            
+                                }
+                            }
+                            &:last-child {
+                                .letter-text-container {
+                                    background-image: url('https://foundation.uc.edu/image/annual-report/2018/letters/UCDayofGiving-square.jpg');
+                                    background-repeat: no-repeat;
+                                    background-size: auto 94vh;
+                                    background-position: right -150px center;
+                                    -webkit-clip-path: none;
+                                    clip-path: none;
+                                    width: 100%;
+                                    p {
+                                        width: 150%;
+                                        float: left;
+                                        &:before {
+                                            background: none;
+                                        }
+                                        .image-signature {
+                                            .image {
+                                                -webkit-clip-path: none;
+                                                clip-path: none;
+                                                margin-right: 10px;
+                                            }
+                                            .position {
+                                                strong, span {
+                                                    margin: 0;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // IMPACT STORIES
+        #impact {
+            .carousel {
+                .carousel-inner {
+                    .carousel-inner-image {
+                        .redBg {
+                            shape-outside: none !important;
+                            -webkit-shape-outside: none !important;
+                            -webkit-clip-path: none !important;
+                            clip-path: none !important;
+                            width: 55%;
+                            &:after {
+                                border: none;
+                                position: absolute;
+                                top: 0;
+                                bottom: 0;
+                                left: 0;
+                                right: 0;
+                                content: '';
+                                background: rgba($red, 0.9);
+                                z-index: 1;
+                                width: 100%;
+                                height: 80vh;
+                            }
+                            .clipAngleUp {
+                                display: none !important;
+                            }
+                            .slideTextContainer {
+                                clip-path: none !important;
+                                shape-outside: none !important;
+                                -webkit-clip-path: none !important;
+                                width: 90%;
+                                p, blockquote {
+                                    width: 100%;
+                                }
+                            }
+                        }
+                        .title {
+                            width: 60%;
+                        }
+                        &:nth-of-type(even) {
+                            .redBg {
+                                .slideTextContainer {
+                                    width: 93%;
+                                    &:before {
+                                        display: none !important;
+                                    }
+                                    p {
+                                        padding-right: 0;
+                                    }
+                                }
+                            }
+                            .title {
+                                span {
+                                    line-height: 30px;
+                                }
+                            }
+                        }
+                        &:nth-of-type(odd) {
+                            .slideTextContainer {
+                                width: 160% !important;
+                                left: -64% !important;
+                            }
+                        }
+                        &:nth-of-type(3) {
+                            .slideTextContainer {
+                                width: 175% !important;
+                                left: -77% !important;
+                            }
+                            .redBg {
+                                background-image: url('https://foundation.uc.edu/image/annual-report/2018/impactstories/jark-text-bg.png');
+                                background-position: right;
+                                background-size: 170%;
+                                .slideTextContainer {
+                                    width: 95%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .thumbs {
+                button {
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        // YEAR AT A GLANCE
+        #yearGlance {
+            .leftBg {
+                -webkit-clip-path: none;
+                clip-path: none;
+            }
+            .page {
+                .app {
+                    @include display-grid;
+                    -ms-grid-rows: 49vh 49vh;
+                    -ms-grid-columns: 20% 20% 20% 20% 20% 20% 20% 20% 20% 20% 20%;
+                    grid-template-columns: 20% 20% 20% 20% 20% 20% 20% 20% 20% 20% 20%;
+                    @include media('<=desktop') {
+                        -ms-grid-columns: 35% 35% 35% 35% 35% 35% 35% 35% 35% 35% 35%;
+                        grid-template-columns: 35% 35% 35% 35% 35% 35% 35% 35% 35% 35% 35%;
+                        -ms-grid-rows: 49vh 49vh;
+                    }
+                    @include media('<=tablet') {
+                        -ms-grid-columns: 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85%;
+                        grid-template-columns: 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85% 85%;
+                        -ms-grid-rows: 80vh;
+                    }
+                    .card {
+                        position: relative;
+                        z-index: 100;
+                        &:first-child {
+                            @include basic-styles;
+                            -ms-grid-row: 1;
+                            -ms-grid-column: 1;
+                        }
+                        &:nth-child(2) {
+                            @include basic-styles;
+                            -ms-grid-row: 2;
+                            -ms-grid-column: 1;
+                        }
+                        &:nth-child(3) {
+                            @include basic-styles;
+                            -ms-grid-row: 1;
+                            -ms-grid-column: 2;
+                        }
+                        &:nth-child(4) {
+                            @include basic-styles;
+                            -ms-grid-row: 2;
+                            -ms-grid-column: 2;
+                        }
+                        &:nth-child(5) {
+                            @include basic-styles;
+                            -ms-grid-row: 1;
+                            -ms-grid-column: 3;
+                        }
+                        &:nth-child(6) {
+                            @include basic-styles;
+                            -ms-grid-row: 2;
+                            -ms-grid-column: 3;
+                        }
+                        &:nth-child(7) {
+                            @include basic-styles;
+                            -ms-grid-row: 1;
+                            -ms-grid-column: 4;
+                        }
+                        &:nth-child(8) {
+                            @include basic-styles;
+                            -ms-grid-row: 2;
+                            -ms-grid-column: 4;
+                        }
+                        &:nth-child(9) {
+                            @include basic-styles;
+                            -ms-grid-row: 1;
+                            -ms-grid-column: 5;
+                        }
+                        &:nth-child(10) {
+                            @include basic-styles;
+                            -ms-grid-row: 2;
+                            -ms-grid-column: 5;
+                        }
+                        &:nth-child(11) {
+                            @include basic-styles;
+                            -ms-grid-row: 1;
+                            -ms-grid-column: 6;
+                        }
+                        &:nth-child(12) {
+                            @include basic-styles;
+                            -ms-grid-row: 2;
+                            -ms-grid-column: 6;
+                        }
+                        &:nth-child(13) {
+                            @include basic-styles;
+                            -ms-grid-row: 1;
+                            -ms-grid-column: 7;
+                        }
+                        &:nth-child(14) {
+                            @include basic-styles;
+                            -ms-grid-row: 2;
+                            -ms-grid-column: 7;
+                        }
+                        &:nth-child(15) {
+                            @include basic-styles;
+                            -ms-grid-row: 1;
+                            -ms-grid-column: 8;
+                        }
+                        &:nth-child(16) {
+                            @include basic-styles;
+                            -ms-grid-row: 2;
+                            -ms-grid-column: 8;
+                        }
+                        &:nth-child(17) {
+                            @include basic-styles;
+                            -ms-grid-row: 1;
+                            -ms-grid-column: 9;
+                        }
+                        &:nth-child(18) {
+                            @include basic-styles;
+                            -ms-grid-row: 2;
+                            -ms-grid-column: 9;
+                        }
+                        &:nth-child(19) {
+                            @include basic-styles;
+                            -ms-grid-row: 1;
+                            -ms-grid-column: 10;
+                        }
+                        &:nth-child(20) {
+                            @include basic-styles;
+                            -ms-grid-row: 2;
+                            -ms-grid-column: 10;
+                        }
+                        &:nth-child(21) {
+                            @include basic-styles;
+                            -ms-grid-row: 1;
+                            -ms-grid-column: 11;
+                        }
+                        &:nth-child(22) {
+                            @include basic-styles;
+                            -ms-grid-row: 2;
+                            -ms-grid-column: 11;
+                        }
+                    }
+                }
+            }
+        }
+        // POINTS OF PRIDE
+        #pointsPride {
+            .hero_skewed--left, .unskewed--left {
+                -webkit-transform: none;
+                transform: none;
+            }
+            .hero_skewed--right, .unskewed--right {
+                -webkit-transform: none;
+                transform: none;
+            }
+            .slide1 {
+                .hero_skewed--left {
+                    width:  70%;
+                    .unskewed--left {
+                        background-size: 90%;
+                    }
+                }
+                .hero_skewed--right {
+                    width: 70%;
+                    .unskewed--right {
+                        background-position: center left 280px;
+                    }
+                }
+                .bottomBgImage {
+                    z-index: 25;
+                    bottom: -40%;
+                }
+                .text-bottomBgImage {
+                    &:before {
+                        z-index: 26;
+                    }
+                }
+            }
+            .slide2 {
+                .unskewed--left {
+                    .text-container {
+                        left: 29%;
+                        width: 49%;
+                    }
+                }
+            }
+            .slide3 {
+                .hero_skewed--left {
+                    .unskewed--left {
+                        .map {
+                            left: 40%;
+                        }
+                    }
+                }
+                .hero_skewed--right {
+                    .unskewed--right {
+                        &:before {
+                            display: none;
+                        }
+                        .topright {
+                            height: auto;
+                            &:before {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

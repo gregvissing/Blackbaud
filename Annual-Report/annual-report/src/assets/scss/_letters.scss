@@ -1,0 +1,317 @@
+#letters {
+    // @include media('<=tablet') {
+    //     overflow-x: hidden;
+    //     overflow-y: visible;
+    //     height: 200vh;
+    // }
+    > h2 {
+        background: $red;
+        text-align: center;
+        margin-bottom: 0;
+        color: $white;
+        padding-bottom: 0;
+        @include media('<=phone') {
+            font-size: 1.5em;
+        } 
+    }
+    > .tabs {
+        width: 100vw;
+        max-width: 100vw;
+        // height: 100vh;      
+        > .tabs__list {
+            height: 6vh;
+            background: $red;
+            border: 1px solid $black;
+            > .tabs__tab {
+                font-size: 1.25em;
+                padding: 0;                
+                background: $white;
+                @include media('<=tablet') {
+                    text-align: center;
+                    padding: 0 25px;
+                }
+                &:first-child {
+                    -webkit-clip-path: polygon(0 100%, 0 0, 100% 0, 97% 100%);
+                    clip-path: polygon(0 100%, 0 0, 100% 0, 97% 100%);
+                }
+                &:last-child {
+                    -webkit-clip-path: polygon(0 100%, 3% 0, 100% 0, 100% 100%);
+                    clip-path: polygon(0 100%, 3% 0, 100% 0, 100% 100%);
+                }
+                &:hover {
+                    color: $red;
+                    background-color: $white;
+                }              
+                &.tabs__tab_active {
+                    color: $white;
+                    background-color: $black;
+                }
+            }
+            @include media('<=tablet') {
+                height: 10vh;
+            }
+        }
+        > .tabs__container {
+            padding: 0;
+            overflow: visible;
+            // height: 94vh;
+            .tabs__wrapper {
+                .tabs__content {
+                    padding: 0;
+                    .letter-text-container {
+                        height: 94vh;
+                        p {
+                            color: $black;
+                            height: 100%;
+                            line-height: 1.25em;
+                        }
+                    }
+                    &:first-child {                        
+                        .letter-text-container {
+                            background-size: auto 94vh;
+                            background-repeat: no-repeat;
+                            background-position: left center;
+                            @include media('<=desktop') {
+                                background: url('https://foundation.uc.edu/image/annual-report/2018/letters/UC-Campus-Scenes0232-angle.png') left center;
+                                &:after {
+                                    position: absolute;
+                                    top: 0;
+                                    bottom: 0;
+                                    left: 0;
+                                    right: 0;
+                                    content: '';
+                                    z-index: 1;
+                                    background: rgba($black, 0.8);
+                                }
+                            }
+                            p {
+                                padding-right: 3em;
+                                padding-top: 2em;
+                                &:before {
+                                    content:'';
+                                    width:50%;
+                                    float:left;
+                                    height:94vh;
+                                    margin-top: -2em;
+                                    background: url('https://foundation.uc.edu/image/annual-report/2018/letters/UC-Campus-Scenes0232-angle.png') left center;
+                                    background-size:cover;
+                                    background-position: center;
+                                    -webkit-shape-outside: polygon(0 0, 100% 0, 60% 100%, 0% 100%);
+                                    shape-outside: polygon(0 0, 100% 0, 60% 100%, 0% 100%);
+                                    -webkit-clip-path: polygon(0 0, 98% 0, 54% 100%, 0% 100%);
+                                    clip-path: polygon(0 0, 98% 0, 54% 100%, 0% 100%);
+                                    -webkit-shape-margin: 0;
+                                    shape-margin: 0;
+                                    z-index: 0;
+                                }
+                                @include media('<=desktop') {
+                                    color: $white;
+                                    padding-right: 0;
+                                    padding: 2em 3em 2em 2em;
+                                    position: relative;
+                                    z-index: 25;
+                                    &:before {
+                                        display: none;
+                                        height: 110vh;
+                                        width: 100%;
+                                        -webkit-shape-outside: none;
+                                        shape-outside: none;
+                                        -webkit-clip-path: none;
+                                        clip-path: none;
+                                    }
+                                }
+                                @include media('<=tablet') {
+                                    padding: 2em 1em;
+                                }
+                                @include media('<=phone') {
+                                    padding: 1em;
+                                }
+                                .image-signature {
+                                    display: inline-block;
+                                    margin-left: -35px;                                 
+                                    img {
+                                        &.image {
+                                            margin-right: 20px;
+                                            width: 175px;
+                                            display: inline-block;
+                                            // -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                                            // clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                                            -webkit-clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+                                            clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+                                        }
+                                        &.signature {
+                                            width: 150px;
+                                            display: inline-block;
+                                        }                                    
+                                    }
+                                    .position {
+                                        font-style: italic;
+                                        display: inline-block;
+                                        @include media('<=tablet') {
+                                            display: block;
+                                        }
+                                    }  
+                                    @include media('<=desktop') {
+                                        margin-left: 0;
+                                        img {
+                                            &.image {
+                                                -webkit-clip-path: none;
+                                                clip-path: none;
+                                            }
+                                            &.signature {
+                                                width: 150px;
+                                                display: inline-block;
+                                            }                                    
+                                        }
+                                    }
+                                } 
+                            }
+                        }   
+                    }
+                    &:last-child {
+                        .letter-text-container {
+                            @include media('<=desktop') {
+                                background: url('https://foundation.uc.edu/image/annual-report/2018/letters/UCDayofGiving.jpg') center;
+                                &:after {
+                                    position: absolute;
+                                    top: 0;
+                                    bottom: 0;
+                                    left: 0;
+                                    right: 0;
+                                    content: '';
+                                    z-index: 1;
+                                    background: rgba($black, 0.8);
+                                }
+                            }
+                            p {
+                                padding-left: 2em;
+                                padding-top: 2em;
+                                &:before {
+                                    content:'';
+                                    width:60%;
+                                    float:right;
+                                    height:94vh;
+                                    margin-top: -2em;
+                                    background: url('https://foundation.uc.edu/image/annual-report/2018/letters/UCDayofGiving.jpg') left center;
+                                    background-size:cover;
+                                    background-position: center;
+                                    -webkit-shape-outside: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+                                    shape-outside: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+                                    -webkit-clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+                                    clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+                                    -webkit-shape-margin: 2%;
+                                    shape-margin: 2%;
+                                    @include media('<=desktop') {
+                                        background: none;
+                                        width: 100%;
+                                        -webkit-shape-outside: none;
+                                        shape-outside: none;
+                                        -webkit-clip-path: none;
+                                        clip-path: none;
+                                    }
+                                }
+                                @include media('<=desktop') {
+                                    color: $white;
+                                    padding-right: 0;
+                                    padding: 2em 4em 2em 2em;
+                                    position: relative;
+                                    z-index: 25;
+                                    &:before {
+                                        display: none;
+                                        height: 110vh;
+                                        width: 100%;
+                                        -webkit-shape-outside: none;
+                                        shape-outside: none;
+                                        -webkit-clip-path: none;
+                                        clip-path: none;
+                                    }
+                                }
+                                @include media('<=desktop') {
+                                    padding: 2em 1em;
+                                }
+                                @include media('<=tablet') {
+                                    padding: 1em;
+                                }
+                                img {
+                                    &.image {
+                                        width: 175px;
+                                        display: inline;
+                                        -webkit-clip-path: polygon(0 100%, 0 0, 100% 0, 60% 100%);
+                                        clip-path: polygon(0 100%, 0 0, 100% 0, 60% 100%);
+                                    }
+                                    &.signature {
+                                        width: 150px;
+                                        display: inline-block;                                            
+                                    }  
+                                    @include media('<=desktop') { 
+                                        &.image {
+                                            width: 200px;
+                                            display: inline;
+                                            -webkit-clip-path: none;
+                                            clip-path: none;
+                                        }
+                                    }
+                                }
+                                .position {
+                                    font-style: italic;
+                                    display: inline-block;
+                                    vertical-align: top;
+                                    width: 23%;
+                                    strong {
+                                        margin-left: -10px;
+                                    }
+                                    span {
+                                        margin-left: -20px;
+                                    }
+                                    @include media('<=desktop') { 
+                                        margin-left: 10px;
+                                        strong {
+                                            margin-left: 0px;
+                                        }
+                                        span {
+                                            margin-left: 0px;
+                                        }
+                                    }
+                                }
+                            }
+                        }                    
+                    }
+                    .letter-text-container {
+                        .letter-text {
+                            @include media('<=tablet') {
+                                width: 100% !important;
+                                position: relative;
+                                z-index: 20;
+                                padding: 1em !important;
+                                background-image: url('https://foundation.uc.edu/image/annual-report/2018/letters/UC-Campus-Scenes0232.jpg');
+                                background-size: cover;
+                                background-position: left;
+                                background-repeat: none;
+                                &:before {
+                                    content: '';
+                                    background: rgba($black, 0.5);
+                                    position: absolute;
+                                    top: 0;
+                                    bottom: 0;
+                                    left: 0;
+                                    right: 0;
+                                }
+                                p {
+                                    color: $white;
+                                    &:before {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+                        .clip-css {
+                            @include media('<=tablet') {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }            
+        }
+    }
+}

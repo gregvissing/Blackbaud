@@ -1,0 +1,231 @@
+
+section {
+    &#fundraising {
+        .one-half {
+            position: relative;
+            height: 100vh;
+            width: 50%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: right center;
+            display: inline-block;
+            float: left;
+            @include media('<=tablet') {
+                &.image {
+                    display: none;
+                }
+            }
+            .chart-container {
+                display: block;
+                margin: 0 auto;
+                position: relative; 
+                height:20vh; 
+                width: 100%; // 25vw;
+            }
+            .button-container {
+                text-align: center;
+                margin: 1em 0;
+                position: absolute;
+                bottom: 2em;
+                left: 0;
+                right: 0;
+                margin: auto 0 0;
+                height: 70px;
+                @include media('<=tablet') {
+                    height: 60px;
+                    bottom: 4em;
+                }
+                @include media('<=phone') {
+                    bottom: 3em;
+                    height: auto;
+                }
+                button {
+                    background: $black;
+                    box-shadow: 3px 3px 3px rgba(0,0,0,.5);
+                    display: block;
+                    width: 350px;
+                    font-size: 1.25em;
+                    padding: .5em 1em;
+                    text-decoration: none;    
+                    color: $white;
+                    margin: 0 auto 10px;
+                    @include transition(all, 0.4s, ease);
+                    &:hover {
+                        box-shadow: none;
+                    }
+                    &:focus {
+                        outline-style: none;
+                    }
+                    @include media('<=tablet') {
+                        padding: .25em 1em;
+                        width: 90%;
+                    }
+                }
+                em {
+                    display: block;
+                    text-align: center;
+                    color: $black;
+                }
+            }
+            
+            .triangle {
+                left: -30em;
+            }
+            .triangleText {
+                position: absolute;
+                top: 0;
+                height: 75px;
+                bottom: 0;
+                left: -10em;
+                margin: auto;
+                z-index: 5;
+                font-style: italic;
+                color: $white !important;
+                font-weight: bold;
+                font-size: 2.5em;
+            }
+            &.graphs {
+                padding: 0 2em;
+                @include media('<=tablet') {
+                    &.graphs {
+                        width: 100%;
+                        padding: 1em;
+                    }
+                }
+                h4 {
+                    text-align: center;
+                    color: $black;
+                    margin: 0 0 1em;
+                    font-weight: 500;
+                    @include media('<=tablet') {
+                        margin-bottom: 10px;
+                    }
+                }
+                .odometer {
+                    font-size: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                    width: 100%;
+                    animation-duration: 3s;
+                    @include media('<=tablet') {
+                        font-size: 30px;
+                        line-height: 30px;
+                    }
+                    .odometer-inside {
+                        padding-left: 22.25px;
+                        .odometer-value, .odometer-formatting-mark {
+                            color: $black;
+                        }
+                        .odometer-digit {
+                            &:first-of-type {
+                                position: relative;
+                                &:before {
+                                    position: absolute;
+                                    top: 0;
+                                    bottom: 0;
+                                    left: -25px;
+                                    color: $black;
+                                    content: '$';
+                                }
+                            }
+                        }                        
+                    }
+                }                
+                h2 {
+                    color: $red;
+                    font-style: italic;
+                    text-align: center;
+                    margin-top: 0.75em;
+                    @include media('<=tablet') {
+                        margin-top: 0;
+                    }
+                }
+                h1 {
+                    text-align: center;
+                    color: $black;
+                    font-weight: 300;
+                    font-size: 2.5em;
+                    margin: 0.5em 0;
+                    span {
+                        font-size: initial;
+                    }
+                }
+                
+            }
+            .graph-type-container {
+                margin:1em 0;
+                @include media('<=tablet') {
+                    margin: 10px 0;
+                }
+                ul {
+                    width: 100%;
+                    display: block;
+                    padding: 0;
+                    text-align: center;
+                    margin: 0 0 1em 0;
+                    li {
+                        color: $red;                    
+                        list-style: none;
+                        display: inline-block;
+                        width: 25%;
+                        text-align: center;
+                        @include transition(all, 0.4s, ease);
+                        border: 2px solid $black;
+                        width: 28%;
+                        vertical-align: top;
+                        @include media('<=phone') {
+                            float: left;
+                        }
+                        span {
+                            display: block;
+                            height: 100%;
+                            padding: 5px 0;
+                            color: $red; 
+                            cursor: pointer;
+                            @include transition(all, 0.4s, ease);
+                            @include media('<=tablet') {
+                                height: 46px;
+                                padding: 5px 10px;
+                            }                            
+                        }
+                        &:first-child {                                                  
+                            border-top-left-radius: 25px;
+                            border-bottom-left-radius: 25px;                                                       
+                        }
+                        &:last-child {                                                        
+                            border-top-right-radius: 25px;
+                            border-bottom-right-radius: 25px;                                                                                 
+                        }  
+                        &.active, &:hover {
+                            background: $black;
+                            color: $white;
+                            &:first-child {
+                                span {                                            
+                                    border-top-left-radius: 25px;
+                                    border-bottom-left-radius: 25px; 
+                                }                                                      
+                            }
+                            &:nth-child(2) {        
+                                border-radius: 0 !important;
+                            }
+                            &:last-child {
+                                span {                                                        
+                                    border-top-right-radius: 25px;
+                                    border-bottom-right-radius: 25px;        
+                                }                                                                         
+                            }                  
+                            span {
+                                background: $black;
+                                color: $white;
+                            }
+                        }
+                        &:nth-child(2) {        
+                            border-left: 1px solid $black;
+                            border-right: 1px solid $black; 
+                        }
+                    }
+                }
+            }
+        }
+    }
+}  

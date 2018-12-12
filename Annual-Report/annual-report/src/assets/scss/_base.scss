@@ -28,10 +28,9 @@ $break-large: 1200px;
 
 $breakpoint-tablet: 768px;
 
-
 // Mixins
 
-/* @include transition(all, 2s, ease-out); */
+/* @include transition(all, 0.4s, ease-out); */
 
 @mixin transition($what: all, $time: 0.4s, $how: ease) {
     -webkit-transition: $what $time $how;
@@ -41,13 +40,31 @@ $breakpoint-tablet: 768px;
     transition: $what $time $how;
 }
 
+$openSans:	'Open Sans', sans-serif;
+$gentium:	'Gentium Book Basic', serif;
+
+@font-face {
+	font-family: "Gentium Bold";
+	src: url("https://foundation.uc.edu/file/annual-report/fonts/GenBkBasB.ttf");
+}
+@font-face {
+	font-family: "Gentium Bold Italic";
+	src: url("https://foundation.uc.edu/file/annual-report/fonts/GenBkBasBI.ttf");
+}
+@font-face {
+	font-family: "Gentium Italic";
+	src: url("https://foundation.uc.edu/file/annual-report/fonts/GenBkBasI.ttf");
+}
+@font-face {
+	font-family: "Gentium Regular";
+	src: url("https://foundation.uc.edu/file/annual-report/fonts/GenBkBasR.ttf");
+}
+
 body {
 	margin: 0;
 	padding: 0;
+	background: $white;
 }
-
-$openSans:	'Open Sans', sans-serif;
-$gentium:	'Gentium Book Basic', serif;
 
 // General styles
 .nextTxt {
@@ -59,14 +76,23 @@ $gentium:	'Gentium Book Basic', serif;
 
 p, h1, h2, h3, h4, span, button, div, em {
 	font-family: $openSans !important;
+	line-height: initial;
+}
+
+span {
+	line-height: initial;
 }
 
 blockquote {
 	font-family: $gentium;
+	border-left: none !important;
 }
 
 a {
 	@include transition(all, 0.4s, ease);
+	&:focus {
+		outline: none !important;
+	}
 	&.button {
 		margin: 1em 0;
 		background: $red;
@@ -110,4 +136,40 @@ p:empty {
 
 .intro-diagonal, .carousel-inner-image:after {
 	display: none;
+}
+
+// These values are the minimum and maximum viewport sizes to apply the font scaling
+// $min_width: 400;
+// $max_width: 800;
+// // These values represent the range of fon-tsize to apply
+// // These values effect the base font-size, headings and other elements will scale proportionally
+// $min_font: 14;
+// $max_font: 16; 
+
+// :root { font-size: #{$min_font}px; }
+// // This part is a little bit ugly, I will explain what is going on in a blog post soon.
+// @media (min-width: #{$min_width}px) and (max-width: #{$max_width}px){
+//   :root { 
+//     font-size: calc( #{$min_font}px + (#{$max_font} - #{$min_font}) * ( (100vw - #{$min_width}px) / ( #{$max_width} - #{$min_width}) ));
+//   }
+// }
+// @media (min-width: #{$max_width}px){
+//    :root { 
+//      font-size: #{$max_font}px;
+//    }
+// }
+
+.script-container {
+	display: none;
+}
+
+@mixin display-grid {
+	display: -ms-grid;
+	display: grid;
+}
+
+@mixin basic-styles {
+	display: flex;
+	// justify-content: center;
+	// align-items: center;
 }

@@ -1,4 +1,7 @@
 .no-touch {
+    .cd-nav-trigger {
+        display: none;
+    }
     #cd-vertical-nav {
         /*fix the navigation*/
         position: fixed;
@@ -129,34 +132,88 @@
         width: 90%;
         max-width: 400px;
         max-height: 90%;
-        transform: scale(0);
+        // transform: scale(0);
         transition-property: transform;
         transition-duration: 0.2s;
         &.open {
             transform: scale(1);
         }
+        @include media('<=tablet') {
+            background: rgba($black, 0.85);
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            width: 100%;
+            max-width: 100%;
+            height: 92.25vh;
+            max-height: 92.25vh;
+            z-index: 9999;
+            display: none;
+            ul {
+                li {
+                    height: 13vh;
+                    a {
+                        color: $white;
+                        text-decoration: none;
+                        text-align: center;
+                        display: block;
+                        font-weight: bold;
+                        font-size: 1.35em;
+                        line-height: 13vh;
+                    }                    
+                }
+            }
+        }
     }
     .cd-nav-trigger {
-        display: block;
-        z-index: 2;
+        display: none;
+        background: $red;
+        z-index: 999;
         position: fixed;
-        bottom: 30px;
-        right: 5%;
-        height: 44px;
-        width: 44px;
-        border-radius: 0.25em;
-        background: rgba(255, 255, 255, 0.9);
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 7.75vh;
+        width: 100%;
+        border-radius: 0;
+        color: $white;
+        text-align: center;
+        font-size: 1.5em;
+        line-height: 7.75vh;
+        @include media('<=tablet') {
+            display: block;
+            border: 1px solid $red;
+            &.cd-img-replace {
+                overflow: hidden;
+                // text-indent: 100%;
+                white-space: nowrap;
+            }
+            span {
+                position: absolute;
+                height: 7.75vh;
+                width: 100%;
+                background-color: $red;
+                border-radius: 0;
+                left: 0%;
+                top: 0%;
+                bottom: auto;
+                right: auto;
+                color: $black;
+            }
+        }
     }
 }
 
-.cd-nav-trigger {
-    display: none !important;
-    color: #3e3947;
-    text-decoration: none;
-    &.cd-img-replace {
-        display: inline-block;
-        overflow: hidden;
-        text-indent: 100%;
-        white-space: nowrap;
+.nav-container {
+    display: none;
+    @include media('<=tablet') {
+        display: block;
+    }
+}
+
+#cd-vertical-nav {
+    @include media("<=tablet") {
+        display: none;
     }
 }

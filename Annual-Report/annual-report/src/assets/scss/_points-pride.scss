@@ -1,5 +1,10 @@
 * { margin: 0; padding: 0; box-sizing: border-box;}
-body { overflow: hidden; }
+body { 
+    overflow: hidden; 
+    @include media('<=tablet') {
+        overflow: visible;
+    }
+}
 
 #pointsPride {
     background: transparent;
@@ -18,14 +23,26 @@ body { overflow: hidden; }
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
         height: 6vh;
         @include media('<=tablet') {
-            left: 2em;
-            right: 2em;
+            left: 0em;
+            right: 0em;
+            bottom: 45px;
+            background: rgba($black, 0.5);
+        }
+        @include media('<=phone') {
+            bottom: 10px;
         }
         button {
             padding: 10px 100px;
             @include transition(all, 0.4s, ease-out);
             border: none;
             height: 100%;
+            @include media('<=tablet') {
+                padding: 6px 40px;
+                background: $white !important;
+                &:hover {
+                    background: $white !important;
+                }
+            }
             &:hover {
                 color: $white;
             }
@@ -61,6 +78,7 @@ body { overflow: hidden; }
             }
             .fa {
                 font-size: 2em;
+                color: $black;
             }            
         }
     }
@@ -68,10 +86,16 @@ body { overflow: hidden; }
         position: relative;
         width: 100%;
         height: 100vh;
+        @include media('<=tablet') {
+            height: 95vh;
+        }
         .slide {
             position: absolute;
             height: 100vh;
-            width: 100%;            
+            width: 100%; 
+            @include media('<=tablet') {
+                height: 95vh;
+            }           
             .full-container {
                 position: relative;
                 background-size: cover;
@@ -79,6 +103,10 @@ body { overflow: hidden; }
                 background-position: center;
                 height: 100vh;
                 width: 100%;
+                @include media('<=tablet') {
+                    background-position: right;
+                    height: 96vh;
+                }
                 .triangle {
                     z-index: 6;
                     left: -25em;
@@ -94,32 +122,45 @@ body { overflow: hidden; }
                     margin: auto;
                     height: 75px;
                     z-index: 6;    
-                    color: $white;
+                    color: $white !important;
                     font-weight: bold;
-                    font-size: 3em;
+                    font-size: 2.5em;
                     font-style: italic;
                     width: 300px;
                 } 
                 h1 {
                     font-size: 3em;
-                    width: 55%;
+                    width: 70%;
                     position: absolute;
-                    top: 2em;
+                    top: 1em;
                     left: 0;
                     right: 0;
                     margin: auto;
                     text-align: left;
                     text-transform: uppercase;
-                    font-style: italic
+                    font-style: italic;
+                    color: $white;   
+                    @include media('<=tablet') {
+                        font-size: 1.75em;
+                        width: 100%;
+                        padding: 0 0.75em;
+                    }                 
                 }
                 .bottomright {
                     position: absolute;
                     right: 5em;
                     bottom: 7em;
                     width: 13%;
+                    @include media('<=tablet') {
+                        width: 90%;
+                        bottom: 4em;
+                        left: 1em;
+                        right: 1em;
+                    }
                     p {
                         font-style: italic;
                         font-weight: bold;
+                        color: $white;
                     }                    
                     span {
                         font-size: 4em;
@@ -156,7 +197,7 @@ body { overflow: hidden; }
                             left: 12%;
                             margin-left: 0;
                             z-index: 10;
-                            width: 30%;
+                            width: 25%;
                             height: 100vh;
                             background: -moz-linear-gradient(left, rgba($black,1) 0%, rgba($black,1) 25%, rgba($black,0.85) 85%, rgba($black,0) 100%); /* FF3.6-15 */
                             background: -webkit-linear-gradient(left, rgba($black,1) 0%,rgba($black,1) 25%,rgba($black,0.85) 85%,rgba($black,0) 100%); /* Chrome10-25,Safari5.1-6 */
@@ -166,10 +207,10 @@ body { overflow: hidden; }
                         .image-text-container {
                             width: 20%;
                             top: 5em;
-                            left: 15%;
+                            left: 12%;
                             position: absolute;
                             z-index: 55;
-                            padding: 0 2em 0 3em;        
+                            padding: 0 1em 0 4em;        
                             .text-image {
                                 width: 100%;
                                 margin-bottom: 2em;
@@ -185,8 +226,9 @@ body { overflow: hidden; }
                                     }                        
                                 }
                                 p {
-                                    margin-bottom: 1em;
+                                    margin: 0 0 1em 0 !important;
                                     font-weight: bold;
+                                    color: $white !important;
                                     &.half {
                                         width: 48%;
                                         display: inline-block;
@@ -219,6 +261,7 @@ body { overflow: hidden; }
                         font-size: 1em;
                         font-weight: bold;
                         line-height: 1.25em;
+                        color: $white !important;
                     }
 
                     .hero_skewed--right,
@@ -252,7 +295,7 @@ body { overflow: hidden; }
                     }                      
                     .hero_skewed--right {
                         right: -25%;
-                        width: 63%;
+                        width: 66%;
                         .unskewed--right {
                             right: 0;
                             background-size: 55%;
@@ -312,7 +355,7 @@ body { overflow: hidden; }
                                 z-index: 25;
                             }
                         }
-                    }                  
+                    }                 
                 }                                               
                 > .one-half {
                     &.left {
@@ -406,7 +449,7 @@ body { overflow: hidden; }
                                 }
                             }
                         }                        
-                             
+                            
                     }
                     &.right {
                         width: 75%;
@@ -547,13 +590,14 @@ body { overflow: hidden; }
                                 margin: auto;
                                 h1 {
                                     font-size: 4em;
-                                    margin-bottom: 0.25em;
+                                    margin-bottom: 0;
                                     -webkit-text-stroke: 2px $white;
                                     -webkit-text-fill-color: transparent;
                                     letter-spacing: 1px;
+                                    padding: 0;
                                 }
                                 .container {
-                                    margin-bottom: 2em;
+                                    margin-bottom: 0;
                                     padding-bottom: 2em;
                                     clear: both;
                                     display: block;
@@ -571,14 +615,19 @@ body { overflow: hidden; }
                                         margin-right: 15px;
                                     }
                                     p {
-                                        display: inline;
+                                        display: inline-block;
                                         font-weight: bold;
                                         font-size: 1.25em;
                                         width: 70%;
                                         float: left;
                                         font-style: italic;
+                                        margin-bottom: 0;
+                                        color: $white !important;
                                         &.margin-bottom-10 {
                                             margin-bottom: 10px;
+                                            span {
+                                                margin: 0 !important;
+                                            }
                                         }
                                         &.block {
                                             display: block;
@@ -588,6 +637,7 @@ body { overflow: hidden; }
                                         span {
                                             float: none;
                                             font-weight: 1.5em !important;
+                                            color: $white !important;
                                         }
                                     }
                                     em {
@@ -725,10 +775,10 @@ body { overflow: hidden; }
                                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
                             }
                             .us-china-students {
-                                height: 76vh;
+                                height: 80vh;
                                 width: auto;
                                 position: absolute;
-                                right: -17%;
+                                right: -16%;
                                 left: 0;
                                 top: -5%;
                                 margin: auto;
@@ -874,14 +924,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', e
                             .topright {
                                 position: absolute;
                                 top: 5%;
-                                right: 30em;
+                                right: 30%;
                                 margin: auto;
                                 width: 30%;
                                 height: 200px;
                                 z-index: 30;
                                 &:before {
                                     content: '';
-                                    width: 28%;
+                                    width: 35%;
                                     height: 200px;
                                     clip-path: polygon(0 0, 0 100%, 100% 0);
                                     -webkit-shape-outside: polygon(0 0, 0 100%, 91% 0);
@@ -1014,8 +1064,243 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', e
                 }               
             }           
         }
+        
+        &.mobile {
+            .slide {
+                background: $black;
+                height: 95vh;
+                .full-container {
+                    background-size: cover;
+                    background-position: bottom center;
+                    height: 95vh;
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        height: 100vh;
+                        width: 100%;
+                        background: rgba($black, 0.6);
+                    }
+                    .top-text-container {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        height: 50vh;
+                        width: 100%;
+                        background-position: right -60px top -60px;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        padding-top: 35px;
+                        p {
+                            float: right;
+                            width: 75%;
+                            color: $white;
+                            font-style: italic;
+                            font-weight: bold;
+                        }   
+                        span {
+                            float: right;
+                            width: 75%;
+                            font-size: 4em;
+                            color: $red;
+                            font-weight: bold;
+                        }                     
+                    }
+                    .text-container {
+                        position: absolute;                        
+                        width: 90%;
+                        bottom: 4em;
+                        left: 1em;
+                        right: 1em;
+                        p {
+                            font-style: italic;
+                            font-weight: bold;
+                            color: $white;
+                        }                    
+                        span {
+                            font-size: 4em;
+                            color: $red;
+                            font-weight: bold;
+                        }
+                        em {
+                            color: $white;
+                        }
+                        .kelceCelek {
+                            > p {
+                                margin-bottom: 2em;
+                            }
+                            > div {
+                                img {
+                                    width: 48%;
+                                    &:first-child {
+                                        margin-right: 4%;
+                                    }
+                                }
+                                span {
+                                    color: $white;
+                                    font-size: 1em;
+                                    width: 50%;
+                                    text-align: center;
+                                    display: inline-block;
+                                    font-style: italic;
+                                    font-weight: normal;
+                                }
+                            }
+                        }
+                        .spencer {
+                            img {
+                                width: 200px;
+                                margin: 20px auto;
+                                display: block;
+                            }
+                        }
+                        .classOf {
+                            > h1 {
+                                font-size: 2em;
+                                top: -2em;
+                                text-align: center;
+                                -webkit-text-stroke: 2px #ffffff;
+                                -webkit-text-fill-color: transparent;
+                                letter-spacing: 1px;
+                                @include media('<=tablet') {
+                                    font-size: 1.75em;
+                                }  
+                            }
+                            .container {
+                                margin-bottom: 0.45em;
+                                &:last-child {
+                                    margin-bottom: 0;
+                                }
+                                .icon {
+                                    width: 40px;
+                                    @include media('<=tablet') {
+                                        width: 35px;
+                                    }  
+                                }
+                                span {
+                                    font-size: 2em;
+                                    @include media('<=tablet') {
+                                        font-size: 1.75em;
+                                    }  
+                                }
+                            }                            
+                        }
+                        .us-china {
+                            img {
+                                width: 60%;
+                                margin: 0 auto;
+                                display: block;
+                            }
+                        }
+                        .west-chester {
+                            @include media('<=tablet') {
+                                p {
+                                    padding: 10px 0;
+                                }
+                            }  
+                        }
+                        @include media('<=tablet') {
+                            width: 100%;
+                            left: 0;
+                            right: 0;
+                            padding: 1em;
+                        } 
+                    }
+                }
+                &:first-child, &:nth-child(4) {
+                    .full-container {
+                        background-position: right;
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            height: 100vh;
+                            width: 100%;
+                            background: rgba($black, 0.5);
+                        }
+                    }
+                }
+                &:nth-child(3) {
+                    height: 99vh;
+                    .full-container {
+                        height: 99vh;
+                    }
+                }
+            }
+        }
     }
+    @include media('<=desktop') {
+        .hero_skewed--left, .unskewed--left {
+            -webkit-transform: none !important;
+            transform: none !important;
+        }
+        .hero_skewed--right, .unskewed--right {
+            -webkit-transform: none !important;
+            transform: none !important;
+        }
+        .slide1 {
+            .hero_skewed--left {
+                width:  70% !important;
+                .unskewed--left {
+                    background-size: 90% !important;
+                }
+            }
+            .hero_skewed--right {
+                width: 70% !important;
+                .unskewed--right {
+                    background-position: top !important;
+                    background-size: 65% !important; 
+                }
+            }
+            .bottomBgImage {
+                z-index: 25 !important;
+            }
+            .text-bottomBgImage {
+                &:before {
+                    z-index: 26 !important;
+                }
+            }
+        }
+        .slide2 {
+            .unskewed--left {
+                .text-container {
+                    left: 29% !important;
+                    width: 49% !important;
+                }
+            }
+        }
+        .slide3 {
+            .hero_skewed--left {
+                .unskewed--left {
+                    .map {
+                        left: 40%;
+                    }
+                }
+            }
+            .hero_skewed--right {
+                .unskewed--right {
+                    &:before {
+                        display: none;
+                    }
+                    .topright {
+                        height: auto;
+                        &:before {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }   
 }
+
 // Vue animation classes
 .slide-enter {
     opacity: 0;
@@ -1025,11 +1310,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', e
     transition: opacity 0.5s;
 }
 .slide-enter-to {
-  
+
 }
 
 .slide-leave {
-  
+
 }
 .slide-leave-active {
     animation: slide-out 1s ease-out forwards;
@@ -1037,9 +1322,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', e
     opacity: 0;
 }
 .slide-leave-to {
-  
+
 }
 
 .slide-move {
-  
+
 }

@@ -28,23 +28,33 @@ body{
     margin: auto;
     height: 100px;
     z-index: 5;    
-    color: $black;
+    color: $black !important;
     font-weight: 300;
     font-size: 2em;
-    span {
-        font-style: italic;
+    color: $white;
+    h2, p {
         color: $white;
+    }
+    span {
+        font-style: italic !important;
+        color: $white !important;
         font-weight: bold;
     }
 }
 
 section{
-    width: 100%;
-    height: 100vh;
+    width: 100%;    
     overflow: hidden;
     position: relative;
     background-size: cover;
     background-position: bottom;
+    @include media('>desktop') {
+        height: 100vh;    
+    }
+    @include media('<=tablet') {
+        overflow-x: hidden;
+        overflow-y: visible;
+    }
     .borderTriangle {
         position: absolute;
         top: 0;
@@ -56,7 +66,14 @@ section{
         border-top-width: 50vh;
         border-left: 50vh solid rgba($red, 0.9);
         @include media('<=tablet') {
-            border-left: 37vh solid rgba($red, 0.9);
+            border-bottom-width: 48vh;
+            border-top-width: 48vh;
+            border-left: 48vh solid rgba($red, 0.9);
+        }
+        @include media('<=phone') {
+            border-bottom-width: 45vh;
+            border-top-width: 45vh;
+            border-left: 45vh solid rgba($red, 0.9);
         }
     }
     .bgImage {

@@ -1,3 +1,4 @@
+
 section {
     &#intro {
         .intro-diagonal {
@@ -12,18 +13,6 @@ section {
                 display: none;
             }
         }
-        // .clipAngleUpRight {
-        //     background-color: transparent;
-        //     width: 45%;
-        //     height: 100vh;
-        //     margin-right: 2em;
-        //     -webkit-shape-outside: polygon(85% 0, 100% 0, 100% 100%, 0 100%);
-        //     shape-outside: polygon(85% 0, 100% 0, 100% 100%, 0 100%);
-        //     float:right;
-        //     @include media('<=tablet') {
-        //         display: none;
-        //     }   
-        // }
         p {
             display: none;
         }
@@ -32,10 +21,10 @@ section {
             top: 0;
             left: 0;
             z-index: 9; 
-            background: rgba($black, 0.8);
+            // background: rgba($black, 0.8);
             position: relative;
-            padding: 5px; 
-            
+            background-size: cover;
+            padding: 5px;             
             @include media('>tablet') {
                 width: 65%;
                 height: 100vh;
@@ -47,10 +36,18 @@ section {
                 width: 100%;
                 bottom: 0;
                 height: 100vh;
-            }          
+                padding: 2em 1em;
+            }
+            @include media('<=phone') {
+                padding: 0.5em 1em;
+            }         
             .intro-text {
                 position: relative;
-                left: 4em;
+                left: 2em;
+                @include media('<=tablet') {
+                    left: 0em;
+                    right: 0em;
+                }   
                 &:before {
                     content: '';
                     width: 40%;
@@ -58,6 +55,9 @@ section {
                     -webkit-shape-outside: polygon(50% 0, 100% 0, 100% 100%, 0 100%);
                     shape-outside: polygon(50% 0, 100% 0, 100% 100%, 0 100%);
                     float: right;
+                    @include media('<=tablet') {
+                        display: none;
+                    } 
                 }
                 p {
                     color: $white;
@@ -69,14 +69,28 @@ section {
                     line-height: 1.5em;
                     &:first-child {
                         margin-top: 13em;
+                        @include media('<=tablet') {
+                            margin-top: 2.5em;
+                            padding: 0 0.75em;
+                        }
+                        @include media('<=phone') {
+                            margin-top: 0.5em;
+                            padding: 0;
+                        } 
                     }
+                    @include media('<=tablet') {
+                        padding: 0 0.75em;
+                        margin: 1em 0;
+                        font-size: 1.25em;
+                    } 
                     strong {
                         font-weight: bold;
                         font-style: italic;
-                    }
-                    @include media('<=tablet') {
-                        margin: 2em 0;
-                    }   
+                    } 
+                    @include media('<=phone') {
+                        padding: 0;
+                        margin: 0.5em 0;
+                    }    
                 }
             }   
         }

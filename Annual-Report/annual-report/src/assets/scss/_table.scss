@@ -1,14 +1,15 @@
+
 .table {
-	a {
-		font-weight: bold;
-		text-decoration: none;  
-		
-		&.active {
-			font-weight: bold;
-			color: black;
-			text-decoration: underline;
-		}
-	}
+    a {
+        font-weight: bold;
+        text-decoration: none;  
+        
+        &.active {
+            font-weight: bold;
+            color: black;
+            text-decoration: underline;
+        }
+    }
 }
 
 // Vue data table

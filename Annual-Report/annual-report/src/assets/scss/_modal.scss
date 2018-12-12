@@ -1,3 +1,4 @@
+
 .modal-mask {
     position: fixed;
     z-index: 9998;
@@ -20,7 +21,10 @@
             border-radius: 2px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
             transition: all .3s ease;
-            font-family: Helvetica, Arial, sans-serif;
+            @include media('<=tablet') {
+                width: 100%;
+                height: auto;
+            }
             .modal-default-button {
                 background: $black;
                 color: $white;
@@ -34,6 +38,12 @@
                 z-index: 50;
             }
             .modal-header {
+                p {
+                    &.title {
+                        top: 0 !important;
+                        right: 4em !important;
+                    }
+                }
                 h3 {
                     left: 0;
                     text-align: left;
@@ -44,6 +54,8 @@
                     margin: 0 !important;
                     width: 90%;
                     position: relative;
+                    color: $white;
+                    font-size: inherit;
                     span {
                         position: absolute;
                         top: -30px;
@@ -52,6 +64,7 @@
                         line-height: 30px;
                         margin-top: 0;
                         font-style: italic;
+                        color: $white;
                     }
                 }
                 h4 {
@@ -61,6 +74,19 @@
             }
             .modal-body {
                 margin: 10px 0;
+                @include media('<=tablet') {
+                    > div {
+                        //overflow-y: scroll;
+                        color: $black;
+                        p, blockquote {
+                            padding: 10px;
+                            color: $black !important;
+                            position: relative;
+                            z-index: 9999;
+                        }
+                    }
+                    
+                }
             }
             .modal-footer {
                 width: 95%;
@@ -77,7 +103,7 @@
         }
     }
 } 
-  
+
 /*
 * The following styles are auto-applied to elements with
 * transition="modal" when their visibility is toggled
@@ -86,7 +112,7 @@
 * You can easily play with the modal transition by editing
 * these styles.
 */
-  
+
 .modal-enter {
     opacity: 0;
 }
@@ -94,7 +120,7 @@
 .modal-leave-active {
     opacity: 0;
 }
-  
+
 .modal-enter .modal-container,
 .modal-leave-active .modal-container {
     -webkit-transform: scale(1.1);
