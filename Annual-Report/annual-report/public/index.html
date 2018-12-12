@@ -10,14 +10,28 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"> 
 	<title>Annual Report</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-	<link rel="stylesheet" href="https://github.hubspot.com/odometer/themes/odometer-theme-minimal.css">
-    <script src="https://github.hubspot.com/odometer/odometer.js"></script>
+	<link rel="stylesheet" href="https://foundation.uc.edu/file/annual-report/css/odometer-theme-minimal.css">
+    <script src="https://foundation.uc.edu/file/annual-report/js/odometer.js"></script>
 	<script>
 		$(function() {
+            var windowWidth = $('body').width();
+            if (windowWidth <= 768) {
+                $.scrollify({
+                    setHeights: false,
+                    after:function(i) {
+                    if(i===2) {
+                        $.scrollify.setOptions({
+                            setHeights: false
+                        });
+                    }
+                }
+                });
+            }
 			$.scrollify({
-				section : 'cd-section',
-				interstitialSection: '#footer'
-			});
+				section: 'cd-section',
+                interstitialSection: '#footer',
+                
+            });            
 		});
 	</script>
 </head>
@@ -33,26 +47,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.2/lodash.min.js"></script>
     <script src="https://projects.lukehaas.me/scrollify/script/jquery.scrollify.js"></script>
     <script src="https://unpkg.com/vue-chartjs@2.6.5"></script>
-	<script src="https://unpkg.com/chart.piecelabel.js"></script>
-	<script type="text/x-template" id="modal-financials-template">
-        <transition name="modal">
-            <div class="modal-mask">
-                <div class="modal-wrapper">
-                    <div class="modal-container">  
-                        <slot name="closebutton">default close button</slot>                                         
-                        <div class="modal-header">
-                            <slot name="header">default header</slot>
-                            <slot name="subHeader">default sub-header</slot>
-                        </div>                    
-                        <div class="modal-body">
-                            <slot name="body">default body</slot>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </transition>
-    </script>
-
+    <script src="https://unpkg.com/chart.piecelabel.js"></script>
+    
     <script>
         !function($) {
             $(function() {
@@ -66,14 +62,14 @@
 
                     // Triangle height
                     var triangleMargin = parseInt($('.triangle').css('margin-top')) + 1;
-                    $('.triangle').css('margin-left', '-' + triangleMargin + 'px');
+                    // $('.triangle').css('margin-left', '-' + triangleMargin + 'px');
 
                     var borderWidth = parseInt($('.cover .borderTriangle').css('border-left-width'));
                     borderWidth = borderWidth + 100 + 'px';
                     
                     var windowWidth = $('body').width();
                     if (windowWidth > 768) {
-                        $('.triangle').css('width', triangleHeight);
+                        // $('.triangle').css('width', triangleHeight);
                         setTimeout(function () {
                             $('.cover .borderTriangle').animate({
                                 left: '0'
@@ -89,7 +85,7 @@
                             });
                         }, 1500);
                     } else {
-                        $('.triangle').css('width', triangleHeight * 0.75);
+                        // $('.triangle').css('width', triangleHeight * 0.75);
                         setTimeout(function () {
                             $('.cover .borderTriangle').animate({
                                 left: '0'
@@ -98,11 +94,11 @@
                                     left: '1em'
                                 }, 500, function() {
                                     $('.cover #next').animate({
-                                        left: borderWidth
+                                        left: '0.35em'
                                     }, 500);
                                     $('.cover .cover-text').fadeIn('slow');
                                 });
-                            });
+                            }); 
                         }, 1500);
                     }
                 }
@@ -128,6 +124,10 @@
                     animate_elems();
                 });
 
+                $(window).load(function() {
+                    animate_elems();
+                });
+
                 function animate_elems() {
                     wintop = $(window).scrollTop(); // calculate distance from top of window
 
@@ -142,7 +142,7 @@
                         topcoords = $elm.offset().top; // element's distance from top of page in pixels
                         
                         var windowWidth = $('body').width();
-                        if (windowWidth < 768) {
+                        if (windowWidth <= 768) {
                             // ABOVE 768px
                             if (wintop > (topcoords - (winheight * .75))) {
                                 // animate when top of the window is 3/4 above the element
@@ -173,13 +173,16 @@
                                         });
                                     }, 1500);
                                 }
-                                if ($elm.hasClass('financials')) {
+                                if ($elm.hasClass('fundraising')) {
                                     setTimeout(function () {
-                                        $('.odometer').text(104008153);
-                                        $('.financials .borderTriangle').animate({
+                                        // $('.odometer').text(104008153);
+                                        setTimeout(function(){
+                                            odometer.innerHTML = 104008153;
+                                        }, 1000);
+                                        $('.fundraising .borderTriangle').animate({
                                             left: '0'
                                         }, 500, function() {
-                                            $('.financials .triangleText').animate({
+                                            $('.fundraising .triangleText').animate({
                                                 left: '1em'
                                             }, 500);
                                         });
@@ -238,13 +241,16 @@
                                             });
                                         }, 1500);
                                     }
-                                    if ($elm.hasClass('financials')) {
+                                    if ($elm.hasClass('fundraising')) {
                                         setTimeout(function () {
-                                            $('.odometer').text(104008153);
-                                            $('.financials .borderTriangle').animate({
+                                            // $('.odometer').text(104008153);
+                                            setTimeout(function(){
+                                                odometer.innerHTML = 104008153;
+                                            }, 1000);
+                                            $('.fundraising .borderTriangle').animate({
                                                 left: '0'
                                             }, 500, function() {
-                                                $('.financials .triangleText').animate({
+                                                $('.fundraising .triangleText').animate({
                                                     left: '1em'
                                                 }, 500);
                                             });
@@ -284,7 +290,7 @@
         !function($) { 
             $(function() {
                 $.scrollify({
-                    section: ".cd-section",
+                    section: '.cd-section',
                     //sectionName:false,
                     updateHash: false,
                     scrollbars: false,
@@ -292,12 +298,12 @@
                     after: function(i) {                    
                         if(i===2) {
                             $.scrollify.setOptions({
-                                easing:"easeOutExpo"
+                                easing: 'easeOutExpo'
                             });
                         }
                     }
                 });
-                $(".scroll,.scroll-btn").click(function(e) {
+                $('.scroll, .scroll-btn').click(function(e) {
                     e.preventDefault();
                     $.scrollify.next();
                 });
