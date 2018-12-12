@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang=en class=no-js><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/favicon.ico><script src=//code.jquery.com/jquery-1.11.1.min.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css><title>Annual Report</title><script src=https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js></script><link rel=stylesheet href=https://foundation.uc.edu/file/annual-report/css/odometer-theme-minimal.css><script src=https://foundation.uc.edu/file/annual-report/js/odometer.js></script><script>$(function() {
+            var windowWidth = $('body').width();
+            if (windowWidth <= 768) {
+                $.scrollify({
+                    setHeights: false,
+                    after:function(i) {
+                    if(i===2) {
+                        $.scrollify.setOptions({
+                            setHeights: false
+                        });
+                    }
+                }
+                });
+            }
+			$.scrollify({
+				section: 'cd-section',
+                interstitialSection: '#footer',
+                
+            });            
+		});</script><link href=/css/app.f3c4e717.css rel=preload as=style><link href=/js/app.939e9c34.js rel=preload as=script><link href=/js/chunk-vendors.4d70ec09.js rel=preload as=script><link href=/css/app.f3c4e717.css rel=stylesheet></head><body data-hijacking=on data-animation=none><noscript><strong>We're sorry but annual-report doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app ref=app></div><script src=https://foundation.uc.edu/file/annual-report/js/main.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js></script><script src=https://cdn.jsdelivr.net/npm/vue-carousel@0.13.1/dist/vue-carousel.min.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.2/lodash.min.js></script><script src=https://projects.lukehaas.me/scrollify/script/jquery.scrollify.js></script><script src=https://unpkg.com/vue-chartjs@2.6.5></script><script src=https://unpkg.com/chart.piecelabel.js></script><script>!function($) {
+            $(function() {
+                // Initialize height of triangle and animate triangle with text on Cover
+                onResize = function() {
+                    var triangleHeight = $('#cover').height();
+                    // $('.triangle').css('width', triangleHeight);
+
+                    var sliderTriangleHeight = $('.carousel').height();
+                    $('#sliderTriangle').css('width', sliderTriangleHeight);
+
+                    // Triangle height
+                    var triangleMargin = parseInt($('.triangle').css('margin-top')) + 1;
+                    // $('.triangle').css('margin-left', '-' + triangleMargin + 'px');
+
+                    var borderWidth = parseInt($('.cover .borderTriangle').css('border-left-width'));
+                    borderWidth = borderWidth + 100 + 'px';
+                    
+                    var windowWidth = $('body').width();
+                    if (windowWidth > 768) {
+                        // $('.triangle').css('width', triangleHeight);
+                        setTimeout(function () {
+                            $('.cover .borderTriangle').animate({
+                                left: '0'
+                            }, 500, function() {
+                                $('.cover #redefining').animate({
+                                    left: '1em'
+                                }, 500, function() {
+                                    $('.cover #next').animate({
+                                        left: borderWidth
+                                    }, 500);
+                                    $('.cover .cover-text').fadeIn('slow');
+                                });
+                            });
+                        }, 1500);
+                    } else {
+                        // $('.triangle').css('width', triangleHeight * 0.75);
+                        setTimeout(function () {
+                            $('.cover .borderTriangle').animate({
+                                left: '0'
+                            }, 500, function() {
+                                $('.cover #redefining').animate({
+                                    left: '1em'
+                                }, 500, function() {
+                                    $('.cover #next').animate({
+                                        left: '0.35em'
+                                    }, 500);
+                                    $('.cover .cover-text').fadeIn('slow');
+                                });
+                            }); 
+                        }, 1500);
+                    }
+                }
+
+                $(document).ready(onResize);
+                $(window).resize(onResize);
+
+                $(document).ready(function() {   
+                    $('.odometer').html(000000000);
+                });
+            });
+        }(jQuery);</script><script>!function($) {  
+            $(function() {
+                var $elems = $('.animateblock');
+                var winheight = $(window).height();
+                var fullheight = $(document).height();
+
+                $(window).scroll(function() {
+                    animate_elems();
+                });
+
+                $(window).load(function() {
+                    animate_elems();
+                });
+
+                function animate_elems() {
+                    wintop = $(window).scrollTop(); // calculate distance from top of window
+
+                    // loop through each item to check when it animates
+                    $elems.each(function() {
+                        $elm = $(this);
+
+                        if ($elm.hasClass('animated')) {
+                            return true;
+                        } // if already animated skip to the next item
+
+                        topcoords = $elm.offset().top; // element's distance from top of page in pixels
+                        
+                        var windowWidth = $('body').width();
+                        if (windowWidth <= 768) {
+                            // ABOVE 768px
+                            if (wintop > (topcoords - (winheight * .75))) {
+                                // animate when top of the window is 3/4 above the element
+                                $elm.addClass('animated'); 
+
+                                if ($elm.hasClass('intro')) {
+                                    $('.intro p').each(function(i) {
+                                        delay =(i)*500;
+                                        setTimeout(function (p) {
+                                            p.show().addClass('animated slideInLeft');
+                                        }, delay, $(this));
+                                    });
+                                }  
+                                if ($elm.hasClass('carousel')) {
+                                    setTimeout(function () {
+                                        $('.carousel .borderTriangle').animate({
+                                            left: '0'
+                                        }, 500, function() {
+                                            $('.carousel .triangleText').animate({
+                                                left: '1em'
+                                            }, 500);
+                                            $('.thumbs-thumbnail p > span').each(function(i) {
+                                                delay =(i)*400;
+                                                setTimeout(function (span) {
+                                                    span.show().addClass('animated slideInDown');
+                                                }, delay, $(this));
+                                            });
+                                        });
+                                    }, 1500);
+                                }
+                                if ($elm.hasClass('fundraising')) {
+                                    setTimeout(function () {
+                                        // $('.odometer').text(104008153);
+                                        setTimeout(function(){
+                                            odometer.innerHTML = 104008153;
+                                        }, 1000);
+                                        $('.fundraising .borderTriangle').animate({
+                                            left: '0'
+                                        }, 500, function() {
+                                            $('.fundraising .triangleText').animate({
+                                                left: '1em'
+                                            }, 500);
+                                        });
+                                    }, 1500);
+                                }                      
+                                if ($elm.hasClass('year')) {
+                                    setTimeout(function () {
+                                        $('.year .borderTriangle').animate({
+                                            left: '0'
+                                        }, 500, function() {
+                                            $('.year .triangleText').animate({
+                                                left: '1em'
+                                            }, 500);
+                                        });
+                                    }, 1500);
+                                }                               
+                                if ($elm.hasClass('points')) {
+                                    setTimeout(function () {
+                                        $('.points .borderTriangle').animate({
+                                            left: '0em'
+                                        }, 500, function() {
+                                            $('.points .triangleText').animate({
+                                                left: '1em'
+                                            }, 500);
+                                        });
+                                    }, 1500);
+                                } 
+                            }
+                        } else {
+                            if (wintop > (topcoords - (winheight * .75))) {
+                                // animate when top of the window is 3/4 above the element
+                                $elm.addClass('animated'); 
+
+                                    if ($elm.hasClass('intro')) {
+                                        $('.intro p').each(function(i) {
+                                            delay =(i)*500;
+                                            setTimeout(function (p) {
+                                                p.show().addClass('animated slideInLeft');
+                                            }, delay, $(this));
+                                        });
+                                    }  
+                                    if ($elm.hasClass('carousel')) {
+                                        setTimeout(function () {
+                                            $('.carousel .borderTriangle').animate({
+                                                left: '0'
+                                            }, 500, function() {
+                                                $('.carousel .triangleText').animate({
+                                                    left: '1em'
+                                                }, 500);
+                                                $('.thumbs-thumbnail p > span').each(function(i) {
+                                                    delay =(i)*400;
+                                                    setTimeout(function (span) {
+                                                        span.show().addClass('animated slideInDown');
+                                                    }, delay, $(this));
+                                                });
+                                            });
+                                        }, 1500);
+                                    }
+                                    if ($elm.hasClass('fundraising')) {
+                                        setTimeout(function () {
+                                            // $('.odometer').text(104008153);
+                                            setTimeout(function(){
+                                                odometer.innerHTML = 104008153;
+                                            }, 1000);
+                                            $('.fundraising .borderTriangle').animate({
+                                                left: '0'
+                                            }, 500, function() {
+                                                $('.fundraising .triangleText').animate({
+                                                    left: '1em'
+                                                }, 500);
+                                            });
+                                        }, 1500);
+                                    }  
+                                    if ($elm.hasClass('year')) {
+                                        setTimeout(function () {
+                                            $('.year .borderTriangle').animate({
+                                                left: '0'
+                                            }, 500, function() {
+                                                $('.year .triangleText').animate({
+                                                    left: '1em'
+                                                }, 500);
+                                            });
+                                        }, 1500);
+                                    }                                                                 
+                                    if ($elm.hasClass('points')) {
+                                        setTimeout(function () {
+                                            $('.points .borderTriangle').animate({
+                                                left: '0em'
+                                            }, 500, function() {
+                                                $('.points .triangleText').animate({
+                                                    left: '1em'
+                                                }, 500);
+                                            });
+                                        }, 1500);
+                                    } 
+                            }
+                        }
+                    });
+                } // end animate_elems()
+            });  
+        }(jQuery);</script><script>!function($) { 
+            $(function() {
+                $.scrollify({
+                    section: '.cd-section',
+                    //sectionName:false,
+                    updateHash: false,
+                    scrollbars: false,
+                    scrollSpeed: 1100,
+                    after: function(i) {                    
+                        if(i===2) {
+                            $.scrollify.setOptions({
+                                easing: 'easeOutExpo'
+                            });
+                        }
+                    }
+                });
+                $('.scroll, .scroll-btn').click(function(e) {
+                    e.preventDefault();
+                    $.scrollify.next();
+                });
+            });
+        }(jQuery);</script><script src=/js/chunk-vendors.4d70ec09.js></script><script src=/js/app.939e9c34.js></script></body></html>
