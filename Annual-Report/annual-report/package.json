@@ -9,14 +9,19 @@
   },
   "dependencies": {
     "chart.js": "^2.7.3",
+    "jquery": "^3.3.1",
+    "odometer": "^0.4.8",
+    "postcss-cli": "^6.0.1",
     "vue": "^2.5.17",
-    "vue-chartjs": "^3.4.0"
+    "vue-chartjs": "^3.4.0",
+    "vue-odometer": "^1.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.1.1",
     "@vue/cli-plugin-eslint": "^3.1.5",
     "@vue/cli-service": "^3.1.4",
     "@vue/eslint-config-standard": "^4.0.0",
+    "autoprefixer": "^9.4.2",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
