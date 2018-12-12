@@ -1,31 +1,30 @@
 <script>
   export default {
-    name: 'vue-tabs',
-
-    computed: {
-        active() {
-        return this.Tabs.active;
-        }
-    },
+    name: 'vue-tabs',    
     data() {
         return {
-        Tabs: {
-            labels: [],
-            items: [],
-            active: 0
-        }
+            Tabs: {
+                labels: [],
+                items: [],
+                active: 0
+            }
         };
+    },
+    computed: {
+        active() {
+            return this.Tabs.active;
+        }
     },
     methods: {
         setHeight() {
             const el = this.Tabs.items[this.active];
-            const height = el.scrollHeight;
-            this.$refs.container.style.height = height + "px";
+            // const height = el.scrollHeight;
+            this.$refs.container.style.height = '100vh'; // height + 'px';
         },
         scrollWrapper() {
             const { wrapper } = this.$refs;
             const offset = 100 * this.active;
-            wrapper.style.transform = `translate3d(-${offset}%, 0, 0)`;
+            wrapper.style.transform = 'translate3d(-' + offset + '%, 0, 0)';
         },
         changeTab(i) {
             this.Tabs.active = i;

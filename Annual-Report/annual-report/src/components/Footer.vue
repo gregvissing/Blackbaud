@@ -1,5 +1,8 @@
 <template>
     <section id="footer">
+        <div class="container centerAlign pdfVersion">
+            <a href="https://issuu.com/roetj/docs/ucf_annual_report_fy18_final_high_r" target="_default">View PDF Version</a>
+        </div>
         <div class="container centerAlign">
             <img class="logo" :src="logo" />
         </div>

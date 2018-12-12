@@ -1,6 +1,5 @@
 <template>
 	<section id="yearGlance" class="cd-section year animateblock">
-		<h2 class="mobile-heading">YEAR AT A GLANCE</h2>
 		<div class="leftBg" v-bind:style="{ backgroundImage: 'url(' + yearGlanceBgLeft + ')' }"></div>
 		<span class="borderTriangle"></span>
 		<div class="triangleText">
@@ -10,7 +9,7 @@
 		</div> 
 		<div class="page">
 			<div class="app" id="glance">
-				<a v-for="yearGlance in yearGlances" class="card" :href="yearGlance.link">
+				<a v-for="(yearGlance, index) in yearGlances" class="card" :href="yearGlance.link" target="_blank" :key="index">
 					<div class="card__content">
 						<div class="card__title">
 							<img :src="yearGlance.avatar" />
@@ -133,7 +132,7 @@ export default {
 					name: 'Neville G. Pinto',
 					date: 'January 5, 2018',
 					text: 'The UC Alumni Association announces the recipients of its four signature awards: Marian A. Spencer, A&S \'42, Hon \'06; Russell C. "Rusty" Myers, Bus \'82; Jacqueline L. Bailey-Davis, CECH \'92 and Austin G. Allison, CEAS \'08.',
-					image: 'https://foundation.uc.edu/image/annual-report/2018/yearglance/socialimages/DSzMCuGU0AAwYsz.jpg-large.jpeg',
+					image: 'https://foundation.uc.edu/image/annual-report/2018/yearglance/socialimages/DSzMCuGU0AAwYsz.jpg-large.jpg ',
 					link: 'https://youtu.be/sTpkxBcGCDE',
 					position: 'top'
 				},
@@ -151,7 +150,7 @@ export default {
 					name: 'Neville G. Pinto',
 					date: 'February 12, 2018',
 					text: 'The Farmer Family Foundation donates $10 million to the Cincinnati Cancer Center\'s pursuit of National Cancer Institute designation.',
-					image: 'https://foundation.uc.edu/image/annual-report/2018/yearglance/socialimages/DV3L60IVQAAPFWl.jpg-large.jpeg',
+					image: 'https://foundation.uc.edu/image/annual-report/2018/yearglance/socialimages/DV3L60IVQAAPFWl.jpg',
 					link: 'https://foundation.uc.edu/05-news--events/press-releases/press-release---farmer-family-foundation-donates-10-million-to-cincinnati-cancer-center',
 					position: ''
 				},
@@ -169,7 +168,7 @@ export default {
 					name: 'UC Lindner College of Business',
 					date: 'March 2, 2018',
 					text: 'The new UC Carl H. Lindner College of Business hits a milestone with the placement of its final beam. The construction of this $120 million structure was made possible by the generosity of donors.',
-					image: 'https://foundation.uc.edu/image/annual-report/2018/yearglance/socialimages/DXScGEDX0AAO0qX.jpg-large.jpeg',
+					image: 'https://foundation.uc.edu/image/annual-report/2018/yearglance/socialimages/DXScGEDX0AAO0qX.jpg-large.jpg',
 					link: 'https://youtu.be/t4t0JBkynBo',
 					position: ''
 				},
@@ -244,18 +243,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

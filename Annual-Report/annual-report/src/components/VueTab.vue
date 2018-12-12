@@ -1,8 +1,7 @@
 <script>
     export default {
-    name: 'vue-tab',
-
-    props: ["label", "active"],
+		name: 'vue-tab',
+    	props: ["label", "active"],
 		inject: ["Tabs"],
 		created() {
 			const length = this.Tabs.labels.push(this.label);
@@ -12,7 +11,7 @@
 		},
 		mounted() {
 			this.Tabs.items.push(this.$el);
-		}
+		}		
   };
 </script>
 

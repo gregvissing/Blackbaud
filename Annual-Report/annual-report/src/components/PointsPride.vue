@@ -1,10 +1,13 @@
 <template>
-	<section id="pointsPride" class="cd-section points animateblock">
+	<section id="pointsPride" class="cd-section points animateblock" ref="appWidth">
 		<div class="btn-wrap">
-			<button class="prev" @click="prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-			<button class="next" @click="next"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+			<button v-if="width > 768" class="prev" @click.prevent="prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+			<button v-if="width > 768" class="next" @click.prevent="next"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+
+			<button v-if="width <= 768" class="prev" @click.prevent="mobilePrev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+			<button v-if="width <= 768" class="next" @click.prevent="mobileNext"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 		</div>                
-		<transition-group name="slide" tag="div" class="slider-container">
+		<transition-group v-if="width > 768" name="slide" tag="div" class="slider-container">
 			<div v-for="slide in pointsSlides" :key="slide.id" class="slide" v-show="slide.id == currentSlide">
 				<div v-if="slide.full" class="full-container"  :style="{ backgroundImage: `url(${slide.bgImage})` }">
 					<span v-if="slide.id == 0" class="borderTriangle"></span>
@@ -105,6 +108,17 @@
 				</div>
 			</div>
 		</transition-group>
+		<transition-group v-if="width <= 768" name="slide" tag="div" class="slider-container mobile">
+			<div v-for="slide in mobilePointsSlides" :key="slide.id" class="slide" v-show="slide.id == currentSlide">
+				<div v-if="slide.full" class="full-container" :style="{ backgroundImage: `url(${slide.bgImage})` }">
+					<!-- <span v-if="slide.id == 0" class="borderTriangle"></span>
+					<h2 v-if="slide.triangleText" class="triangleText">POINTS<br />OF PRIDE</h2>  -->
+					<h1>{{ slide.heading }}</h1>
+					<div v-if="slide.topContent" class="top-text-container" :style="{ backgroundImage: `url(${slide.topBgImage})` }" v-html="slide.topText"></div>
+					<div class="text-container" v-html="slide.text"></div>
+				</div>
+			</div>
+		</transition-group>
 	</section>
 </template>
 
@@ -113,6 +127,8 @@ export default {
 	name: 'PointsPride',
 	data() {
 		return {
+			width: '0px',
+			fullWidth: document.documentElement.clientWidth,
 			currentSlide: 0,
 			pointsSlides: [
 				{
@@ -150,7 +166,7 @@ export default {
 					triangle: false,
 					triangleText: false,
 					leftBgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/UCGraduation159_2018-bw.jpg',
-					leftText: '<h1>CLASS OF 2018</h1><div class="container"><span>6,500</span><p>students earned degrees of various levels in UC\'s largest-ever spring commencement.</p></div><div class="container"><span>50.5%</span> <img class="icon" src="/image/annual-report/2018/pointspride/icon-atom.png"> <img class="icon" src="/image/annual-report/2018/pointspride/icon-math.png"> <img class="icon" src="/image/annual-report/2018/pointspride/icon-gears.png"> <img class="icon" src="/image/annual-report/2018/pointspride/icon-compass.png"><p class="block">of this year\'s graduates were awarded degrees in the STEM areas of science, technology, engineering and math.</p></div><div class="container"><span>16%</span> <img class="icon" src="/image/annual-report/2018/pointspride/icon-graduates.png"><p class="block">of these students were first-generation college students.</p></div><div class="container"><p class="margin-bottom-10">They hailed from <span>49</span> states and <span>76</span> countries.</p><em>By comparison, the Class of 2017 had graduates from 51 countries.</em></div>',                        
+					leftText: '<h1>CLASS OF 2018</h1><div class="container"><span>6,500</span><p>students earned degrees of various levels in UC\'s largest-ever spring commencement.</p></div><div class="container"><span>50.5%</span> <img class="icon" src="https://foundation.uc.edu/image/annual-report/2018/pointspride/icon-atom.png"> <img class="icon" src="https://foundation.uc.edu/image/annual-report/2018/pointspride/icon-math.png"> <img class="icon" src="https://foundation.uc.edu/image/annual-report/2018/pointspride/icon-gears.png"> <img class="icon" src="https://foundation.uc.edu/image/annual-report/2018/pointspride/icon-compass.png"><p class="block">of this year\'s graduates were awarded degrees in the STEM areas of science, technology, engineering and math.</p></div><div class="container"><span>16%</span> <img class="icon" src="https://foundation.uc.edu/image/annual-report/2018/pointspride/icon-graduates.png"><p class="block">of these students were first-generation college students.</p></div><div class="container"><p class="margin-bottom-10">They hailed from <span>49</span> states and <span>76</span> countries.</p><em>By comparison, the Class of 2017 had graduates from 51 countries.</em></div>',                        
 					rightTopBgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/earth.png',
 					rightTopText: '<span>113%</span><p>increase in students studying internationally since 2010.</p>',
 					rightBgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/mens-basketball-bw.png',
@@ -168,16 +184,98 @@ export default {
 					rightBgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/UC_Health_West_Chester.jpg',
 					rightText: '<span>Top 5%</span><p>UC Health\'s West Chester Hospital ranked in top 5 percent of hospitals nationally for clinical outcomes (Healthgrades, 2018).</p><em>The distinction recognizes West Chester Hospital as being within the top five percent of nearly 4,500 hospitals nationwide for its clinical performance as measured by Healthgrades, the leading online resource for comprehensive information about physicians and hospitals.</em>'
 				}
+			],
+			mobilePointsSlides: [
+				{
+					id: 0,
+					full: true,
+					topContent: false,
+					url: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/MoveableFeast213.jpg',
+					bgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/MoveableFeast213.jpg',
+					heading: 'Incredible things are happening at UC and UC Health',
+					text: '<span>2nd</span><p>CCM alumni rank second in Playbill\'s "Most-Represented Colleges on Broadway."</p>'
+				},
+				{
+					id: 1,
+					full: true,
+					topContent: false,
+					url: '',
+					bgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/SuperBowlRing.jpg',
+					text: '<div class="kelceCelek"><p>Alumni Jason Kelce, BUS \'10 and Brent Celek, BUS \'07 were part of the 2018 Super Bowl champion team, the Philadelphia Eagles.</p><div><img src="https://foundation.uc.edu/image/annual-report/2018/pointspride/Jason-Kelce.png"><img src="https://foundation.uc.edu/image/annual-report/2018/pointspride/Celek-Brent.png"><span>Jason Kelce</span><span>Brent Celek</span></div></div>'
+				},
+				{
+					id: 2,
+					full: true,
+					topContent: false,
+					url: '',
+					bgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/MarianSpencerHall.png',
+					text: '<div class="spencer"><p>UC\'s newest resident hall has been named after civil rights activist and lifelong community servant Marian Spencer, A&S \'42, Hon \'06.</p><img src="https://foundation.uc.edu/image/annual-report/2018/pointspride/Marian-Spencer.png"></div>'
+				},
+				{
+					id: 3,
+					full: true,
+					topContent: false,
+					url: '',
+					bgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/CCC_kremer-85.jpg',
+					text: '<p>UC Health\'s Trisha Wise-Draper, PhD, COM \'08, MD COM \'10, is pioneering the use of immunotherapy in cancer patients while also training the next generation of physicians and studying cancer\'s underlying mechanisms to develop newer and better treatments.</p>', 
+				},
+				{
+					id: 4,
+					full: true,
+					topContent: false,
+					url: '',
+					bgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/UCGraduation159_2018-bw.jpg',
+					text: '<div class="classOf"><h1>CLASS OF 2018</h1><div class="container"><span>6,500</span><p>students earned degrees of various levels in UC\'s largest-ever spring commencement.</p></div><div class="container"><span>50.5%</span> <img class="icon" src="https://foundation.uc.edu/image/annual-report/2018/pointspride/icon-atom.png"> <img class="icon" src="https://foundation.uc.edu/image/annual-report/2018/pointspride/icon-math.png"> <img class="icon" src="https://foundation.uc.edu/image/annual-report/2018/pointspride/icon-gears.png"> <img class="icon" src="https://foundation.uc.edu/image/annual-report/2018/pointspride/icon-compass.png"><p class="block">of this year\'s graduates were awarded degrees in the STEM areas of science, technology, engineering and math.</p></div><div class="container"><span>16%</span> <img class="icon" src="https://foundation.uc.edu/image/annual-report/2018/pointspride/icon-graduates.png"><p class="block">of these students were first-generation college students.</p></div><div class="container"><p class="margin-bottom-10">They hailed from <span>49</span> states and <span>76</span> countries.</p><em>By comparison, the Class of 2017 had graduates from 51 countries.</em></div></div>'
+				},
+				{
+					id: 5,
+					full: true,
+					topContent: true,
+					url: '',
+					topBgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/earth.png',
+					topText: '<span>113%</span><p>increase in students studying internationally since 2010.</p>',
+					bgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/mens-basketball-bw.png',
+					text: '<p><span>3.224</span><p>UC student-athletes\' cumulative grade-point average for the Fall 2017 semester.</p><em>It was the 19th consecutive grading period our Bearcats have exceeded a 3.00 GPA.</em></p>'
+				},
+				{
+					id: 6,
+					full: true,
+					topContent: false,
+					url: '',
+					bgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/uc_china.jpg',
+					text: '<div class="us-china"><img src="https://foundation.uc.edu/image/annual-report/2018/pointspride/map.png"><span>56</span><p>students earned engineering degrees from UC and China\'s Chongqing University as part of UC\'s Joint Engineering Co-op Institute\'s first graduating class.</p></div>',
+				},
+				{
+					id: 7,
+					full: true,
+					topContent: false,
+					url: '',
+					bgImage: 'https://foundation.uc.edu/image/annual-report/2018/pointspride/UC_Health_West_Chester.jpg',
+					text: '<div class="west-chester"><span>Top 5%</span><p>UC Health\'s West Chester Hospital ranked in top 5 percent of hospitals nationally for clinical outcomes (Healthgrades, 2018).</p><em>The distinction recognizes West Chester Hospital as being within the top five percent of nearly 4,500 hospitals nationwide for its clinical performance as measured by Healthgrades, the leading online resource for comprehensive information about physicians and hospitals.</em></div>'
+				}
 			]
 		}
 	},
+	mounted() {
+		this.computedWidth()
+	},
 	methods: {
 		prev: function () {
-            this.currentSlide = this.currentSlide === 0 ? this.slides.length - 1 : this.currentSlide - 1
+            this.currentSlide = this.currentSlide === 0 ? this.pointsSlides.length - 1 : this.currentSlide - 1
         },                
         next: function () {
-            this.currentSlide = this.currentSlide === this.slides.length - 1 ? 0 : this.currentSlide + 1
-        }
+            this.currentSlide = this.currentSlide === this.pointsSlides.length - 1 ? 0 : this.currentSlide + 1
+		},
+		mobilePrev: function () {
+            this.currentSlide = this.currentSlide === 0 ? this.mobilePointsSlides.length - 1 : this.currentSlide - 1
+        },                
+        mobileNext: function () {
+            this.currentSlide = this.currentSlide === this.mobilePointsSlides.length - 1 ? 0 : this.currentSlide + 1
+        },
+		computedWidth: function () {
+			this.width = this.$refs.appWidth.clientWidth;
+			return this.width;
+		}
 	}
 }
 </script>

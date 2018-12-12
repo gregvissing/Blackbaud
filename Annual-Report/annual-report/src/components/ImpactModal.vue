@@ -1,6 +1,6 @@
 <script>
   export default {
-    name: 'modal',
+    name: 'impactModal',
 
     methods: {
       close() {
@@ -11,7 +11,7 @@
 </script>
 
 <template>
-    <transition name="modal">
+    <transition name="impactModal">
         <div class="modal-mask">
             <div class="modal-wrapper">
                 <div class="modal-container">  
