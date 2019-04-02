@@ -1,8 +1,8 @@
 {
-  "name": "tut-search",
+  "name": "ucgni-designation-search-foundation-university-of-cincinnati",
   "version": "1.0.0",
-  "description": "Find the tutorial you're looking for",
-  "author": "Joseph Zimmerman <contact@joezimjs.com>",
+  "description": "The UCGNI Designation Search page is used to seamlessly find the fund you're looking to donate to using search and filter functionality.",
+  "author": "Greg Vissing <vissing@uc.edu>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
