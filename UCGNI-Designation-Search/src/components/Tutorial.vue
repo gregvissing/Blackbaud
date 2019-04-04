@@ -1,20 +1,14 @@
 <template>
-    <div>
-        <h4>
-            <a :href="item.hierachy">{{ item.fund }}</a>
-        </h4>
-        <p class="meta">Donation link: {{ item.hierachy }}</p>
+    <div v-bind:class="classHierarchy">
+        <h4>{{ item.fund }}</h4>
+        <!-- <p class="meta">Donation link: {{ item.hierachy }}</p> -->
         <p>Area: {{ item.area }}</p>
         <p>Center: {{ item.center }}</p>
-        <p>
-            Description of fund here!
-            <!-- <TechLabel
-                class="area-label"
-                v-for="(area, index) in item.area"
-                :area="area"
-                :key="index"
-            />-->
-        </p>
+        <!-- <p>Description of Fund: {{ item.description }} here!</p> -->
+        <p>{{ item.description }}</p>
+
+        <a class="btn btn-primary" v-if="item.hierachy != ''" :href="item.hierachy">Donate Now</a>
+        <a class="btn btn-secondary" v-else>Needs Hierarchy</a>
     </div>
 </template>
 
@@ -25,13 +19,14 @@ import TechLabel from "./TechLabel";
 
 export default {
     name: "fund",
-    props: ["item"]
-    //components: { TechLabel },
-    // methods: {
-    //     domainOf: hierachy => (
-    //         (parser.href = hierachy), parser.hostname.replace(/^www\./, "")
-    //     )
-    // }
+    props: ["item"],
+    computed: {
+        classHierarchy: function() {
+            if (this.item.hierachy) {
+                return "active";
+            }
+        }
+    }
 };
 </script>
 

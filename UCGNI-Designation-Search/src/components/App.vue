@@ -1,29 +1,34 @@
 <template>
     <div class="container">
-        <img
-            src="https://foundation.uc.edu/image/landing-page-headers/UCGNI-overlay.png"
-            class="heroBgImage"
-        >
-        <div class="header clearfix">
-            <h2>UCGNI Designation Search</h2>
-        </div>
+        <section class="navigation">
+            <div class="nav-container">
+                <div class="brand">
+                    <img
+                        class="logo"
+                        :src="UCFLogo"
+                    >
+                </div>
+                <nav>
+                    <ul class="nav-list">
+                        <li>
+                            <h4>University of Cincinnati Gardner Neuroscience Institute</h4>
+                            <h4>Designation Search</h4>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
 
         <div class="jumbotron">
-            <p>Use the Search Box and Area/Center selectors to find the fund you're looking for.</p>
+            <p
+                class="text-center"
+            >Use the Search Box and Area/Center selectors to find the fund you're looking for.</p>
             <SearchBox v-model="searchTerm"/>
 
             <div class="form-group areas">
-                 <h4 class="text-center">Select an Area</h4>
+                <h4 class="text-center">Select an Area</h4>
                 <RadioGroup :areas="areas" v-model="area"/>
             </div>
-           
-            <!-- <h4>Select an Area</h4> -->
-            <!-- <div class="form-group text-center">
-                <label class="radio-inline" v-for="(areaVal, index) in areaList" :key="index">
-                    <input type="radio" :value="areaVal" name="area-filter" v-model="area">
-                    <span class="label label-default">{{ areaVal }}</span>
-                </label>
-            </div>-->
 
             <transition name="fade">
                 <div v-show="area != ''">
@@ -44,7 +49,6 @@
                                 v-model="center"
                             >
                             {{centerVal[0]}}
-                            <!-- <span class="label label-default">{{centerVal[0]}}</span> -->
                         </label>
                     </div>
                 </div>
@@ -54,11 +58,14 @@
         <Pagination v-model="page" :items="funds.length" :perPage="10"/>
         <TutorialList :funds="pageOfTutorials"/>
         <Pagination v-model="page" :items="funds.length" :perPage="10"/>
+
+        <a class="scrollToTop" href="#" @click.prevent="scrollToTop">
+            <span>&nbsp;</span>
+        </a>
     </div>
 </template>
 
 <script>
-// import { areaList as areaData, centerData as centerValues } from "./api";
 import TutorialList from "./TutorialList";
 import Pagination from "./Pagination";
 import SearchBox from "./SearchBox";
@@ -77,6 +84,8 @@ export default {
         CenterRadioGroup
     },
     data: () => ({
+        UCFLogo: "https://foundation.uc.edu/file/projects/ucgni-search/images/logo-ucFoundation.png",
+        UCLogo: "https://foundation.uc.edu/file/projects/ucgni-search/images/UCF-logo.png",
         searchTerm: "",
         area: "",
         areas: [],
@@ -90,7 +99,8 @@ export default {
         funds: [], // api content
         fundData: [],
         tutorials: [], // static content
-        page: 1
+        page: 1,
+        scrolled: false
     }),
     computed: {
         pageOfTutorials: function() {
@@ -104,9 +114,6 @@ export default {
         area: function() {
             this.filterTutorials();
         },
-        // fundData: function() {
-        //     this.filterCenterAndFunds();
-        // },
         center: function() {
             this.filterTutorials();
         }
@@ -121,20 +128,11 @@ export default {
         queryService.getResults(
             BBI.Defaults.ucgniCascadingFundsQueryId,
             function(data) {
-
                 var allFunds = data.Rows;
 
                 var fundMaster = [];
                 var centerLevelAll = [];
                 var topLevelAll = [];
-
-                // var consoleData = [];
-                // consoleData = funds;
-                console.log('stringify');
-                console.log(JSON.stringify(data));
-
-                console.log('table');
-                console.table(data);
 
                 $.each(allFunds, function() {
                     // define values
@@ -195,21 +193,61 @@ export default {
                 var uniqueFunds = multiDimensionalUnique(fundMaster);
 
                 $.each(uniqueFunds, function(x, subFund) {
+                    var hierachyConcat = "";
+                    if (subFund[3]) {
+                        hierachyConcat =
+                            "https://foundation.uc.edu/donate?id=" + subFund[3];
+                    }
                     var fundRowData = {
                         area: subFund[0],
                         center: subFund[1],
                         fund: subFund[2],
-                        hierachy:
-                            "https://foundation.uc.edu/donate?id=" + subFund[3]
+                        description:
+                            "Fund description: This is the description for the fund " +
+                            subFund[2] +
+                            " in the Area: " +
+                            subFund[0] +
+                            " located in the " +
+                            subFund[1] +
+                            " center!",
+                        hierachy: hierachyConcat
                     };
                     funds.push(fundRowData);
                 });
-                
+
+                // var consoleData = [];
+                // consoleData = funds;
+                console.log("stringify");
+                console.log(JSON.stringify(funds));
+
+                console.log("table");
+                console.table(funds);
+
                 vm.fundData = funds;
             }
         );
     },
     methods: {
+        scrollToTop() {
+            $("html, body").animate(
+                {
+                    scrollTop: 0
+                },
+                300
+            );
+            return false;
+        },
+        handleScroll() {
+            this.scrolled = window.scrollY > 0;
+            if (window.scrollY > 100) {
+                $(".navigation").addClass("reduced");
+                $(".scrollToTop").fadeIn();               
+                
+            } else {
+                $(".navigation").removeClass("reduced");
+                $(".scrollToTop").fadeOut();
+            }
+        },
         filterCenterAndFunds: function() {
             //return console.log(this.fundData);
         },
@@ -263,13 +301,11 @@ export default {
                     result = result.filter(fund => {
                         return (
                             // tutorial.fund.toLowerCase().search(searchTerm) >= 0
-                            fund.fund.toLowerCase().search(searchTerm) >=
-                                0 ||
+                            fund.fund.toLowerCase().search(searchTerm) >= 0 ||
                             fund.area.toLowerCase().search(searchTerm) >= 0
                         );
                     });
                 }
-                
             }
 
             if (searchTerm || area) {
@@ -373,8 +409,12 @@ export default {
         }
     },
     created: function() {
+        window.addEventListener("scroll", this.handleScroll);
         //this.getDesignations();
         // this.filterCenterAndFunds();
+    },
+    destroyed() {
+        window.removeEventListener("scroll", this.handleScroll);
     }
 };
 </script>
@@ -392,12 +432,13 @@ export default {
     max-width: 750px;
     min-height: 100vh !important;
 } */
+
 .footer {
     padding: 15px;
     color: #777;
     border-top: 1px solid #e5e5e5;
 }
 .header {
-    margin: 10px 0 20px;
+    margin: 10px 0;
 }
 </style>

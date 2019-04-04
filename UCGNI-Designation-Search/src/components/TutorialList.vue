@@ -30,7 +30,8 @@ export default {
 }
 
 .tutorial {
-    padding: 20px;
+    padding: 20px 20px 55px 20px;
+    position: relative;
 }
 
 @media only screen and (min-width: 600px) {
