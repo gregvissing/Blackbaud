@@ -1,9 +1,10 @@
 <template>
     <div v-bind:class="classHierarchy">
-        <h4>{{ item.fund }}</h4>
+        <h4 v-if="item.fund">{{ item.fund }}</h4>
+        <h4 v-else>Fund name blank</h4>
         <!-- <p class="meta">Donation link: {{ item.hierachy }}</p> -->
-        <p>Area: {{ item.area }}</p>
-        <p>Center: {{ item.center }}</p>
+        <!-- <p>Area: {{ item.area }}</p>
+        <p>Center: {{ item.center }}</p>-->
         <!-- <p>Description of Fund: {{ item.description }} here!</p> -->
         <p>{{ item.description }}</p>
 

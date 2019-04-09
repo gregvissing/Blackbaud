@@ -22,19 +22,6 @@ export default {
     name: "radio-group",
     components: { TechLabel },
     props: ["areas"],
-    // props: {
-    //     // value: {
-    //     //     default: ""
-    //     // },
-    //     // options: {
-    //     //     type: Array,
-    //     //     default: () => ["", ...Object.keys(areas)]
-    //     // },
-    //     name: {
-    //         type: String,
-    //         default: "area-filter"
-    //     }
-    // },
     data: function() {
         return { selected: this.value };
     },

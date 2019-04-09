@@ -3,16 +3,13 @@
         <section class="navigation">
             <div class="nav-container">
                 <div class="brand">
-                    <img
-                        class="logo"
-                        :src="UCFLogo"
-                    >
+                    <img class="logo" :src="UCFLogo">
                 </div>
                 <nav>
                     <ul class="nav-list">
                         <li>
                             <h4>University of Cincinnati Gardner Neuroscience Institute</h4>
-                            <h4>Designation Search</h4>
+                            <h4>Online Giving</h4>
                         </li>
                     </ul>
                 </nav>
@@ -20,39 +17,48 @@
         </section>
 
         <div class="jumbotron">
-            <p
-                class="text-center"
-            >Use the Search Box and Area/Center selectors to find the fund you're looking for.</p>
-            <SearchBox v-model="searchTerm"/>
+            <p class="text-center">Which Fund Would You Like to Support?</p>
 
-            <div class="form-group areas">
-                <h4 class="text-center">Select an Area</h4>
-                <RadioGroup :areas="areas" v-model="area"/>
-            </div>
-
-            <transition name="fade">
-                <div v-show="area != ''">
-                    <h4 class="select-center text-center">Select a Center</h4>
-                    <div
-                        class="form-group btn-group btn-group-toggle centers form-group text-center"
-                        data-toggle="buttons"
-                    >
-                        <label
-                            class="btn btn-secondary"
-                            v-for="(centerVal, index) in centerList"
-                            :key="index"
-                        >
-                            <input
-                                type="radio"
-                                :value="centerVal[0]"
-                                name="center-filter"
-                                v-model="center"
-                            >
-                            {{centerVal[0]}}
-                        </label>
+            <vue-tabs @change="onChange">
+                <vue-tab label="SEARCH BY KEYWORD" :active="true">
+                    <div class="letter-text-container" id="search">
+                        <SearchBox v-model="searchTerm"/>
                     </div>
-                </div>
-            </transition>
+                </vue-tab>
+                <vue-tab label="FILTER BY AREA/CENTER">
+                    <div class="letter-text-container" id="filter">
+                        <div class="form-group areas">
+                            <RadioGroup :areas="areas" v-model="area"/>
+                        </div>
+
+                        <!-- <transition name="fade"> -->
+                        <div>
+                            <h4 class="select-center text-center">Select a Center</h4>
+                            <div
+                                class="form-group btn-group btn-group-toggle centers form-group text-center"
+                                data-toggle="buttons"
+                            >
+                                <label
+                                    class="btn btn-secondary"
+                                    v-for="(centerVal, index) in centerList"
+                                    :key="index"
+                                >
+                                    <input
+                                        type="radio"
+                                        :value="centerVal[0]"
+                                        name="center-filter"
+                                        v-model="center"
+                                    >
+                                    {{centerVal[0]}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- </transition> -->
+                    </div>
+                </vue-tab>
+            </vue-tabs>
+            <button @click.prevent="resetFields" class="btn btn-primary">ClEAR FILTERS</button>
         </div>
 
         <Pagination v-model="page" :items="funds.length" :perPage="10"/>
@@ -66,12 +72,15 @@
 </template>
 
 <script>
+import _ from "lodash";
 import TutorialList from "./TutorialList";
 import Pagination from "./Pagination";
 import SearchBox from "./SearchBox";
 import RadioGroup from "./RadioGroup";
 import CenterRadioGroup from "./CenterRadioGroup";
 import getArraySection from "../utilities/get-array-section";
+import VueTab from "./VueTab";
+import VueTabs from "./VueTabs";
 import { tutorials as tutorialData } from "../data";
 
 export default {
@@ -81,11 +90,15 @@ export default {
         Pagination,
         SearchBox,
         RadioGroup,
-        CenterRadioGroup
+        CenterRadioGroup,
+        VueTab,
+        VueTabs
     },
     data: () => ({
-        UCFLogo: "https://foundation.uc.edu/file/projects/ucgni-search/images/logo-ucFoundation.png",
-        UCLogo: "https://foundation.uc.edu/file/projects/ucgni-search/images/UCF-logo.png",
+        UCFLogo:
+            "https://foundation.uc.edu/file/projects/ucgni-search/images/logo-ucFoundation.png",
+        UCLogo:
+            "https://foundation.uc.edu/file/projects/ucgni-search/images/UCF-logo.png",
         searchTerm: "",
         area: "",
         areas: [],
@@ -217,17 +230,24 @@ export default {
 
                 // var consoleData = [];
                 // consoleData = funds;
-                console.log("stringify");
-                console.log(JSON.stringify(funds));
+                // console.log("stringify");
+                // console.log(JSON.stringify(funds));
 
-                console.log("table");
-                console.table(funds);
+                // console.log("table");
+                // console.table(funds);
 
                 vm.fundData = funds;
             }
         );
     },
     methods: {
+        resetFields: function() {
+            this.searchTerm = "";
+            this.area = "";
+            this.center = "";
+            console.log("clicked" + this.searchTerm);
+            this.filterTutorials();
+        },
         scrollToTop() {
             $("html, body").animate(
                 {
@@ -241,15 +261,11 @@ export default {
             this.scrolled = window.scrollY > 0;
             if (window.scrollY > 100) {
                 $(".navigation").addClass("reduced");
-                $(".scrollToTop").fadeIn();               
-                
+                $(".scrollToTop").fadeIn();
             } else {
                 $(".navigation").removeClass("reduced");
                 $(".scrollToTop").fadeOut();
             }
-        },
-        filterCenterAndFunds: function() {
-            //return console.log(this.fundData);
         },
         filterTutorials: function() {
             const searchTerm = this.searchTerm.toLowerCase();
@@ -309,8 +325,10 @@ export default {
             }
 
             if (searchTerm || area) {
-                this.funds = result;
+                this.funds = _.orderBy(result, "fund"); //;
                 this.page = 1;
+            } else {
+                this.funds = "";
             }
         },
         getDesignations: function() {
@@ -419,7 +437,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.5s;
