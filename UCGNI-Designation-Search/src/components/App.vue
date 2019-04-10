@@ -19,7 +19,7 @@
         <div class="jumbotron">
             <p class="text-center">Which Fund Would You Like to Support?</p>
 
-            <vue-tabs @change="onChange">
+            <vue-tabs>
                 <vue-tab label="SEARCH BY KEYWORD" :active="true">
                     <div class="letter-text-container" id="search">
                         <SearchBox v-model="searchTerm"/>
@@ -130,115 +130,6 @@ export default {
         center: function() {
             this.filterTutorials();
         }
-    },
-    mounted() {
-        var vm = this;
-
-        var funds = [];
-        var ucgniCascadingFundsQueryId = "40664e66-2729-4b1a-8cea-964b987c0833";
-
-        var queryService = new BLACKBAUD.api.QueryService();
-        queryService.getResults(
-            BBI.Defaults.ucgniCascadingFundsQueryId,
-            function(data) {
-                var allFunds = data.Rows;
-
-                var fundMaster = [];
-                var centerLevelAll = [];
-                var topLevelAll = [];
-
-                $.each(allFunds, function() {
-                    // define values
-                    var values = this.Values;
-                    var target = values[11]; // Areas of support
-                    var splitter = target.split("\\");
-
-                    var centers = values[12]; // Centers
-                    var centersSplitter = centers.split("\\");
-
-                    // remove first item in array
-                    if (splitter.length > 1) {
-                        splitter.shift();
-                        centersSplitter.shift();
-                    }
-
-                    // push values to array
-                    splitter.push(values[12]); // Centers
-
-                    splitter.push(values[13]); // Fund name
-                    splitter.push(values[10]); // BBIS Fund Hierarchy Attribute\System record ID (GUID)
-
-                    centersSplitter.push(values[11]);
-
-                    fundMaster.push(splitter);
-
-                    centerLevelAll.push(centersSplitter);
-
-                    topLevelAll.push(splitter[0]);
-                });
-
-                function onlyUnique(value, index, self) {
-                    return self.indexOf(value) === index;
-                }
-
-                var topLevelUnique = topLevelAll.filter(onlyUnique);
-                vm.areas = topLevelUnique;
-
-                function multiDimensionalUnique(arr) {
-                    var uniques = [];
-                    var itemsFound = {};
-                    for (var i = 0, l = arr.length; i < l; i++) {
-                        var stringified = JSON.stringify(arr[i]);
-                        if (itemsFound[stringified]) {
-                            continue;
-                        }
-                        if (arr[i][0].length != 0) {
-                            uniques.push(arr[i]);
-                        }
-                        itemsFound[stringified] = true;
-                    }
-                    return uniques;
-                }
-                var centerMaster = multiDimensionalUnique(centerLevelAll);
-                vm.centerList = centerMaster;
-                vm.centerData = centerMaster;
-
-                var uniqueFunds = multiDimensionalUnique(fundMaster);
-
-                $.each(uniqueFunds, function(x, subFund) {
-                    var hierachyConcat = "";
-                    if (subFund[3]) {
-                        hierachyConcat =
-                            "https://foundation.uc.edu/donate?id=" + subFund[3];
-                    }
-                    var fundRowData = {
-                        area: subFund[0],
-                        center: subFund[1],
-                        fund: subFund[2],
-                        description:
-                            "Fund description: This is the description for the fund " +
-                            subFund[2] +
-                            " in the Area: " +
-                            subFund[0] +
-                            " located in the " +
-                            subFund[1] +
-                            " center!",
-                        hierachy: hierachyConcat
-                    };
-                    funds.push(fundRowData);
-                });
-
-                // var consoleData = [];
-                // consoleData = funds;
-                // console.log("stringify");
-                // console.log(JSON.stringify(funds));
-
-                // console.log("table");
-                // console.table(funds);
-
-                vm.fundData = funds;
-            }
-        );
     },
     methods: {
         resetFields: function() {
@@ -433,6 +324,115 @@ export default {
     },
     destroyed() {
         window.removeEventListener("scroll", this.handleScroll);
+    },
+    mounted() {
+        var vm = this;
+
+        var funds = [];
+        var ucgniCascadingFundsQueryId = "40664e66-2729-4b1a-8cea-964b987c0833";
+
+        var queryService = new BLACKBAUD.api.QueryService();
+        queryService.getResults(
+            BBI.Defaults.ucgniCascadingFundsQueryId,
+            function(data) {
+                var allFunds = data.Rows;
+
+                var fundMaster = [];
+                var centerLevelAll = [];
+                var topLevelAll = [];
+
+                $.each(allFunds, function() {
+                    // define values
+                    var values = this.Values;
+                    var target = values[11]; // Areas of support
+                    var splitter = target.split("\\");
+
+                    var centers = values[12]; // Centers
+                    var centersSplitter = centers.split("\\");
+
+                    // remove first item in array
+                    if (splitter.length > 1) {
+                        splitter.shift();
+                        centersSplitter.shift();
+                    }
+
+                    // push values to array
+                    splitter.push(values[12]); // Centers
+
+                    splitter.push(values[13]); // Fund name
+                    splitter.push(values[10]); // BBIS Fund Hierarchy Attribute\System record ID (GUID)
+
+                    centersSplitter.push(values[11]);
+
+                    fundMaster.push(splitter);
+
+                    centerLevelAll.push(centersSplitter);
+
+                    topLevelAll.push(splitter[0]);
+                });
+
+                function onlyUnique(value, index, self) {
+                    return self.indexOf(value) === index;
+                }
+
+                var topLevelUnique = topLevelAll.filter(onlyUnique);
+                vm.areas = topLevelUnique;
+
+                function multiDimensionalUnique(arr) {
+                    var uniques = [];
+                    var itemsFound = {};
+                    for (var i = 0, l = arr.length; i < l; i++) {
+                        var stringified = JSON.stringify(arr[i]);
+                        if (itemsFound[stringified]) {
+                            continue;
+                        }
+                        if (arr[i][0].length != 0) {
+                            uniques.push(arr[i]);
+                        }
+                        itemsFound[stringified] = true;
+                    }
+                    return uniques;
+                }
+                var centerMaster = multiDimensionalUnique(centerLevelAll);
+                vm.centerList = centerMaster;
+                vm.centerData = centerMaster;
+
+                var uniqueFunds = multiDimensionalUnique(fundMaster);
+
+                $.each(uniqueFunds, function(x, subFund) {
+                    var hierachyConcat = "";
+                    if (subFund[3]) {
+                        hierachyConcat =
+                            "https://foundation.uc.edu/donate?id=" + subFund[3];
+                    }
+                    var fundRowData = {
+                        area: subFund[0],
+                        center: subFund[1],
+                        fund: subFund[2],
+                        description:
+                            "Fund description: This is the description for the fund " +
+                            subFund[2] +
+                            " in the Area: " +
+                            subFund[0] +
+                            " located in the " +
+                            subFund[1] +
+                            " center!",
+                        hierachy: hierachyConcat
+                    };
+                    funds.push(fundRowData);
+                });
+
+                // var consoleData = [];
+                // consoleData = funds;
+                // console.log("stringify");
+                // console.log(JSON.stringify(funds));
+
+                // console.log("table");
+                // console.table(funds);
+
+                vm.fundData = funds;
+            }
+        );
     }
 };
 </script>
