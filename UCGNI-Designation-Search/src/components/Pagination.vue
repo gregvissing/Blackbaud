@@ -1,5 +1,6 @@
 <template>
     <div class="pagination-component">
+        <p v-show="parseInt(items)">{{count}}</p>
         <ul v-show="totalPages > 1" class="pagination">
             <li :class="'page-item ' + allowedPageClass(page - 1)">
                 <a class="page-link" href="javascript:void(0)" @click="prev">&lt;</a>
@@ -21,8 +22,6 @@
                 <a class="page-link" href="javascript:void(0)" @click="next">&gt;</a>
             </li>
         </ul>
-
-        <p v-show="parseInt(items)">{{count}}</p>
     </div>
 </template>
 

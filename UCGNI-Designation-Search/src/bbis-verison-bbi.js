@@ -9,13 +9,13 @@ var BBI = BBI || {
 
   Defaults: {
     // we have to remove alumni from rootpath, otherwise it won't hit the API Endpoint
-    rootpath: (function () {
+    rootpath: (function() {
       var str = BLACKBAUD.api.pageInformation.rootPath;
       var shortString = str.substring(0, str.lastIndexOf("alumni"));
       return shortString;
     })(),
     pageId: BLACKBAUD.api.pageInformation.pageId,
-    highlightedUcgniFundsQueryId: (function () {
+    highlightedUcgniFundsQueryId: (function() {
       if (
         BLACKBAUD.api.pageInformation.rootPath === "https://www.alumni.uc.edu/"
       ) {
@@ -25,7 +25,7 @@ var BBI = BBI || {
         // return "c22e7fbb-abcb-4aed-acb2-b18f8639f77e";
       }
     })(),
-    ucgniCascadingFundsQueryId: (function () {
+    ucgniCascadingFundsQueryId: (function() {
       if (
         BLACKBAUD.api.pageInformation.rootPath === "https://www.alumni.uc.edu/"
       ) {
@@ -43,7 +43,7 @@ var BBI = BBI || {
 
   Methods: {
     //methods in here such as pageInit, etc.
-    pageInit: function () {
+    pageInit: function() {
       //All functions which should run instantly
       //Style fixes in admin view
       if (BBI.Config.isEditView) {
@@ -52,12 +52,12 @@ var BBI = BBI || {
         BBI.Methods.initADF();
       }
     },
-    initADF: function () {
+    initADF: function() {
       //if ($('#advancedDonationFormCustom').length !== 0) {
       //BBI.Methods.populateCustomCascadingFields();
       //}
     },
-    adminStyleFixes: function () {
+    adminStyleFixes: function() {
       $(
         '[class*="show-for-"], [class*="hide-for-"], .fullWidthBackgroundImage, .fullWidthBackgroundImageInner'
       ).attr("class", "");
@@ -66,32 +66,32 @@ var BBI = BBI || {
         .css("position", "static");
       $(".fullWidthBackgroundImageInner").show();
     },
-    populateCustomDesignationIds: function () {
+    populateCustomDesignationIds: function() {
       var queryService = new BLACKBAUD.api.QueryService();
 
       queryService.getResults(
         BBI.Defaults.highlightedUcgniFundsQueryId,
-        function (data) {
+        function(data) {
           var fields = data.Fields,
             rows = data.Rows,
             fieldArray = [];
           // console.log(fields);
           // console.log(rows);
-          $.each(fields, function (key, value) {
+          $.each(fields, function(key, value) {
             fieldArray[value.Name] = key;
           });
 
-          $.each(rows, function () {
+          $.each(rows, function() {
             var values = this["Values"],
               designationID = values[fieldArray["System record ID"]],
               designationName = values[fieldArray["Public name"]], // use friendly name
               itemHTML =
-              '<li class="designationButton"><a rel="' +
-              designationID +
-              '">' +
-              designationName +
-              "</a></li>";
-            var description = values[fieldArray["Purpose\Description"]];
+                '<li class="designationButton"><a rel="' +
+                designationID +
+                '">' +
+                designationName +
+                "</a></li>";
+            var description = values[fieldArray["PurposeDescription"]];
             if (description != "") {
               console.log(designationName + " - " + description);
             }

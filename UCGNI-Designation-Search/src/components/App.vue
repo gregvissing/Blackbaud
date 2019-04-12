@@ -19,80 +19,85 @@
         <div class="jumbotron">
             <p class="text-center">Which Fund Would You Like to Support?</p>
 
-            <vue-tabs>
-                <vue-tab label="SEARCH BY KEYWORD" :active="true">
-                    <div class="letter-text-container" id="search">
-                        <SearchBox v-model="searchTerm"/>
-                    </div>
-                </vue-tab>
-                <vue-tab label="FILTER BY AREA/CENTER">
-                    <div class="letter-text-container" id="filter">
-                        <div class="form-group areas">
-                            <RadioGroup :areas="areas" v-model="area"/>
-                        </div>
+            <SearchBox v-model="searchTerm"/>
+            <div class="form-group areas">
+                <p>Areas</p>
+                <RadioGroup :areas="areas" :selected.sync="area" v-model="area"/>
+            </div>
 
-                        <!-- <transition name="fade"> -->
-                        <div>
-                            <h4 class="select-center text-center">Select a Center</h4>
-                            <div
-                                class="form-group btn-group btn-group-toggle centers form-group text-center"
-                                data-toggle="buttons"
+            <transition name="fade">
+                <div v-show="area != ''">
+                    <div
+                        class="form-group btn-group btn-group-toggle centers form-group text-center"
+                        data-toggle="buttons"
+                    >
+                        <p>Centers</p>
+                        <CenterRadioGroup
+                            :centers="centerList"
+                            :selected.sync="center"
+                            v-model="center"
+                        />
+                        <!-- <label
+                            class="btn btn-secondary"
+                            v-for="(centerVal, index) in centerList"
+                            :key="index"
+                        >
+                            <input
+                                type="radio"
+                                :value="centerVal[0]"
+                                name="center-filter"
+                                v-model="center"
                             >
-                                <label
-                                    class="btn btn-secondary"
-                                    v-for="(centerVal, index) in centerList"
-                                    :key="index"
-                                >
-                                    <input
-                                        type="radio"
-                                        :value="centerVal[0]"
-                                        name="center-filter"
-                                        v-model="center"
-                                    >
-                                    {{centerVal[0]}}
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- </transition> -->
+                            {{centerVal[0]}}
+                        </label>-->
                     </div>
-                </vue-tab>
-            </vue-tabs>
+                </div>
+            </transition>
+
             <button @click.prevent="resetFields" class="btn btn-primary">ClEAR FILTERS</button>
         </div>
 
         <Pagination v-model="page" :items="funds.length" :perPage="10"/>
-        <TutorialList :funds="pageOfTutorials"/>
+        <FundList :funds="pageOfFunds"/>
         <Pagination v-model="page" :items="funds.length" :perPage="10"/>
 
         <a class="scrollToTop" href="#" @click.prevent="scrollToTop">
             <span>&nbsp;</span>
         </a>
+
+        <footer class="footer">
+            <p class="text-center">
+                Questions or need help?
+                <span
+                    class="glyphicon glyphicon-earphone"
+                    aria-hidden="true"
+                ></span>
+                <a href="tel:513-558-6903" aria-hidden="true">513-558-6903</a> or
+                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                <a href="mailto:ucgnistaff@uc.edu" aria-hidden="true">ucgnistaff@uc.edu</a>
+            </p>
+        </footer>
     </div>
 </template>
 
 <script>
+import axios from "axios";
 import _ from "lodash";
-import TutorialList from "./TutorialList";
+import FundList from "./FundList";
 import Pagination from "./Pagination";
 import SearchBox from "./SearchBox";
 import RadioGroup from "./RadioGroup";
 import CenterRadioGroup from "./CenterRadioGroup";
 import getArraySection from "../utilities/get-array-section";
-import VueTab from "./VueTab";
-import VueTabs from "./VueTabs";
-import { tutorials as tutorialData } from "../data";
 
 export default {
     name: "app",
     components: {
-        TutorialList,
+        FundList,
         Pagination,
         SearchBox,
         RadioGroup,
-        CenterRadioGroup,
-        VueTab,
-        VueTabs
+        CenterRadioGroup
     },
     data: () => ({
         UCFLogo:
@@ -111,24 +116,25 @@ export default {
 
         funds: [], // api content
         fundData: [],
-        tutorials: [], // static content
+        funds: [], // static content
         page: 1,
         scrolled: false
     }),
     computed: {
-        pageOfTutorials: function() {
+        pageOfFunds: function() {
             return getArraySection(this.funds, this.page, 10);
         }
     },
     watch: {
         searchTerm: function() {
-            this.filterTutorials();
+            this.filterFunds();
         },
         area: function() {
-            this.filterTutorials();
+            this.center = "";
+            this.filterFunds();
         },
         center: function() {
-            this.filterTutorials();
+            this.filterFunds();
         }
     },
     methods: {
@@ -136,8 +142,7 @@ export default {
             this.searchTerm = "";
             this.area = "";
             this.center = "";
-            console.log("clicked" + this.searchTerm);
-            this.filterTutorials();
+            this.filterFunds();
         },
         scrollToTop() {
             $("html, body").animate(
@@ -158,13 +163,13 @@ export default {
                 $(".scrollToTop").fadeOut();
             }
         },
-        filterTutorials: function() {
+        filterFunds: function() {
             const searchTerm = this.searchTerm.toLowerCase();
 
             const area = this.area;
             const center = this.center;
 
-            // let result = tutorialData;       // local data
+            // let result = fundData;       // local data
             let result = this.fundData; // api data
             let centerResult = this.centerData;
 
@@ -172,7 +177,7 @@ export default {
                 result = result.filter(fund => {
                     return (
                         fund.fund.toLowerCase().search(searchTerm) >= 0
-                        // || tutorial.description.toLowerCase().search(searchTerm) >= 0
+                        // || fund.description.toLowerCase().search(searchTerm) >= 0
                     );
                 });
             }
@@ -207,7 +212,7 @@ export default {
                 if (searchTerm) {
                     result = result.filter(fund => {
                         return (
-                            // tutorial.fund.toLowerCase().search(searchTerm) >= 0
+                            // fund.fund.toLowerCase().search(searchTerm) >= 0
                             fund.fund.toLowerCase().search(searchTerm) >= 0 ||
                             fund.area.toLowerCase().search(searchTerm) >= 0
                         );
@@ -216,111 +221,62 @@ export default {
             }
 
             if (searchTerm || area) {
-                this.funds = _.orderBy(result, "fund"); //;
+                this.funds = _.orderBy(result, "fund");
                 this.page = 1;
             } else {
                 this.funds = "";
             }
-        },
-        getDesignations: function() {
-            var vm = this;
-
-            var funds = [];
-            var ucgniCascadingFundsQueryId =
-                "40664e66-2729-4b1a-8cea-964b987c0833";
-
-            var queryService = new BLACKBAUD.api.QueryService();
-            queryService.getResults(
-                BBI.Defaults.ucgniCascadingFundsQueryId,
-                function(data) {
-                    var allFunds = data.Rows;
-
-                    var fundMaster = [];
-                    var centerLevelAll = [];
-                    var topLevelAll = [];
-
-                    $.each(allFunds, function() {
-                        // define values
-                        var values = this.Values;
-                        var target = values[11]; // Areas of support
-                        var splitter = target.split("\\");
-
-                        var centers = values[12]; // Centers
-                        var centersSplitter = centers.split("\\");
-
-                        // remove first item in array
-                        if (splitter.length > 1) {
-                            splitter.shift();
-                            centersSplitter.shift();
-                        }
-
-                        // push values to array
-                        splitter.push(values[12]); // Centers
-
-                        splitter.push(values[13]); // Fund name
-                        splitter.push(values[10]); // BBIS Fund Hierarchy Attribute\System record ID (GUID)
-
-                        centersSplitter.push(values[11]);
-
-                        fundMaster.push(splitter);
-
-                        centerLevelAll.push(centersSplitter);
-
-                        topLevelAll.push(splitter[0]);
-                    });
-
-                    function onlyUnique(value, index, self) {
-                        return self.indexOf(value) === index;
-                    }
-
-                    var topLevelUnique = topLevelAll.filter(onlyUnique);
-                    vm.areaList = topLevelUnique;
-                    // console.log(vm.areaList);
-
-                    function multiDimensionalUnique(arr) {
-                        var uniques = [];
-                        var itemsFound = {};
-                        for (var i = 0, l = arr.length; i < l; i++) {
-                            var stringified = JSON.stringify(arr[i]);
-                            if (itemsFound[stringified]) {
-                                continue;
-                            }
-                            if (arr[i][0].length != 0) {
-                                uniques.push(arr[i]);
-                            }
-                            itemsFound[stringified] = true;
-                        }
-                        return uniques;
-                    }
-                    var centerMaster = multiDimensionalUnique(centerLevelAll);
-                    vm.centerList = centerMaster;
-                    vm.centerData = centerMaster;
-
-                    // console.log(centerList);
-
-                    var uniqueFunds = multiDimensionalUnique(fundMaster);
-
-                    $.each(uniqueFunds, function(x, subFund) {
-                        var fundRowData = {
-                            area: subFund[0],
-                            center: subFund[1],
-                            fund: subFund[2],
-                            hierachy:
-                                "https://foundation.uc.edu/donate?id=" +
-                                subFund[3]
-                        };
-                        funds.push(fundRowData);
-                    });
-                    // console.log(funds);
-                    vm.fundData = funds;
-                }
-            );
         }
     },
     created: function() {
+        var vm = this;
+        var ucgniCascadingFundsQueryId = "40664e66-2729-4b1a-8cea-964b987c0833";
+        var queryService = new BLACKBAUD.api.QueryService();
+        queryService.getResults(
+            BBI.Defaults.ucgniCascadingFundsQueryId,
+            function(data) {
+                var allFunds = data.Rows;
+                var topLevelAll = [];
+                // console.log(JSON.stringify(allFunds));
+
+                $.each(allFunds, function() {
+                    // define values
+                    var values = this.Values;
+                    var target = values[11]; // Areas of support
+                    var splitter = target.split("\\");
+
+                    // var centers = values[12]; // Centers
+                    // var centersSplitter = centers.split("\\");
+
+                    // remove first item in array
+                    if (splitter.length > 1) {
+                        splitter.shift();
+                        // centersSplitter.shift();
+                    }
+
+                    // push values to array
+                    splitter.push(values[12]); // Centers
+
+                    splitter.push(values[13]); // Fund name
+                    splitter.push(values[10]); // BBIS Fund Hierarchy Attribute\System record ID (GUID)
+
+                    // centersSplitter.push(values[11]);
+                    // fundMaster.push(splitter);
+                    // centerLevelAll.push(centersSplitter);
+
+                    topLevelAll.push(splitter[0]);
+                });
+
+                function onlyUnique(value, index, self) {
+                    return self.indexOf(value) === index;
+                }
+
+                var topLevelUnique = topLevelAll.filter(onlyUnique);
+                vm.areas = topLevelUnique;
+            }
+        );
+
         window.addEventListener("scroll", this.handleScroll);
-        //this.getDesignations();
-        // this.filterCenterAndFunds();
     },
     destroyed() {
         window.removeEventListener("scroll", this.handleScroll);
@@ -371,12 +327,12 @@ export default {
                     topLevelAll.push(splitter[0]);
                 });
 
-                function onlyUnique(value, index, self) {
-                    return self.indexOf(value) === index;
-                }
+                // function onlyUnique(value, index, self) {
+                //     return self.indexOf(value) === index;
+                // }
 
-                var topLevelUnique = topLevelAll.filter(onlyUnique);
-                vm.areas = topLevelUnique;
+                // var topLevelUnique = topLevelAll.filter(onlyUnique);
+                // vm.areas = topLevelUnique;
 
                 function multiDimensionalUnique(arr) {
                     var uniques = [];
