@@ -2,15 +2,6 @@
 
 Example Web App built with Vue for some tutorials written for AppendTo.com
 
-## Steps
-
-Search via radio buttons
-
-1. Click an Area in first section -->
-   ⋅⋅* area value is set
-   ⋅⋅* filterCenters function called to filter Centers section
-2.
-
 ## Build Setup
 
 ```bash
