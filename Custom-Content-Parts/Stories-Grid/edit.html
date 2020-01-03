@@ -1,0 +1,414 @@
+<link rel="stylesheet" href="/file/redesign/css/skeleton.min.css">
+<link href="/file/config/customContentPartEditor.css" rel="stylesheet" />
+<style type="text/css">
+	.BBPanelChangerWrapper {
+		background-color: #DCEBFE;
+		border: 1px solid #A6B6C5;
+		padding: 4px;
+	}
+
+	.BBPanelChangerInterior {
+		background-color: #FFFFFF;
+		border: 1px solid #A6B6C5;
+	}
+
+	.gridItem {
+		list-style-type: none;
+		list-style-image: none;
+		height: 22px;
+		border: none;
+	}
+
+	.SortableItemPadding {
+		padding: 3px 0;
+	}
+
+	.FieldHeading>Label {
+		float: left;
+		display: block;
+		padding: 5px 4px 2px 0px;
+		font-size: 12px;
+		height: 12px;
+	}
+
+	.FieldContent>input[type="text"] {
+		width: 100%;
+	}
+
+	table {
+		width: 100%;
+	}
+
+	th {
+		font-weight: bold;
+	}
+
+	.ItemActionAdd {
+		display: inline-block;
+		height: 20px;
+		background: -webkit-linear-gradient(top, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%);
+		padding: 6px;
+		border-radius: 4px;
+		box-shadow: inset 2px 2px 0px rgba(255, 255, 255, 0.5), inset -2px -2px 0px rgba(0, 0, 0, 0.1), 0px 2px 5px -3px black;
+		color: #333;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+	}
+
+	.ItemActionAdd,
+	.ItemActionAdd:visited,
+	.ItemActionAdd:hover {
+		color: #333;
+	}
+
+	.ItemActionAdd:hover {
+		background: -webkit-linear-gradient(top, #CAEBFC 0%, #C0DBE9 50%, #A0CCEB 51%, #829AB2 100%);
+		box-shadow: inset -1px -1px 0px rgba(255, 255, 255, 0.5), inset -1px -1px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px -2px black;
+	}
+
+	.ItemActionMove {
+		cursor: move;
+	}
+
+	.ItemActionDelete {
+		cursor: pointer;
+	}
+
+	#ItemTable {
+		border: 1px solid #a6b6c5;
+	}
+
+	#ItemTable tr {
+		background: #F2F6FB;
+		border-top: 1px solid #A6B6C5;
+	}
+
+	#ItemTable tr:nth-child(2n-1) {
+		background: #ffffff;
+		border-top: 1px solid #A6B6C5;
+	}
+
+	#ItemTable td,
+	#ItemTable th {
+		padding: 4px;
+	}
+
+	#ItemContainer {
+		margin: 0px 0px 10px 0px;
+		background-color: #dee9fd;
+		margin-top: 10px;
+		padding: 15px 5px;
+		border: 1px solid #a6b6c5;
+	}
+
+	#ItemTable thead tr {
+		background-color: #dee9fd !important;
+	}
+
+	#ItemTable thead tr th {
+		border-bottom: 1px solid #a6b6c5;
+	}
+
+	.StepGrouping {
+		margin-left: 0 !important;
+	}
+
+	.VerticalOption {
+		overflow: visible !important;
+	}
+
+	.ui-sortable-helper {
+		border: 1px solid #A6B6C5;
+		box-shadow: 5px 5px 15px -10px black;
+		opacity: 0.9;
+	}
+
+	.ItemAltText>input {
+		width: 100% !important;
+	}
+</style>
+
+<div class="StepGrouping">
+	<h1 class="StepGroupingHeading">
+		Stories Grid</h1>
+	<div class="StepGroupingBody">
+
+		<div class="HelpText">
+			Configure a Stories Grid part.
+		</div>
+
+		<div class="VerticalOption">
+			<a class="ItemActionAdd" class="BBAdminButtonLnk" href="#">
+				<span class="BBAdminButtonContent">
+					<span id="pagecntnt_AdminToolbar_btn1txt" class="BBAdminButtonLabel">
+						Add new image
+					</span>
+				</span>
+			</a>
+			<div id="ItemContainer">
+				<table id="ItemTable" cellspacing="0" cellpadding="0">
+					<thead>
+						<tr class="ItemRowHeader">
+							<th>Image</th>
+							<th>Alt Text<br />Heading<br />Text<br />Link</th>
+							<!--<th>Heading</th>
+							<th>Text</th>
+							<th>Link</th>-->
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="ItemRow" id="ItemRowTemplate">
+							<td class="ItemImage" id="ItemImage_0">
+
+							</td>
+							<td class="ItemAltText" id="ItemAltText_0">
+								<input class="InputItemAltText" type="text" placeholder="Alt Text" name="ImageAltText_0"
+									id="ImageAltText_0" />
+								<input class="InputItemTitle" type="text" placeholder="Heading" name="ImageTitle_0"
+									id="ImageTitle_0" />
+								<input class="InputItemSubtitle" type="text" placeholder="Text under Heading"
+									name="ItemSubtitle_0" id="ItemSubtitle_0" />
+								<input class="InputItemLink" type="text" placeholder="Link to story" name="ImageLink_0"
+									id="ImageLink_0" />
+							</td>
+							<!--<td class="ItemTitle" id="ItemTitle_0">
+								<input class="InputItemTitle" type="text" name="ImageTitle_0" id="ImageTitle_0" />
+							</td>
+							<td class="ItemSubtitle" id="ItemSubtitle_0">
+								<input class="InputItemSubtitle" type="text" name="ItemSubtitle_0" id="ItemSubtitle_0" />
+							</td>
+							<td class="ItemLink" id="ItemLink_0">
+								<input class="InputItemLink" type="text" name="ImageLink_0" id="ImageLink_0" />
+							</td>-->
+							<td class="ItemActions" id="ItemActions_0">
+								<a class="ItemActionMove">
+									<img alt="Click here to move this row"
+										src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAoZJREFUeNpsU81rE0EUf7uzu2lNVJL6Eb0IBWusepqcKm3wEFkvxqDgQbwUtYeeg5cccwj4F7QKChEPipRcdMGDiaAoJAexLYViwYsfbU1JYkx3Zz98b8220Wbg7ez7vXm/mffmN9Kh1G2QGQOmMDiRyYEkSaCoKjDGdAAooOUdxzFsIcDzPPhSvgeO7YDrOLBRmQdlJHULVE0DNRSCvqFjUuHqhWP8+etvhR5m0CeengVhmiAsywdl2Dt03K1wZSrO220XaCaf8AFrQel32s0mrDcaWfovrq3Vc9OTvHj/Tb0Xzh6JxQwNyxtIgPXpqqJk94fDM+1Oh6CaEF4QTiIOGJ/DdQtBObsEmGxbll/rkCyDPDwMzW4XhHD88EH0NcRxDUeX4/qdnsi0s8Aas+kEp8Zg82pMkmpDigKbjSbQTD7hFL94/jin9ZRHBNLo3Wrt+uUkbzQsiEZVMPGKfv76DaawodnahkhY86+PNnXxs77ZgVOjMahWVuufi1NJRZhWvvT0beHGtQn++Nm7en+DzqXO8vfVxX+wsYnT/JWxWEe95P0eILsvkkdPKn4PUEBJmunILab5992PLVU++skoNmOniT7JX2Fkt5GM1EjqbMohXzQmqo7KwCQ6zYKiabu30PpQAnZ0HKSRMcMRwnBddw4ZOO4GLRYKFFdDhrrteTMMdWB9/QTdH8sIp0EKmNT4GWDjGZAPJ3TcrbBv+ibfwtwDqBvzYck/truxYjjLZRDflwLt7JUmEoAymdPV7INa5IXn0Uw+4f8PIqATMLQIWpQ0E/RFTmQ4nLx0B1Zfzrsr5eAmbLQW2hYpHwkcqfegNBJhzwY9sGC4aCZaF81CAvePAAMAcwtApJX/Wo0AAAAASUVORK5CYII=" />
+								</a> <a href="#" class="ItemActionDelete">
+									<img title="Click here to delete this image" src="/images/delete_16.png">
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	// Custom Content Part for Image Selector (e.g. for use in slideshow)
+	// Author:	Chris Kastner (chris.kastner@blackbaud.com.au)
+	// Date:	16/07/2014
+	// Version:	1.0
+
+	// Note 1: to install - set up as BBNC/BBIS Custom Content Part, placing edit.html and display.html and the function as: "track"
+
+	//variables etc.
+	var count = 0;
+
+	var $itemRow = $('#ItemRowTemplate').clone();
+	var $itemContainer = $('#ItemContainer');
+	var $itemTable = $('#ItemTable');
+	var $itemTableBody = $itemTable.find('tbody');
+	var $itemTableHead = $itemTable.find('thead');
+
+	$('#ItemRowTemplate').remove();
+	$itemTableHead.hide();
+	$itemContainer.hide();
+
+	! function ($) {
+
+		$(function () {
+
+			// Read our previously saved greeting (if it exists)
+			if (typeof BLACKBAUD.api.customPartEditor.settings.items.length) {
+				$('#ItemContainer').css('display', 'block');
+				$('#ItemTable thead').css('display', 'table-header-group');
+
+				$.each(BLACKBAUD.api.customPartEditor.settings.items, function (i) {
+					//alert(this.invert);
+					var $item = $('<tr class="ItemRow" id="ItemRowTemplate"></tr>'),
+						$image = $('<td class="ItemImage" id="ItemImage_' + i + '"><img src="' + this
+							.image + '?tsize=100"></td>'),
+						$alttext = $('<td class="ItemAltText" id="ItemAltText_' + i +
+							'"><input class="InputItemAltText" placeholder="Alt Text" value="' + this
+							.alttext +
+							'" type="text" name="ItemAltText_' + i + '" id="ItemAltText_' + i +
+							'"><input class="InputItemTitle" placeholder="Heading Text" value="' + this
+							.title +
+							'" type="text" name="ImageTitle_' + i + '" id="ImageTitle_' + i +
+							'" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;"><input class="InputItemSubtitle" value="' +
+							this.subtitle +
+							'" type="text" placeholder="Text under heading" name="ItemSubtitle_' + i +
+							'" id="ItemSubtitle_' + i +
+							'"><input class="InputItemLink" placeholder="Link to story" value="' + this
+							.link +
+							'" type="text" name="ImageLink_' + i + '" id="ImageLink_' + i + '"></td>'
+						),
+						$title = $('<td class="ItemTitle" id="ItemTitle_' + i +
+							'"><input class="InputItemTitle" value="' + this.title +
+							'" type="text" name="ImageTitle_' + i + '" id="ImageTitle_' + i +
+							'" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;"></td>'
+						),
+						$subtitle = $('<td class="ItemSubtitle" id="ItemSubtitle_' + i +
+							'"><input class="InputItemSubtitle" value="' + this.subtitle +
+							'" type="text" name="ItemSubtitle_' + i + '" id="ItemSubtitle_' + i + '"></td>'
+						),
+						$link = $('<td class="ItemLink" id="ItemLink_' + i +
+							'"><input class="InputItemLink" value="' + this.link +
+							'" type="text" name="ImageLink_' + i + '" id="ImageLink_' + i + '"></td>'),
+						$actions = $('<td class="ItemActions" id="ItemActions_' + i +
+							'"><a class="ItemActionMove"><img alt="Click here to move this row" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAoZJREFUeNpsU81rE0EUf7uzu2lNVJL6Eb0IBWusepqcKm3wEFkvxqDgQbwUtYeeg5cccwj4F7QKChEPipRcdMGDiaAoJAexLYViwYsfbU1JYkx3Zz98b8220Wbg7ez7vXm/mffmN9Kh1G2QGQOmMDiRyYEkSaCoKjDGdAAooOUdxzFsIcDzPPhSvgeO7YDrOLBRmQdlJHULVE0DNRSCvqFjUuHqhWP8+etvhR5m0CeengVhmiAsywdl2Dt03K1wZSrO220XaCaf8AFrQel32s0mrDcaWfovrq3Vc9OTvHj/Tb0Xzh6JxQwNyxtIgPXpqqJk94fDM+1Oh6CaEF4QTiIOGJ/DdQtBObsEmGxbll/rkCyDPDwMzW4XhHD88EH0NcRxDUeX4/qdnsi0s8Aas+kEp8Zg82pMkmpDigKbjSbQTD7hFL94/jin9ZRHBNLo3Wrt+uUkbzQsiEZVMPGKfv76DaawodnahkhY86+PNnXxs77ZgVOjMahWVuufi1NJRZhWvvT0beHGtQn++Nm7en+DzqXO8vfVxX+wsYnT/JWxWEe95P0eILsvkkdPKn4PUEBJmunILab5992PLVU++skoNmOniT7JX2Fkt5GM1EjqbMohXzQmqo7KwCQ6zYKiabu30PpQAnZ0HKSRMcMRwnBddw4ZOO4GLRYKFFdDhrrteTMMdWB9/QTdH8sIp0EKmNT4GWDjGZAPJ3TcrbBv+ibfwtwDqBvzYck/truxYjjLZRDflwLt7JUmEoAymdPV7INa5IXn0Uw+4f8PIqATMLQIWpQ0E/RFTmQ4nLx0B1Zfzrsr5eAmbLQW2hYpHwkcqfegNBJhzwY9sGC4aCZaF81CAvePAAMAcwtApJX/Wo0AAAAASUVORK5CYII="></a> <a href="#" class="ItemActionDelete"><img title="Click here to delete this image" src="/images/delete_16.png"></a></td>'
+						);
+
+					// $item.append($image).append($alttext).append($title).append($subtitle).append($link).append($actions);
+					$item.append($image).append($alttext).append($actions);
+
+					$('.ui-sortable').append($item);
+				});
+
+
+			}
+
+		});
+
+	}(jQuery);
+	//run this when it saves (hint: return false to cancel the save)
+	BLACKBAUD.api.customPartEditor.onSave = function () {
+
+		var items = [];
+
+		$itemTableBody.find('tr').each(function (i) {
+
+			var rowdata = {
+				image: $(this).find('.ItemImage img').attr('src').replace('?tsize=100', ''),
+				alttext: $(this).find('.InputItemAltText').val(),
+				title: $(this).find('.InputItemTitle').val(),
+				subtitle: $(this).find('.InputItemSubtitle').val(),
+				link: $(this).find('.InputItemLink').val(),
+
+			};
+
+			items.push(rowdata);
+
+		});
+
+		BLACKBAUD.api.customPartEditor.settings["items"] = items;
+		$('.StepGrouping input[type="text"], .StepGrouping input[type="checkbox"], .StepGrouping textarea').each(
+			function () {
+				var value = $(this).val().trim();
+				var setting = $(this).attr('name');
+				BLACKBAUD.api.customPartEditor.settings[setting] = value;
+			});
+		return true;
+
+	};
+
+	//trigger on checkbox change to set the value properly... there's a bug in chrome that sets the checkbox value to 'on' even when it's been unchecked.
+	$('input[type="checkbox"]').on('change', function () {
+		var checked = $(this).is(':checked');
+		if (!checked) {
+			$(this).val("off");
+		} else {
+			$(this).val("on");
+		}
+	});
+
+	// Return a helper with preserved width of cells
+	var fixHelper = function (e, ui) {
+		ui.children().each(function () {
+			$(this).width($(this).width());
+		});
+		return ui;
+	};
+
+	$itemTableBody.sortable({
+		handle: '.ItemActionMove',
+		cursor: 'move',
+		helper: fixHelper
+	});
+
+
+	//functions
+	function addRow(item) {
+		var $newRow = $itemRow.clone();
+		var image = {
+			callback: function (data) {
+				//$newRow.addClass(evenodd);
+				$newRow.find('.InputItemAltText').val(data.alt);
+				$newRow.find('.ItemImage').append($('<img src="' + data.url + '?tsize=100" />'));
+				if (data.url.length) {
+					$itemTableBody.append($newRow);
+					if (!$('.ItemRowHeader:visible').length) {
+						$itemTableHead.show();
+						$itemContainer.fadeIn('slow');
+					}
+				}
+
+			},
+		};
+		$newRow.find('td, input').each(function () {
+			var ID = $(this).attr('id');
+			var name = $(this).attr('name');
+
+			if (ID !== undefined) {
+				var newID = ID.replace("_0", "_" + count);
+				$(this).attr('id', newID);
+			}
+			if (name !== undefined) {
+				var newName = name.replace("_0", "_" + count);
+				$(this).attr('name', newName);
+			}
+		});
+		//if we pass data into this, do not use the API to load a new image
+		if (item == undefined) {
+			BLACKBAUD.api.customPartEditor.images.launchImagePicker(image);
+		} else {
+			$newRow.find('.InputItemAltText').val(item.alttext);
+			$newRow.find('.InputItemTitle').val(item.title);
+			$newRow.find('.InputItemSubtitle').val(item.subtitle);
+			// if (item.invert == "on") {
+			//    $newRow.find('.InputItemInvert').prop('checked', 'checked').val('on');
+			// }
+			$newRow.find('.InputItemLink').val(item.link);
+			$newRow.find('.ItemImage').append($('<img src="' + item.image + '?tsize=100" />'));
+			$itemTableBody.append($newRow);
+			if (!$('.ItemRowHeader:visible').length) {
+				$itemTableHead.show();
+				$itemContainer.fadeIn('slow');
+			}
+		}
+		count++;
+	}
+
+
+	function deleteRow(row) {
+		console.log("delete!");
+	}
+
+	$('.ItemActionAdd').on('click', function (e) {
+		e.preventDefault();
+		if (!BLACKBAUD.api.customPartEditor.images.canLaunchImagePicker) {
+			alert(
+				"Sorry, you can't access the image library at this moment.  Please wait for the page to finish loading and try again."
+			);
+		} else {
+			addRow();
+		}
+	});
+	$('#ItemTable').on('click', '.ItemActionDelete', function (e) {
+		e.preventDefault();
+		deleteRow();
+		if (confirm("This will remove this record.  Are you sure?")) {
+			$(this).parents('.ItemRow').remove();
+			count--;
+			if (count == 0) {
+				$itemContainer.fadeOut('slow');
+				$itemTableHead.fadeOut('slow');
+			}
+		}
+	});
+</script>
