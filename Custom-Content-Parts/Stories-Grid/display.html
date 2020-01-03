@@ -1,0 +1,73 @@
+<style>
+	.card>a {
+		display: block;
+		width: 100%;
+		height: 300px;
+		overflow: hidden;
+		background-repeat: no-repeat;
+		background-size: 100% auto;
+	}
+
+	.card>a>img {
+		display: block;
+		width: auto;
+		max-width: auto !important;
+		height: 300px !important;
+		overflow: hidden;
+	}
+
+	.card>.container {
+		width: 100%;
+		padding: 1em 0 !important;
+	}
+
+	.card p,
+	.card h5 {
+		padding: 5px 10px;
+		margin: 0 !important;
+	}
+
+	.story.container {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: 1.5rem;
+		width: 95% !important;
+	}
+
+	@media (max-width: 767px) {
+		.story.container {
+			grid-template-columns: repeat(1, 1fr) !important;
+			grid-gap: 0;
+			width: 100% !important;
+			max-width: 100% !important;
+		}
+	}
+</style>
+
+<div id="stories" class="story container"></div>
+
+<script type="text/javascript">
+	function initConstructStories(data) {
+		//only do this if there are images
+		if (data.settings.items.length) {
+			//loop through images
+			$.each(data.settings.items, function (i) {
+
+				var $item = $('<div class="item-' + i + '">');
+				var $card = $('<div class="card"></div>');
+				var $image = $('<a href="' + this.link + '"><img src="' + this.image + '" alt="' + this.alttext +
+					'" title="' + this.alttext + '" style="max-width: 100%; height: auto" /></a>');
+				var $cardContainer = $('<div class="container"></div>');
+				var $heading = $('<h5 class="mb-0"><b>' + this.title + '</b></h5>');
+				var $textWithLink = $('<p>' + this.subtitle + ' <a href="' + this.link + '">Read Story</a></p>');
+
+				$item.append($card.append($image).append($cardContainer.append($heading).append($textWithLink)));
+				$('#stories').append($item);
+
+			});
+
+		} else {
+			alert("Error: No images selected.");
+		}
+	}
+</script>
